@@ -1,0 +1,110 @@
+<h1>Lista de Usuarios</h1>
+<div>
+  <h2>Crear Usuario</h2>
+
+  <button type="button" *ngIf="modalvisibility==false" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#verMas"
+    (click)="MostrarFormulario()">Agregar Usuario</button>
+  <!-- Formulario que utiliza FormGroup (Reactive Forms) de Angular -->
+   
+     <div class="modal fade" *ngIf="modalvisibility" id="verMas" tabindex="-1" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+       <div class="modal-dialog">
+         <div class="modal-content">
+           <div class="modal-body">
+             <form [formGroup]="usuarioForm" (ngSubmit)="submitForm()">
+               <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
+               <div>
+                 <label for="NombreUsuario">Nombre:</label>
+                 <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
+                 <input id="NombreUsuario" formControlName="NombreUsuario" type="text" />
+                 <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
+                 <div *ngIf="usuarioForm.get('NombreUsuario')?.invalid && usuarioForm.get('NombreUsuario')?.touched">
+                   Nombre es requerido
+                 </div>
+               </div>
+   
+               <div>
+                 <label for="Mail">Mail:</label>
+                 <input id="Mail" formControlName="Mail" type="email" />
+   
+                 <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
+                 <div *ngIf="usuarioForm.get('Mail')?.invalid && usuarioForm.get('Mail')?.touched">
+                   Ingresa un email válido
+                 </div>
+               </div>
+   
+               <div>
+                 <label for="Clave">Clave:</label>
+                 <input id="Clave" formControlName="Clave" type="password" />
+   
+                 <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
+                 <div *ngIf="usuarioForm.get('Clave')?.invalid && usuarioForm.get('Clave')?.touched">
+                   La clave debe tener al menos 6 caracteres
+                 </div>
+               </div>
+   
+               <!-- Botón para enviar el formulario -->
+               <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
+               <button type="submit" [disabled]="usuarioForm.invalid">Enviar</button>
+             </form>
+           </div>
+   
+           <div class="modal-footer">
+             <button type="button" class="btn btn-outline-secondary" (click)="MostrarFormulario()" data-bs-dismiss="modal">Cerrar</button>
+           </div>
+         </div>
+       </div>
+     </div>
+   
+
+
+
+  <!--tabla de usuarios-->
+  <h2>Usuarios Registrados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>IdUsuarios</th>
+        <th>Nombre</th>
+        <th>Mail</th>
+        <th>Clave</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.IdUsuarios }}</td>
+        <td>{{ usuario.NombreUsuario }}</td>
+        <td>{{ usuario.Mail }}</td>
+        <td>{{ usuario.Clave }}</td>
+
+        <td>
+          <!-- Botón para modificar el usuario -->
+          <!-- <button (click)="editarUsuario(usuario)">Modificar</button> -->
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
+  <!-- <form *ngIf="usuarioSeleccionado" [formGroup]="modificarUsuarioForm" (ngSubmit)="submitModificarForm()">
+    <div>
+      <label for="modificarNombre">Nombre:</label>
+      <input id="modificarNombre" formControlName="NombreUsuario" type="text" />
+    </div>
+  
+    <div>
+      <label for="modificarMail">Mail:</label>
+      <input id="modificarMail" formControlName="Mail" type="email" />
+    </div>
+  
+    <div>
+      <label for="modificarClave">Clave:</label>
+      <input id="modificarClave" formControlName="Clave" type="password" />
+    </div>
+  
+    <button type="submit" [disabled]="modificarUsuarioForm.invalid">Guardar Cambios</button>
+  </form> -->
+
+</div>
