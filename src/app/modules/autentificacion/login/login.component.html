@@ -1,0 +1,22 @@
+formulario:
+<div class="login-container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <h2>Login</h2>
+
+        <div class="form-group">
+            <label for="email">Mail</label>
+            <input id="mail" formControlName="mail" type="email" placeholder="ingrese su Mail"  value="fran@gmail.com"/>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Clave</label>
+            <input id="clave" formControlName="clave" type="password" placeholder="ingrese su clave" value="12234566" />
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+
+        <div *ngIf="loginError" class="error-message">
+            {{ loginError }}
+        </div>
+    </form>
+</div>

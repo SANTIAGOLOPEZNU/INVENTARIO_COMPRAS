@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { GrupousuariosService } from 'src/app/services/grupousuarios.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -12,16 +13,20 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 export class UsuariosComponent implements OnInit{
   usuarioForm: FormGroup;  // Formulario reactivo para manejar los datos del usuario
   usuarios: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
-  modalvisibility: boolean = false; //variable para visibilidad de formulario a traves de modal
+  modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
+  modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
   modificarUsuarioForm: FormGroup; // Formulario para modificar usuario
   usuarioSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
 
-  constructor(private databaseService: UsuariosService, private fb: FormBuilder) {
+  roles: any[]=[];
+
+  constructor(private databaseService: UsuariosService, private fb: FormBuilder, private gruposervice: GrupousuariosService) {
     // Inicializamos el formulario con tres campos: NombreUsuario, Mail y Clave
     this.usuarioForm = this.fb.group({
       NombreUsuario: ['', Validators.required],  // Campo obligatorio
       Mail: ['', [Validators.required, Validators.email]],  // Campo obligatorio y validación de formato de email
-      Clave: ['', [Validators.required, Validators.minLength(6)]],  // Campo obligatorio con longitud mínima de 6 caracteres
+      Clave: ['', [Validators.required, Validators.minLength(6)]], // Campo obligatorio con longitud mínima de 6 caracteres
+      Grupo: [ 0, Validators.required] //campo obligatorio
     });
 
      // Formulario de modificación de usuarios
@@ -29,6 +34,7 @@ export class UsuariosComponent implements OnInit{
       NombreUsuario: ['', Validators.required],
       Mail: ['', [Validators.required, Validators.email]],
       Clave: ['', [Validators.required, Validators.minLength(6)]],
+      Grupo: [ 0, Validators.required]
     });
   }
  
@@ -43,29 +49,29 @@ export class UsuariosComponent implements OnInit{
   }
 
   // Método para enviar el formulario de modificación
-  // submitModificarForm() {
-  //   if (this.modificarUsuarioForm.valid) {
-  //     const usuarioModificado = {
-  //       ...this.usuarioSeleccionado,
-  //       ...this.modificarUsuarioForm.value
-  //     };
-  //     this.databaseService.modificar(usuarioModificado).subscribe({
-  //       next: (response) => {
-  //         if (response && response['resultado'] === 'OK') {
-  //           alert('Usuario modificado con éxito');
-  //           this.usuarioSeleccionado = null; // Ocultar el formulario después de modificar
-  //           this.recuperarUsuarios(); // Actualizar la lista de usuarios
-  //         } else {
-  //           alert('Error al modificar usuario: ' + (response['mensaje'] || 'Error desconocido'));
-  //         }
-  //       },
-  //       error: (error) => {
-  //         alert('Error al modificar usuario');
-  //         console.error('Error:', error);
-  //       },
-  //     });
-  //   }
-  // }
+  submitModificarForm() {
+    if (this.modificarUsuarioForm.valid) {
+      const usuarioModificado = {
+        ...this.usuarioSeleccionado,
+        ...this.modificarUsuarioForm.value
+      };
+      this.databaseService.modificar(usuarioModificado).subscribe({
+        next: (response) => {
+          if (response && response['resultado'] === 'OK') {
+            alert('Usuario modificado con éxito');
+            this.usuarioSeleccionado = null; // Ocultar el formulario después de modificar
+            this.recuperarUsuarios(); // Actualizar la lista de usuarios
+          } else {
+            alert('Error al modificar usuario: ' + (response['mensaje'] || 'Error desconocido'));
+          }
+        },
+        error: (error) => {
+          alert('Error al modificar usuario');
+          console.error('Error:', error);
+        },
+      });
+    }
+  }
 
 
   // Este método se ejecuta cuando el componente se inicializa
@@ -83,9 +89,10 @@ export class UsuariosComponent implements OnInit{
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  // Se muestra un mensaje de éxito
+            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
             this.usuarioForm.reset();  // Se resetea el formulario
             this.recuperarUsuarios();  // Se actualiza la lista de usuarios
+            console.log(usuarioData)
           } else {
             // Si hay un error, se muestra el mensaje recibido del servidor
             alert('Error al crear usuario: ' + (response['mensaje'] || 'Error desconocido'));
@@ -109,7 +116,8 @@ export class UsuariosComponent implements OnInit{
       next: (response) => {
         // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
         if (Array.isArray(response)) {
-          this.usuarios = response;  // Asigna los usuarios recibidos
+          this.usuarios = response; // Asigna los usuarios recibidos
+          this.roles = this.gruposervice.getArray();
         } else {
           console.error('La respuesta del servidor no es un array:', response);  // Muestra error si no es un array
           this.usuarios = [];  // Si la respuesta no es válida, se asigna un array vacío
@@ -142,7 +150,7 @@ export class UsuariosComponent implements OnInit{
     this.modalvisibility=!this.modalvisibility
   }
   
-  abrirDialog(){
-    
+  MostrarFormularioModificacion(){
+    this.modalvisibility2=!this.modalvisibility2
   }
 }

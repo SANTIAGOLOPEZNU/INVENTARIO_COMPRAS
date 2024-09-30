@@ -8,6 +8,7 @@
 }  
 .app-sidenav {
     width: 230px;
+    background-color: blue;
 }
 .app-sidenav-content {
     display: flex;

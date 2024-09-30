@@ -14,6 +14,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { SeguridadModule } from '../seguridad/seguridad.module';
+import { AutentificacionModule } from '../autentificacion/autentificacion.module';
 
 
 
@@ -33,7 +34,8 @@ import { SeguridadModule } from '../seguridad/seguridad.module';
     MatExpansionModule,
     MatTooltipModule,
     RouterModule,
-    SeguridadModule
+    SeguridadModule,
+    AutentificacionModule
   ],
   exports: [
     MenuComponent,

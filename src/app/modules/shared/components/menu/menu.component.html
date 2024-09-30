@@ -1,7 +1,9 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">
+    <!--para que se desactive el menu si el usuario no inicia sesion usar [disabled]="!isLoggedIn"-->
+    <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu" >
         <mat-icon>menu</mat-icon>
     </button>
+    <h1>INVENTARIO DE COMPRAS</h1>
 </mat-toolbar>
 
 <mat-sidenav-container class="app-container">
@@ -16,7 +18,10 @@
                 </mat-expansion-panel-header>
                 <mat-nav-list>
                     <a mat-list-item routerLink="/usuarios">
-                        <mat-icon>user</mat-icon><span>usuarios</span>
+                        <mat-icon>user</mat-icon><span>Usuarios</span>
+                    </a>
+                    <a mat-list-item routerLink="/grupousuarios">
+                        <mat-icon>user</mat-icon><span>Grupo/Usuarios</span>
                     </a>
                 </mat-nav-list>
             </mat-expansion-panel>
@@ -43,10 +48,8 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <router-outlet>
-            <div class="app-sidenav-content">
-                <router-outlet></router-outlet>
-            </div>
-        </router-outlet>
+        <div class="app-sidenav-content">
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
-</mat-sidenav-container> 
+</mat-sidenav-container>
