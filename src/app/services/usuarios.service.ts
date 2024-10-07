@@ -30,7 +30,6 @@ export class UsuariosService {
     return this.http.get(`${this.apiUrl}/recuperartodos.php`);
   }
 
-
   // Nuevo método para modificar un usuario
   modificar(usuario: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/modificacion.php`, usuario);

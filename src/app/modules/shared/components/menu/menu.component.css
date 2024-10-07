@@ -1,15 +1,27 @@
+.nav{
+    background-color: #A8CF45;
+}
+
 .toolbar-item-spacer {
     flex: 1 1 auto;
 }
 
 .app-container {
-    height: 90%;
+    background-color: #FFFFFF;
+    height: 100%;
     margin: 0;
+
 }  
+
 .app-sidenav {
+    background-color: #A8CF45;
     width: 230px;
-    background-color: blue;
 }
+
+.item{
+    background-color: #A8CF45;
+}
+
 .app-sidenav-content {
     display: flex;
     height: 100%;

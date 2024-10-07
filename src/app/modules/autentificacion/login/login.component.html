@@ -1,22 +1,32 @@
-formulario:
-<div class="login-container">
-    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-        <h2>Login</h2>
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="./assets/logo1muni.jpg" class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                    <!-- Email input -->
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input id="mail" formControlName="mail" type="email" class="form-control form-control-lg"
+                            placeholder="Enter a valid email address" />
+                        <label class="form-label" for="form3Example3">Email address</label>
+                    </div>
 
-        <div class="form-group">
-            <label for="email">Mail</label>
-            <input id="mail" formControlName="mail" type="email" placeholder="ingrese su Mail"  value="fran@gmail.com"/>
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-outline mb-3">
+                        <input id="clave" formControlName="clave" type="password" class="form-control form-control-lg"
+                            placeholder="Enter password" />
+                        <label class="form-label" for="form3Example4">Password</label>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" [disabled]="loginForm.invalid" (click)="login()" data-mdb-button-init
+                            data-mdb-ripple-init class="btn btn-success btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="password">Clave</label>
-            <input id="clave" formControlName="clave" type="password" placeholder="ingrese su clave" value="12234566" />
-        </div>
-
-        <button type="submit" [disabled]="loginForm.invalid" (click)="login()">Login</button>
-
-        <div *ngIf="loginError" class="error-message">
-            {{ loginError }}
-        </div>
-    </form>
-</div>
+    </div>
+</section>

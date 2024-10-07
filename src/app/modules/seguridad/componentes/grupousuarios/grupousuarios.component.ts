@@ -31,12 +31,6 @@ export class GrupousuariosComponent implements OnInit {
     });
   }
 
-  setArray() {
-    const data = this.GrupoUsuarios;
-    this.GrupoUsuario.setArray(data);
-    console.log(data)
-  }
-
   // Este método se ejecuta cuando el componente se inicializa
   ngOnInit(): void {
     this.recuperarGrupoUsuarios();  // Al iniciar el componente, se recuperan los usuarios de la base de datos
@@ -48,8 +42,7 @@ export class GrupousuariosComponent implements OnInit {
       next: (response) => {
         // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
         if (Array.isArray(response)) {
-          this.GrupoUsuarios = response;  // Asigna los usuarios recibidos
-          this.setArray();  
+          this.GrupoUsuarios = response;  // Asigna los usuarios recibidos  
         } else {
           console.error('La respuesta del servidor no es un array:', response);  // Muestra error si no es un array
           this.GrupoUsuarios = [];  // Si la respuesta no es válida, se asigna un array vacío
