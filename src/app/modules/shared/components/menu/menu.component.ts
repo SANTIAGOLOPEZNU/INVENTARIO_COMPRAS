@@ -13,4 +13,5 @@ export class MenuComponent {
   get isLoggedIn(): boolean {
     return this.usuarioService.isLoggedIn();
   }
+  
 }

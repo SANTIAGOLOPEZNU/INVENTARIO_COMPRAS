@@ -16,8 +16,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SeguridadModule } from '../seguridad/seguridad.module';
 import { AutentificacionModule } from '../autentificacion/autentificacion.module';
 
-
-
 @NgModule({
   declarations: [
     MenuComponent
