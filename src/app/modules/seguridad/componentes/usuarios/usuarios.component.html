@@ -1,85 +1,69 @@
 <div>
   <h2>Crear Usuario</h2>
-  <button type="button"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearUsuario">Agregar
+  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearUsuario">Agregar
     Usuario</button>
 
-    <div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-body">
-                <form [formGroup]="usuarioForm" (ngSubmit)="submitForm()">
-                  <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
-                  <div>
-                    <label for="NombreUsuario">Nombre:</label>
-                    <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                    <input id="NombreUsuario" formControlName="NombreUsuario" type="text" />
-                    <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                    <div *ngIf="usuarioForm.get('NombreUsuario')?.invalid && usuarioForm.get('NombreUsuario')?.touched">
-                      Nombre es requerido
-                    </div>
-                  </div>
-      
-                  <div>
-                    <label for="Selecciongrupo">Grupos:</label>
-                    <select id="Selecciongrupo" formControlName="Grupo" class="form-select form-select-lg mb-3"
-                      aria-label="Large select example">
-                      <option disabled>Seleccione el grupo</option>
-                      <option *ngFor="let rol of roles" value="{{rol.IdGrupo}}">{{rol.Descripcion}}</option>
-                    </select>
-                    <div *ngIf="usuarioForm.get('Grupo')?.invalid && usuarioForm.get('Grupo')?.touched">
-                      Nombre es requerido
-                    </div>
-                  </div>
-      
-                  <div>
-                    <label for="Mail">Mail:</label>
-                    <input id="Mail" formControlName="Mail" type="email" />
-      
-                    <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
-                    <div *ngIf="usuarioForm.get('Mail')?.invalid && usuarioForm.get('Mail')?.touched">
-                      Ingresa un email válido
-                    </div>
-                  </div>
-      
-                  <div>
-                    <label for="Clave">Clave:</label>
-                    <input id="Clave" formControlName="Clave" type="password" />
-      
-                    <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
-                    <div *ngIf="usuarioForm.get('Clave')?.invalid && usuarioForm.get('Clave')?.touched">
-                      La clave debe tener al menos 6 caracteres
-                    </div>
-                  </div>
-      
-                  <!-- Botón para enviar el formulario -->
-                  <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
-                  <button type="submit" [disabled]="usuarioForm.invalid">Enviar</button>
-                </form>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- <div class="modal fade modal-dialog modal-dialog-centered" tabindex="-1"  aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Crear Usuario</h5>
-        </div>
         <div class="modal-body">
-          
-        </div>
+          <form [formGroup]="usuarioForm" (ngSubmit)="submitForm()">
+            <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
+            <div>
+              <label for="NombreUsuario">Nombre:</label>
+              <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
+              <input id="NombreUsuario" formControlName="NombreUsuario" type="text" />
+              <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
+              <div *ngIf="usuarioForm.get('NombreUsuario')?.invalid && usuarioForm.get('NombreUsuario')?.touched">
+                Nombre es requerido
+              </div>
+            </div>
 
+            <div>
+              <label for="Selecciongrupo">Grupos:</label>
+              <select id="Selecciongrupo" formControlName="Grupo" class="form-select form-select-lg mb-3"
+                aria-label="Large select example">
+                <option disabled>Seleccione el grupo</option>
+                <option *ngFor="let rol of roles" value="{{rol.IdGrupo}}">{{rol.Descripcion}}</option>
+              </select>
+              <div *ngIf="usuarioForm.get('Grupo')?.invalid && usuarioForm.get('Grupo')?.touched">
+                Nombre es requerido
+              </div>
+            </div>
+
+            <div>
+              <label for="Mail">Mail:</label>
+              <input id="Mail" formControlName="Mail" type="email" />
+
+              <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
+              <div *ngIf="usuarioForm.get('Mail')?.invalid && usuarioForm.get('Mail')?.touched">
+                Ingresa un email válido
+              </div>
+            </div>
+
+            <div>
+              <label for="Clave">Clave:</label>
+              <input id="Clave" formControlName="Clave" type="password" />
+
+              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
+              <div *ngIf="usuarioForm.get('Clave')?.invalid && usuarioForm.get('Clave')?.touched">
+                La clave debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <!-- Botón para enviar el formulario -->
+            <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
+            <button type="submit" [disabled]="usuarioForm.invalid">Enviar</button>
+          </form>
+        </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
+
 
 
   <!--******************************************************************************************-->
@@ -109,7 +93,8 @@
 
           <td>
             <!-- Botón para modificar el usuario (Angular Material) -->
-            <button mat-raised-button color="primary" data-bs-target="#modificarUsuario">Modificar</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+              (click)="editarUsuario(usuario)" data-bs-target="#modificarUsuario">Modificar</button>
           </td>
         </tr>
       </tbody>
@@ -119,28 +104,30 @@
 
 
   <!--modal de formulario de modificacion de usuarios-->
-  <div class="modal fade" id="modificarUsuario" *ngIf="modalvisibility2" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modificarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-keyboard="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-body" [formGroup]="modificarUsuarioForm" *ngIf="usuarioSeleccionado"
-          (ngSubmit)="submitModificarForm()">
-          <div>
-            <label for="modificarNombre">Nombre:</label>
-            <input id="modificarNombre" formControlName="NombreUsuario" type="text">
-          </div>
+        <div class="modal-body">
+          <form [formGroup]="modificarUsuarioForm" (ngSubmit)="submitModificarForm()">
+            <div>
+              <label for="modificarNombre">Nombre:</label>
+              <input id="modificarNombre" formControlName="NombreUsuario" type="text">
+            </div>
 
-          <div>
-            <label for="modificarMail">Mail:</label>
-            <input id="modificarMail" formControlName="Mail" type="email">
-          </div>
+            <div>
+              <label for="modificarMail">Mail:</label>
+              <input id="modificarMail" formControlName="Mail" type="email">
+            </div>
 
-          <div>
-            <label for="modificarClave">Clave:</label>
-            <input id="modificarClave" formControlName="Clave" type="password">
-          </div>
+            <div>
+              <label for="modificarClave">Clave:</label>
+              <input id="modificarClave" formControlName="Clave" type="password">
+            </div>
 
-          <button type="submit" [disabled]="modificarUsuarioForm.invalid">Guardar Cambios</button>
+            <button type="submit" [disabled]="modificarUsuarioForm.invalid">Guardar Cambios</button>
+          </form>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" (click)="MostrarFormularioModificacion()"

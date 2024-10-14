@@ -1,0 +1,185 @@
+<div>
+  <h2>Crear Usuario</h2>
+  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearUsuario">Agregar
+    Recibo</button>
+
+  <div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-keyboard="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form [formGroup]="recepcionMaterialesForm" (ngSubmit)="submitForm()">
+            <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
+            <div>
+              <label for="Fecha">Fecha</label>
+              <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
+              <input id="Fecha" formControlName="Fecha" type="date" />
+              <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
+              <div
+                *ngIf="recepcionMaterialesForm.get('Fecha')?.invalid && recepcionMaterialesForm.get('Fecha')?.touched">
+                Fecha es Requerido
+              </div>
+            </div>
+
+            <div>
+              <label for="Proveedor">Proveedor:</label>
+              <select id="SeleccionarProveedor" formControlName="Proveedores" class="form-select form-select-lg mb-3"
+                aria-label="Large select example">
+                <option disabled>Seleccione el Proveedor</option>
+                <option *ngFor="let proveedor of proveedores" value="{{proveedor.IdProvedor}}">{{proveedor.RazonSocial}}
+                </option>
+              </select>
+              <div
+                *ngIf="recepcionMaterialesForm.get('Proveedor')?.invalid && recepcionMaterialesForm.get('Proveedor')?.touched">
+                Seleccione un proveedor
+              </div>
+            </div>
+
+            <div>
+              <label for="NroRemito">Numero de remito:</label>
+              <input id="NroRemito" formControlName="NroRemito" type="number" />
+              <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
+              <div
+                *ngIf="recepcionMaterialesForm.get('NroRemito')?.invalid && recepcionMaterialesForm.get('NroRemito')?.touched">
+                Ingresa un email válido
+              </div>
+            </div>
+
+            <div>
+              <label for="condventa">Condicion de venta::</label>
+              <input id="condventa" formControlName="CondVenta" type="text" />
+              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
+              <div
+                *ngIf="recepcionMaterialesForm.get('CondVenta')?.invalid && recepcionMaterialesForm.get('CondVenta')?.touched">
+                La clave debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <div>
+              <label for="numcompra">Numero de orden de compra:</label>
+              <input id="numcompra" formControlName="NroOrdenComp" type="number" />
+              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
+              <div
+                *ngIf="recepcionMaterialesForm.get('NroOrdenCompra')?.invalid && recepcionMaterialesForm.get('NroOrdenCompra')?.touched">
+                La clave debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <div>
+              <label for="firma">Firma digital:</label>
+              <input id="firma" formControlName="FrimaDigital" type="text" />
+              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
+              <div
+                *ngIf="recepcionMaterialesForm.get('FrimaDigital')?.invalid && recepcionMaterialesForm.get('FrimaDigital')?.touched">
+                La clave debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <div>
+              <label for="numfactura">Numero de factura:</label>
+              <input id="numfactura" formControlName="NroFact" type="number" />
+              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
+              <div
+                *ngIf="recepcionMaterialesForm.get('NroFact')?.invalid && recepcionMaterialesForm.get('NroFact')?.touched">
+                La clave debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <!-- Botón para enviar el formulario -->
+            <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
+            <button type="submit" [disabled]="recepcionMaterialesForm.invalid">Enviar</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!--******************************************************************************************-->
+
+  <!--tabla de usuarios-->
+  <h2>Recibos</h2>
+
+  <div class="table-responsive  ">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID Recibo</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">N° Remito</th>
+          <th scope="col">Condición de Venta</th>
+          <th scope="col">N° Orden de Compra</th>
+          <th scope="col">Firma Digital</th>
+          <th scope="col">N° Factura</th>
+          <th scope="col">Proveedor</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let recibo of cabeceraRecibo">
+          <td>{{ recibo.IdRecibo_Recepcion }}</td>
+          <td>{{ recibo.Fecha }}</td>
+          <td>{{ recibo.NroRemito }}</td>
+          <td>{{ recibo.CondVenta}}</td>
+          <td>{{ recibo.NroOrdenComp }}</td>
+          <td>{{ recibo.FirmaDigital }}</td>
+          <td>{{ recibo.NroFact }}</td>
+          <td>{{ recibo.RazonSocial }}</td>
+
+          <!-- <td>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+            (click)="editarUsuario(recibo)" data-bs-target="#modificarUsuario">Modificar</button> 
+         </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <!--modal de formulario de modificacion de usuarios-->
+  <div class="modal fade" id="modificarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+
+<h1>NAddoooooooo</h1>
+
+          <!-- <form [formGroup]="modificarRecepcionMaterialesForm" (ngSubmit)="submitModificarForm()">
+
+            <div>
+              <label for="modificarFecha">Fecha:</label>
+              <input id="modificarFecha" formControlName="Fecha" type="date">
+            </div>
+
+            <div>
+              <label for="modificarNroRemito">Remito N°</label>
+              <input id="modificarNroRemito" formControlName="NroRemito" type="email">
+            </div>
+
+            <div>
+              <label for="modificarClave">Clave:</label>
+              <input id="modificarClave" formControlName="Clave" type="password">
+            </div>
+
+            <button type="submit" [disabled]="modificarRecepcionMaterialesForm.invalid">Guardar Cambios</button>
+          </form> -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary"
+            data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
+
+
+</div>

@@ -1,58 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-import { GrupousuariosService } from 'src/app/services/grupousuarios.service';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { MovimientosService } from 'src/app/services/movimientos.service';
+import { ProveedoresService } from 'src/app/services/proveedores.service';
+
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  selector: 'app-recepcion-materiales',
+  templateUrl: './recepcion-materiales.component.html',
+  styleUrls: ['./recepcion-materiales.component.css']
 })
-export class UsuariosComponent implements OnInit {
-  usuarioForm: FormGroup;  // Formulario reactivo para manejar los datos del usuario
-  usuarios: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
+export class RecepcionMaterialesComponent implements OnInit {
+  recepcionMaterialesForm: FormGroup;  // Formulario reactivo para manejar los datos del recepcion de materiales
+  cabeceraRecibo: any[] = [];  // Variable para almacenar las recepciones de materiales de la base de datos
   modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
   modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
-  modificarUsuarioForm: FormGroup; // Formulario para modificar usuario
-  usuarioSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
-  roles: any[] = []; // Arreglo donde se van a guardar los grupos
+  modificarRecepcionMaterialesForm: FormGroup; // Formulario para modificar usuario
+  cabeceraReciboSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
+  proveedores: any[] = []; // Arreglo donde se van a guardar los proveedores
 
   
-  constructor(private databaseService: UsuariosService, private fb: FormBuilder, private GrupoUsuario: GrupousuariosService) {
+  constructor(private servicioMovimientos: MovimientosService, private fb: FormBuilder, private ProveedoresService: ProveedoresService ) {
     // Inicializamos el formulario con tres campos: NombreUsuario, Mail y Clave
-    this.usuarioForm = this.fb.group({
-      NombreUsuario: ['', Validators.required],  // Campo obligatorio
-      Mail: ['', [Validators.required, Validators.email]],  // Campo obligatorio y validación de formato de email
-      Clave: ['', [Validators.required, Validators.minLength(6)]], // Campo obligatorio con longitud mínima de 6 caracteres
-      Grupo: [0, Validators.required] //campo obligatorio
+    this.recepcionMaterialesForm = this.fb.group({
+      Fecha: ['', Validators.required],  // Campo obligatorio
+      NroRemito: [0, Validators.required],  // Campo obligatorio
+      CondVenta: ['', Validators.required], // Campo obligatorio
+      NroOrdenCompra: [0, Validators.required], //campo obligatorio
+      FirmaDigital: ['', Validators.required], //campo obligatorio
+      NroFact: [0, Validators.required], //campo obligatorio
+      IdProveedor: [0, Validators.required]
     });
 
     // Formulario de modificación de usuarios
-    this.modificarUsuarioForm = this.fb.group({
-      NombreUsuario: ['', Validators.required],
-      Mail: ['', [Validators.required, Validators.email]],
-      Clave: ['', [Validators.required, Validators.minLength(6)]],
-      Grupo: [0, Validators.required]
+    this.modificarRecepcionMaterialesForm = this.fb.group({
+      Fecha: ['', Validators.required],  // Campo obligatorio
+      NroRemito: [0, Validators.required],  // Campo obligatorio
+      CondVenta: ['', Validators.required], // Campo obligatorio
+      NroOrdenComp: [0, Validators.required], //campo obligatorio
+      FirmaDigital: ['', Validators.required], //campo obligatorio
+      NroFact: [0, Validators.required], //campo obligatorio
+      IdProveedor: [0, Validators.required]
     });
   }
 
   // Este método se ejecuta cuando el componente se inicializa
   ngOnInit(): void {
     this.recuperarUsuarios();  // Al iniciar el componente, se recuperan los usuarios de la base de datos
-    this.recuperarGrupoUsuarios();
+    this.recuperarProveedores();
   }
 
   // Método para recuperar la lista de usuarios de la base de datos
   recuperarUsuarios() {
-    this.databaseService.recuperar().subscribe({
+    this.servicioMovimientos.recuperar().subscribe({
       next: (response) => {
         // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
         if (Array.isArray(response)) {
-          this.usuarios = response; // Asigna los usuarios recibidos
+          this.cabeceraRecibo = response; // Asigna los usuarios recibidos
         } else {
           console.error('La respuesta del servidor no es un array:', response);  // Muestra error si no es un array
-          this.usuarios = [];  // Si la respuesta no es válida, se asigna un array vacío
+          this.cabeceraRecibo = [];  // Si la respuesta no es válida, se asigna un array vacío
         }
       },
       error: (error) => {
@@ -62,16 +68,16 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-  // Metodo para mostrar a lista de grupos/usuarios de la base de datos
-  recuperarGrupoUsuarios() {
-    this.GrupoUsuario.recuperar().subscribe({
+  //Metodo para mostrar a lista de grupos/usuarios de la base de datos
+  recuperarProveedores() {
+    this.ProveedoresService.recuperar().subscribe({
       next: (response) => {
         // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
         if (Array.isArray(response)) {
-          this.roles = response;  // Asigna los usuarios recibidos
+          this.proveedores = response;  // Asigna los usuarios recibidos
         } else {
           console.error('La respuesta del servidor no es un array:', response);  // Muestra error si no es un array
-          this.roles = [];  // Si la respuesta no es válida, se asigna un array vacío
+          this.proveedores = [];  // Si la respuesta no es válida, se asigna un array vacío
         }
       },
       error: (error) => {
@@ -84,15 +90,15 @@ export class UsuariosComponent implements OnInit {
   // Método para manejar el envío del formulario
   submitForm() {
     // Solo continúa si el formulario es válido
-    if (this.usuarioForm.valid) {
-      const usuarioData = this.usuarioForm.value;  // Se obtienen los valores del formulario
+    if (this.recepcionMaterialesForm.valid) {
+      const usuarioData = this.recepcionMaterialesForm.value;  // Se obtienen los valores del formulario
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.databaseService.alta(usuarioData).subscribe({
+      this.servicioMovimientos.alta(usuarioData).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
             alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
-            this.usuarioForm.reset();  // Se resetea el formulario
+            this.recepcionMaterialesForm.reset();  // Se resetea el formulario
             this.recuperarUsuarios();  // Se actualiza la lista de usuarios
             console.log(usuarioData)
           } else {
@@ -114,16 +120,16 @@ export class UsuariosComponent implements OnInit {
 
   // Método para enviar el formulario de modificación
   submitModificarForm() {
-    if (this.modificarUsuarioForm.valid) {
+    if (this.modificarRecepcionMaterialesForm.valid) {
       const usuarioModificado = {
-        ...this.usuarioSeleccionado,
-        ...this.modificarUsuarioForm.value
+        ...this.cabeceraReciboSeleccionado,
+        ...this.modificarRecepcionMaterialesForm.value
       };
-      this.databaseService.modificar(usuarioModificado).subscribe({
+      this.servicioMovimientos.modificar(usuarioModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
             alert('Usuario modificado con éxito');
-            this.usuarioSeleccionado = null; // Ocultar el formulario después de modificar
+            this.cabeceraReciboSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarUsuarios(); // Actualizar la lista de usuarios
           } else {
             alert('Error al modificar usuario: ' + (response['mensaje'] || 'Error desconocido'));
@@ -139,14 +145,14 @@ export class UsuariosComponent implements OnInit {
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
   editarUsuario(usuario: any) {
-    this.usuarioSeleccionado = usuario;
-    this.modificarUsuarioForm.patchValue({
+    this.cabeceraReciboSeleccionado = usuario;
+    this.modificarRecepcionMaterialesForm.patchValue({
       NombreUsuario: usuario.NombreUsuario,
       Mail: usuario.Mail,
       Clave: usuario.Clave
     });
   }
-  
+
   MostrarFormulario() {
     this.modalvisibility = !this.modalvisibility
   }
@@ -154,4 +160,5 @@ export class UsuariosComponent implements OnInit {
   MostrarFormularioModificacion() {
     this.modalvisibility2 = !this.modalvisibility2
   }
+
 }
