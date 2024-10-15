@@ -13,9 +13,6 @@ export class InsumosComponent implements OnInit {
 
   Insumos: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
 
-  // modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
-  // modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
-
   modificarInsumosForm: FormGroup; // Formulario para modificar usuario
   InsumoSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
 
@@ -61,9 +58,9 @@ export class InsumosComponent implements OnInit {
   submitForm() {
     // Solo continúa si el formulario es válido
     if (this.InsumoForm.valid) {
-      const usuarioData = this.InsumoForm.value;  // Se obtienen los valores del formulario
+      const InsumoData = this.InsumoForm.value;  // Se obtienen los valores del formulario
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.servicioInsumos.alta(usuarioData).subscribe({
+      this.servicioInsumos.alta(InsumoData).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
@@ -88,21 +85,24 @@ export class InsumosComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(Grupousuario: any) {
-    this.InsumoSeleccionado = Grupousuario;
+  editarInsumos(Insumo: any) {
+    this.InsumoSeleccionado = Insumo;
     this.modificarInsumosForm.patchValue({
-      Descripcion: Grupousuario.Descripcion
+      Descripcion: Insumo.Descripcion,
+      CodInterno: Insumo.CodInterno
     });
   }
 
   // Método para enviar el formulario de modificación
   submitModificarForm() {
     if (this.modificarInsumosForm.valid) {
-      const GrupousuarioModificado = {
+      const InsumoModificado = {
         ...this.InsumoSeleccionado,
         ...this.modificarInsumosForm.value
       };
-      this.servicioInsumos.modificar(GrupousuarioModificado).subscribe({
+      alert(this.InsumoSeleccionado)
+      alert(InsumoModificado)
+      this.servicioInsumos.modificar(InsumoModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
             alert('Usuario modificado con éxito');
@@ -117,6 +117,8 @@ export class InsumosComponent implements OnInit {
           console.error('Error:', error);
         },
       });
+    }else{
+      alert("complete los campos")
     }
   }
 

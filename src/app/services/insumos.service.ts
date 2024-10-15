@@ -15,11 +15,11 @@ export class InsumosService {
     return this.http.get(`${this.apiUrl}/recuperartodos.php`);
   }
 
-  alta(usuarioData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/alta.php`, usuarioData);
+  alta(InsumoData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/alta.php`,InsumoData);
   }
 
-  modificar(usuario: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/modificacion.php`, usuario);
+  modificar(InsumoModificado: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/modificacion.php`, InsumoModificado);
   }
 }

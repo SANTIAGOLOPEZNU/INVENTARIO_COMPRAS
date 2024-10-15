@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MovimientosService } from 'src/app/services/movimientos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 
@@ -18,8 +18,8 @@ export class RecepcionMaterialesComponent implements OnInit {
   cabeceraReciboSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
   proveedores: any[] = []; // Arreglo donde se van a guardar los proveedores
 
-  
-  constructor(private servicioMovimientos: MovimientosService, private fb: FormBuilder, private ProveedoresService: ProveedoresService ) {
+
+  constructor(private servicioMovimientos: MovimientosService, private fb: FormBuilder, private ProveedoresService: ProveedoresService) {
     // Inicializamos el formulario con tres campos: NombreUsuario, Mail y Clave
     this.recepcionMaterialesForm = this.fb.group({
       Fecha: ['', Validators.required],  // Campo obligatorio
@@ -144,12 +144,16 @@ export class RecepcionMaterialesComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(usuario: any) {
-    this.cabeceraReciboSeleccionado = usuario;
+  editarUsuario(recibo: any) {
+    this.cabeceraReciboSeleccionado = recibo;
     this.modificarRecepcionMaterialesForm.patchValue({
-      NombreUsuario: usuario.NombreUsuario,
-      Mail: usuario.Mail,
-      Clave: usuario.Clave
+      Fecha: recibo.Fecha,
+      NroRemito: recibo.NroRemito,
+      CondVenta: recibo.CondVenta,
+      NroOrdenCompra: recibo.NroOrdenComp,
+      FirmaDigital: recibo.FirmaDigital,
+      NroFact: recibo.NroFact,
+      IdProveedor:  recibo.IdProveedor
     });
   }
 

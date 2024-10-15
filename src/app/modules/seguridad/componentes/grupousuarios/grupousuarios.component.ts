@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GrupousuariosService } from 'src/app/services/grupousuarios.service';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-grupousuarios',
@@ -13,8 +13,8 @@ export class GrupousuariosComponent implements OnInit {
 
   GrupoUsuarios: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
 
-  // modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
-  // modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
+   modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
+   modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
 
   modificarGrupoUsuarioForm: FormGroup; // Formulario para modificar usuario
   GrupousuarioSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
@@ -86,7 +86,7 @@ export class GrupousuariosComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(Grupousuario: any) {
+  editarGrupoUsuario(Grupousuario: any) {
     this.GrupousuarioSeleccionado = Grupousuario;
     this.modificarGrupoUsuarioForm.patchValue({
       Descripcion: Grupousuario.Descripcion
@@ -120,31 +120,11 @@ export class GrupousuariosComponent implements OnInit {
 
 
 
-
-
-
-
-  // bajaUsuario(IdUsuarios: number) {
-  //   this.databaseService.baja(IdUsuarios).subscribe({
-  //     next: (response) => {
-  //       if (response['resultado'] === 'OK') {
-  //         alert('Usuario borrado con éxito');
-  //         this.recuperarUsuarios();
-  //       } else {
-  //         alert('Error al borrar usuario');
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error al borrar usuario:', error);
-  //     }
-  //   });
-  // }
-
-  /*MostrarFormulario() {
+ MostrarFormulario() {
     this.modalvisibility = !this.modalvisibility
-  }*/
+  }
 
-  /* MostrarFormularioModificacion() {
+  MostrarFormularioModificacion() {
      this.modalvisibility2 = !this.modalvisibility2
-   }*/
+   }
 }

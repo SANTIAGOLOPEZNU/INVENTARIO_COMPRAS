@@ -35,16 +35,16 @@ export class ProveedoresComponent implements OnInit {
 
     // Formulario de modificación de Grupousuarios
     this.modificarProvedorForm = this.fb.group({
-      CodProvedor: [0, Validators.required], //campo obligatorio
-      RazonSocial: ['', Validators.required], //campo obligatorio
-      Direccion: ['', Validators.required], //campo obligatorio
-      Email: ['', Validators.required, Validators.email], //campo obligatorio
-      CodPostal: [0, Validators.required], //campo obligatorio
-      Ciudad: ['', Validators.required], //campo obligatorio
-      Telefono: ['', Validators.required], //campo obligatorio
-      CondIVA: ['', Validators.required], //campo obligatorio
-      CUIT: [0, Validators.required], //campo obligatorio
-      InicioAct: ['', Validators.required], //campo obligatorio
+      CodProvedor: [0, Validators.required],
+      RazonSocial: ['', Validators.required],
+      Direccion: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
+      CodPostal: [0, Validators.required],
+      Ciudad: ['', Validators.required],
+      Telefono: ['', Validators.required],
+      CondIVA: ['', Validators.required],
+      CUIT: [0,[Validators.required, Validators.maxLength(11)]],
+      InicioAct: ['', Validators.required],
     });
   }
 
@@ -76,9 +76,9 @@ export class ProveedoresComponent implements OnInit {
   submitForm() {
     // Solo continúa si el formulario es válido
     if (this.ProveedorForm.valid) {
-      const usuarioData = this.ProveedorForm.value;  // Se obtienen los valores del formulario
+      const ProvedorData = this.ProveedorForm.value;  // Se obtienen los valores del formulario
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.servicioProveedores.alta(usuarioData).subscribe({
+      this.servicioProveedores.alta(ProvedorData).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
@@ -103,21 +103,30 @@ export class ProveedoresComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(Grupousuario: any) {
-    this.ProvedorSeleccionado = Grupousuario;
+  editarProvedor(provedor: any) {
+    this.ProvedorSeleccionado = provedor;
     this.modificarProvedorForm.patchValue({
-      Descripcion: Grupousuario.Descripcion
+        CodProvedor: provedor.CodProvedor,
+        RazonSocial: provedor.RazonSocial,
+        Direccion: provedor.Direccion,
+        Email: provedor.Email,
+        CodPostal: provedor.CodPostal,
+        Ciudad: provedor.Ciudad,
+        Telefono: provedor.Telefono,
+        CondIVA: provedor.CondIVA,
+        CUIT: provedor.CUIT,
+        InicioAct: provedor.InicioAct
     });
   }
 
   // Método para enviar el formulario de modificación
   submitModificarForm() {
     if (this.modificarProvedorForm.valid) {
-      const GrupousuarioModificado = {
+      const ProvedorModificado = {
         ...this.ProvedorSeleccionado,
         ...this.modificarProvedorForm.value
       };
-      this.servicioProveedores.modificar(GrupousuarioModificado).subscribe({
+      this.servicioProveedores.modificar(ProvedorModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
             alert('Usuario modificado con éxito');
