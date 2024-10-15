@@ -12,8 +12,6 @@ import { ProveedoresService } from 'src/app/services/proveedores.service';
 export class RecepcionMaterialesComponent implements OnInit {
   recepcionMaterialesForm: FormGroup;  // Formulario reactivo para manejar los datos del recepcion de materiales
   cabeceraRecibo: any[] = [];  // Variable para almacenar las recepciones de materiales de la base de datos
-  modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
-  modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
   modificarRecepcionMaterialesForm: FormGroup; // Formulario para modificar usuario
   cabeceraReciboSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
   proveedores: any[] = []; // Arreglo donde se van a guardar los proveedores
@@ -36,7 +34,7 @@ export class RecepcionMaterialesComponent implements OnInit {
       Fecha: ['', Validators.required],  // Campo obligatorio
       NroRemito: [0, Validators.required],  // Campo obligatorio
       CondVenta: ['', Validators.required], // Campo obligatorio
-      NroOrdenComp: [0, Validators.required], //campo obligatorio
+      NroOrdenCompra: [0, Validators.required], //campo obligatorio
       FirmaDigital: ['', Validators.required], //campo obligatorio
       NroFact: [0, Validators.required], //campo obligatorio
       IdProveedor: [0, Validators.required]
@@ -144,21 +142,16 @@ export class RecepcionMaterialesComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(usuario: any) {
-    this.cabeceraReciboSeleccionado = usuario;
+  editarRecepcionMateriales(recibo: any) {
+    this.cabeceraReciboSeleccionado = recibo;
     this.modificarRecepcionMaterialesForm.patchValue({
-      NombreUsuario: usuario.NombreUsuario,
-      Mail: usuario.Mail,
-      Clave: usuario.Clave
+      Fecha: recibo.Fecha,
+      NroRemito: recibo.NroRemito,
+      CondVenta: recibo.CondVenta,
+      NroOrdenCompra: recibo.NroOrdenCompra,
+      FirmaDigital: recibo.FirmaDigital,
+      NroFact: recibo.NroFact,
+      IdProveedor: recibo.IdProveedor
     });
   }
-
-  MostrarFormulario() {
-    this.modalvisibility = !this.modalvisibility
-  }
-
-  MostrarFormularioModificacion() {
-    this.modalvisibility2 = !this.modalvisibility2
-  }
-
 }

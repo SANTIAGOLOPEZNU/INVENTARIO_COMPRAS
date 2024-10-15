@@ -86,7 +86,7 @@ export class GrupousuariosComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(Grupousuario: any) {
+  editarGrupoUsuario(Grupousuario: any) {
     this.GrupousuarioSeleccionado = Grupousuario;
     this.modificarGrupoUsuarioForm.patchValue({
       Descripcion: Grupousuario.Descripcion
