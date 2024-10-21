@@ -12,9 +12,7 @@
             <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
             <div>
               <label for="Fecha">Fecha</label>
-              <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
               <input id="Fecha" formControlName="Fecha" type="date" />
-              <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="recepcionMaterialesForm.get('Fecha')?.invalid && recepcionMaterialesForm.get('Fecha')?.touched">
                 Fecha es Requerido
@@ -38,7 +36,6 @@
             <div>
               <label for="NroRemito">Numero de remito:</label>
               <input id="NroRemito" formControlName="NroRemito" type="number" />
-              <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="recepcionMaterialesForm.get('NroRemito')?.invalid && recepcionMaterialesForm.get('NroRemito')?.touched">
                 Ingresa un email válido
@@ -48,7 +45,6 @@
             <div>
               <label for="condventa">Condicion de venta::</label>
               <input id="condventa" formControlName="CondVenta" type="text" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="recepcionMaterialesForm.get('CondVenta')?.invalid && recepcionMaterialesForm.get('CondVenta')?.touched">
                 La clave debe tener al menos 6 caracteres
@@ -58,7 +54,6 @@
             <div>
               <label for="numcompra">Numero de orden de compra:</label>
               <input id="numcompra" formControlName="NroOrdenCompra" type="number" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="recepcionMaterialesForm.get('NroOrdenCompra')?.invalid && recepcionMaterialesForm.get('NroOrdenCompra')?.touched">
                 La clave debe tener al menos 6 caracteres
@@ -68,7 +63,6 @@
             <div>
               <label for="firma">Firma digital:</label>
               <input id="firma" formControlName="FirmaDigital" type="text" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="recepcionMaterialesForm.get('FrimaDigital')?.invalid && recepcionMaterialesForm.get('FrimaDigital')?.touched">
                 La clave debe tener al menos 6 caracteres
@@ -78,15 +72,12 @@
             <div>
               <label for="numfactura">Numero de factura:</label>
               <input id="numfactura" formControlName="NroFact" type="number" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="recepcionMaterialesForm.get('NroFact')?.invalid && recepcionMaterialesForm.get('NroFact')?.touched">
                 La clave debe tener al menos 6 caracteres
               </div>
             </div>
 
-            <!-- Botón para enviar el formulario -->
-            <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
             <button type="submit" [disabled]="recepcionMaterialesForm.invalid">Enviar</button>
           </form>
         </div>
@@ -97,12 +88,6 @@
     </div>
   </div>
 
-
-
-
-  <!--******************************************************************************************-->
-
-  <!--tabla de usuarios-->
   <h2>Recibos</h2>
 
   <div class="table-responsive  ">
@@ -133,27 +118,24 @@
 
           <td>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-              (click)="editarRecepcionMateriales(recibo)" data-bs-target="#modificarRecepcionMateriales">Modificar</button>
+              (click)="editarRecepcionMateriales(recibo)" (click)="guardar(recibo)"
+              data-bs-target="#modificarRecepcionMateriales">Modificar</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-
-
-  <!--modal de formulario de modificacion de usuarios-->
-  <div class="modal fade" id="modificarRecepcionMateriales" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade " id="modificarRecepcionMateriales" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-body">
           <form [formGroup]="modificarRecepcionMaterialesForm" (ngSubmit)="submitModificarForm()">
 
             <div>
               <label for="Fecha">Fecha</label>
-              <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
               <input id="Fecha" formControlName="Fecha" type="date" />
-              <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="modificarRecepcionMaterialesForm.get('Fecha')?.invalid && modificarRecepcionMaterialesForm.get('Fecha')?.touched">
                 Fecha es Requerido
@@ -177,7 +159,6 @@
             <div>
               <label for="NroRemito">Numero de remito:</label>
               <input id="NroRemito" formControlName="NroRemito" type="number" />
-              <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="modificarRecepcionMaterialesForm.get('NroRemito')?.invalid && modificarRecepcionMaterialesForm.get('NroRemito')?.touched">
                 Ingresa un email válido
@@ -187,7 +168,6 @@
             <div>
               <label for="condventa">Condicion de venta::</label>
               <input id="condventa" formControlName="CondVenta" type="text" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="modificarRecepcionMaterialesForm.get('CondVenta')?.invalid && modificarRecepcionMaterialesForm.get('CondVenta')?.touched">
                 La clave debe tener al menos 6 caracteres
@@ -197,7 +177,6 @@
             <div>
               <label for="numcompra">Numero de orden de compra:</label>
               <input id="numcompra" formControlName="NroOrdenCompra" type="number" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="modificarRecepcionMaterialesForm.get('NroOrdenCompra')?.invalid && modificarRecepcionMaterialesForm.get('NroOrdenCompra')?.touched">
                 La clave debe tener al menos 6 caracteres
@@ -207,7 +186,6 @@
             <div>
               <label for="firma">Firma digital:</label>
               <input id="firma" formControlName="FirmaDigital" type="text" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="modificarRecepcionMaterialesForm.get('FrimaDigital')?.invalid && modificarRecepcionMaterialesForm.get('FrimaDigital')?.touched">
                 La clave debe tener al menos 6 caracteres
@@ -217,25 +195,69 @@
             <div>
               <label for="numfactura">Numero de factura:</label>
               <input id="numfactura" formControlName="NroFact" type="number" />
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
               <div
                 *ngIf="modificarRecepcionMaterialesForm.get('NroFact')?.invalid && modificarRecepcionMaterialesForm.get('NroFact')?.touched">
                 La clave debe tener al menos 6 caracteres
               </div>
             </div>
-
-            <button type="submit" [disabled]="modificarRecepcionMaterialesForm.invalid">Guardar Cambios</button>
+            <button type="submit" [disabled]="modificarRecepcionMaterialesForm.invalid">Guardar
+              Cambios</button>
           </form>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <!-- Tabla de detalles -->
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Id_Recibo</th>
+                  <th scope="col">Insumo</th>
+                  <th scope="col">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detalle of Detalles">
+                  <td>{{ detalle.IdDetalleRecRecepcion }}</td>
+                  <td>{{ detalle.IdRecibo_Recepcion }}</td>
+                  <td>{{ detalle.Descripcion }}</td>
+                  <td>{{ detalle.Cantidad}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm() ">
+
+
+            <!-- <label for="IdCabecera">Cabecera</label>
+
+            <input id="IdCabecera" type="number" formControlName="IdRecibo_Recepcion" value=""> -->
+
+
+            <label for="Material">Materiales</label>
+
+            <select id="Material" formControlName="IdInsumosMat" class="form-select form-select-lg mb-3"
+              aria-label="Large select example">
+              <option disabled>Seleccione el Insumo</option>
+              <option *ngFor="let Insumo of Insumos" value="{{Insumo.IdInsumosMat}}">{{Insumo.Descripcion}}
+              </option>
+            </select>
+
+            <label for="Cantidad">Cantidad</label>
+            <input id="Cantidad" formControlName="Cantidad" type="number">
+
+            <button type="submit" [disabled]="DetallesRecForm.invalid">Guardar
+              Cambios</button>
+
+          </form>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
   </div>
-
-  <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
-
-
 </div>

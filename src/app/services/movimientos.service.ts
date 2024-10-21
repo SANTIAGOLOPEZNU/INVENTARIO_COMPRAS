@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 })
 export class MovimientosService {
 
-  private apiUrl = 'http://localhost/api/Movimientos';
+  private apiUrl1 = 'http://localhost/api/Movimientos/recepcion';
+ private apiUrl2= 'http://localhost/api/Movimientos/detalles'
 
   //comprobar si se logueo
   private isLoggedInStatus = false;
@@ -23,18 +24,44 @@ export class MovimientosService {
   constructor(private http: HttpClient) { }
 
   alta(usuarioData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/alta.php`, usuarioData);
+    return this.http.post(`${this.apiUrl1}/alta.php`, usuarioData);
   }
 
   recuperar(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/recuperartodos.php`);
+    return this.http.get(`${this.apiUrl1}/recuperartodos.php`);
   }
 
   // Nuevo método para modificar un usuario
   modificar(usuario: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/modificacion.php`, usuario);
+    return this.http.put(`${this.apiUrl1}/modificacion.php`, usuario);
+  }
+
+
+//Metodos para detalles
+  altaDetail(usuarioData: any, numerorecibo: number): Observable<any> {
+ 
+    const datos = {
+      datos: usuarioData,
+      numrecibo: numerorecibo
+    }
+console.log(usuarioData)
+    alert(numerorecibo)
+    return this.http.post(`${this.apiUrl2}/alta.php`, datos);
+    headers: {
+      'Content-Type'; 
+      'application/json'  // Asegúrate de que este header esté presente
+  }
+  }
+
+  recuperarDetail(): Observable<any> {
+    return this.http.get(`${this.apiUrl2}/recuperartodos.php`);
+  }
+
+  // Nuevo método para modificar un usuario
+  modificarDetail(usuario: any): Observable<any> {
+    return this.http.put(`${this.apiUrl2}/modificacion.php`, usuario);
   }
 
   inicioSesion(mail: string, clave: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login.php`, { mail, clave });
+    return this.http.post(`${this.apiUrl1}/login.php`, { mail, clave });
   }}

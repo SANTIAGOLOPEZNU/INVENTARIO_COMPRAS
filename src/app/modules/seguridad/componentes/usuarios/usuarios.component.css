@@ -1,4 +1,6 @@
-/* Estilo general para el modal */
+Estilo general para el modal
+
+
 .modal-content {
     background-color: #f4f4f4;
     border-radius: 8px;
@@ -22,7 +24,6 @@
     color: #333;
     margin-bottom: 5px;
   }
-  
   input[type="text"],
   input[type="email"],
   input[type="password"] {
@@ -88,5 +89,7 @@
   }
 
 
+
+  
   
   

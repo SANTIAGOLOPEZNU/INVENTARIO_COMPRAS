@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MovimientosService } from 'src/app/services/movimientos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import { InsumosService } from 'src/app/services/insumos.service';
 
 
 @Component({
@@ -15,10 +16,16 @@ export class RecepcionMaterialesComponent implements OnInit {
   modificarRecepcionMaterialesForm: FormGroup; // Formulario para modificar usuario
   cabeceraReciboSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
   proveedores: any[] = []; // Arreglo donde se van a guardar los proveedores
+  Reciboseleccionado: number = 0;
 
+  //------------------Detalles de Movimientos------------------------------
+  DetallesRecForm:FormGroup; //formulario para manejar el detalle de los recibos 
+  Insumos:any[]=[] //arreglo donde se van a guardar los materiales
+  Detalles:any[]=[] //arreglo donde se van a guardar los detalles
   
-  constructor(private servicioMovimientos: MovimientosService, private fb: FormBuilder, private ProveedoresService: ProveedoresService ) {
-    // Inicializamos el formulario con tres campos: NombreUsuario, Mail y Clave
+  constructor(private servicioMovimientos: MovimientosService, private fb: FormBuilder, private ProveedoresService: ProveedoresService, private InsumosService: InsumosService
+   ) {
+    // Inicializamos el formulario de recepcion de materiales
     this.recepcionMaterialesForm = this.fb.group({
       Fecha: ['', Validators.required],  // Campo obligatorio
       NroRemito: [0, Validators.required],  // Campo obligatorio
@@ -39,12 +46,22 @@ export class RecepcionMaterialesComponent implements OnInit {
       NroFact: [0, Validators.required], //campo obligatorio
       IdProveedor: [0, Validators.required]
     });
+
+    //formulario para manejar el detalle de los recibos
+    this.DetallesRecForm=this.fb.group({
+      Cantidad:[0,Validators.required],
+      IdInsumosMat:[0,Validators.required],
+      // IdRecibo_Recepcion:[0,Validators.required]
+    })
   }
 
   // Este método se ejecuta cuando el componente se inicializa
   ngOnInit(): void {
     this.recuperarUsuarios();  // Al iniciar el componente, se recuperan los usuarios de la base de datos
     this.recuperarProveedores();
+    this.recuperarInsumos();
+    this.recuperarDetalles();
+   
   }
 
   // Método para recuperar la lista de usuarios de la base de datos
@@ -144,6 +161,7 @@ export class RecepcionMaterialesComponent implements OnInit {
   // Método para seleccionar un usuario y poblar el formulario de modificación
   editarRecepcionMateriales(recibo: any) {
     this.cabeceraReciboSeleccionado = recibo;
+    this.Reciboseleccionado = recibo.IdRecibo_Recepcion;
     this.modificarRecepcionMaterialesForm.patchValue({
       Fecha: recibo.Fecha,
       NroRemito: recibo.NroRemito,
@@ -154,4 +172,90 @@ export class RecepcionMaterialesComponent implements OnInit {
       IdProveedor: recibo.IdProveedor
     });
   }
+
+ guardar(recibo:any){
+  this.Reciboseleccionado= recibo.IdRecibo_Recepcion
+ }
+
+
+
+//recupera la lista de los detalles de la bd
+  recuperarDetalles() {
+    console.log(this.Reciboseleccionado)
+    this.servicioMovimientos.recuperarDetail().subscribe({
+      next: (response) => {
+        // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
+        if (Array.isArray(response)) {
+          this.Detalles = response; // Asigna los usuarios recibidos
+        } else {
+          console.error('La respuesta del servidor no es un array:', response);  // Muestra error si no es un array
+          this.Detalles = [];  // Si la respuesta no es válida, se asigna un array vacío
+        }
+      },
+      error: (error) => {
+        // En caso de error al recuperar los usuarios, se registra en la consola
+        console.error('Error al recuperar detalles:', error);
+      }
+    });
+    console.log(this.Detalles)
+
+    }
+
+
+
+  
+  // Método para manejar el envío del formulario
+  submitDetailForm() {
+    alert(this.Reciboseleccionado)
+    // Solo continúa si el formulario es válido
+    if (this.DetallesRecForm.valid) {
+
+      const usuarioData = this.DetallesRecForm.value; 
+      const numerorecibo = this.Reciboseleccionado // Se obtienen los valores del formulario
+
+      
+      // Se envían los datos al servicio para crear el nuevo usuario
+      this.servicioMovimientos.altaDetail(usuarioData, numerorecibo ).subscribe({
+        next: (response) => {
+          // Si la respuesta es correcta y el servidor indica que el usuario fue creado
+          if (response && response['resultado'] === 'OK') {
+            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
+            this.DetallesRecForm.reset();  // Se resetea el formulario
+            this.recuperarDetalles();  // Se actualiza la lista de usuarios
+            console.log(usuarioData)
+          } else {
+            // Si hay un error, se muestra el mensaje recibido del servidor
+            alert('Error al añadir detalle: ' + (response['mensaje'] || 'Error desconocido'));
+          }
+        },
+        error: (error) => {
+          // En caso de error, se muestra un mensaje de error
+          alert('Error al añadir detalle');
+          console.error('Error:', error);  // Se registra el error en la consola
+        },
+      });
+    } else {
+      // Si el formulario no es válido, se muestra un mensaje al usuario
+      alert('Por favor, completa todos los campos correctamente');
+    }
+  }
+
+
+  recuperarInsumos() {
+    this.InsumosService.recuperar().subscribe({
+      next: (response) => {
+        // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
+        if (Array.isArray(response)) {
+          this.Insumos = response;  // Asigna los usuarios recibidos
+        } else {
+          console.error('La respuesta del servidor no es un array:', response);  // Muestra error si no es un array
+          this.Insumos = [];  // Si la respuesta no es válida, se asigna un array vacío
+        }
+      },
+      error: (error) => {
+        // En caso de error al recuperar los usuarios, se registra en la consola
+        console.error('Error al recuperar usuarios:', error);
+      }
+    });
+  }  
 }

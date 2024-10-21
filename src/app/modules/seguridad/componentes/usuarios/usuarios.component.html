@@ -1,79 +1,78 @@
-<div>
-  <h2>Crear Usuario</h2>
-  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearUsuario">Agregar
-    Usuario</button>
+<div class="container my-4">
+  <!-- Encabezado -->
+  <h2 class="text-center text-success">Crear Usuario</h2>
 
-  <div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true" data-keyboard="true">
+  <!-- Botón para abrir el modal de creación de usuario -->
+  <div class="text-center mb-3">
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#crearUsuario">
+      Agregar Usuario
+    </button>
+  </div>
+
+  <!-- Modal de creación de usuario -->
+  <div class="modal fade" id="crearUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title text-success" id="exampleModalLabel">Nuevo Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
         <div class="modal-body">
           <form [formGroup]="usuarioForm" (ngSubmit)="submitForm()">
-            <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
-            <div>
-              <label for="NombreUsuario">Nombre:</label>
-              <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-              <input id="NombreUsuario" formControlName="NombreUsuario" type="text" />
-              <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-              <div *ngIf="usuarioForm.get('NombreUsuario')?.invalid && usuarioForm.get('NombreUsuario')?.touched">
+            <div class="mb-3">
+              <label for="NombreUsuario" class="form-label text-success">Nombre:</label>
+              <input id="NombreUsuario" formControlName="NombreUsuario" type="text" class="form-control" />
+              <div *ngIf="usuarioForm.get('NombreUsuario')?.invalid && usuarioForm.get('NombreUsuario')?.touched"
+                   class="text-danger">
                 Nombre es requerido
               </div>
             </div>
 
-            <div>
-              <label for="Selecciongrupo">Grupos:</label>
-              <select id="Selecciongrupo" formControlName="Grupo" class="form-select form-select-lg mb-3"
-                aria-label="Large select example">
+            <div class="mb-3">
+              <label for="Selecciongrupo" class="form-label text-success">Grupos:</label>
+              <select id="Selecciongrupo" formControlName="Grupo" class="form-select">
                 <option disabled>Seleccione el grupo</option>
                 <option *ngFor="let rol of roles" value="{{rol.IdGrupo}}">{{rol.Descripcion}}</option>
               </select>
-              <div *ngIf="usuarioForm.get('Grupo')?.invalid && usuarioForm.get('Grupo')?.touched">
-                Nombre es requerido
+              <div *ngIf="usuarioForm.get('Grupo')?.invalid && usuarioForm.get('Grupo')?.touched"
+                   class="text-danger">
+                Grupo es requerido
               </div>
             </div>
 
-            <div>
-              <label for="Mail">Mail:</label>
-              <input id="Mail" formControlName="Mail" type="email" />
-
-              <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
-              <div *ngIf="usuarioForm.get('Mail')?.invalid && usuarioForm.get('Mail')?.touched">
+            <div class="mb-3">
+              <label for="Mail" class="form-label text-success">Mail:</label>
+              <input id="Mail" formControlName="Mail" type="email" class="form-control" />
+              <div *ngIf="usuarioForm.get('Mail')?.invalid && usuarioForm.get('Mail')?.touched"
+                   class="text-danger">
                 Ingresa un email válido
               </div>
             </div>
 
-            <div>
-              <label for="Clave">Clave:</label>
-              <input id="Clave" formControlName="Clave" type="password" />
-
-              <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
-              <div *ngIf="usuarioForm.get('Clave')?.invalid && usuarioForm.get('Clave')?.touched">
+            <div class="mb-3">
+              <label for="Clave" class="form-label text-success">Clave:</label>
+              <input id="Clave" formControlName="Clave" type="password" class="form-control" />
+              <div *ngIf="usuarioForm.get('Clave')?.invalid && usuarioForm.get('Clave')?.touched"
+                   class="text-danger">
                 La clave debe tener al menos 6 caracteres
               </div>
             </div>
 
-            <!-- Botón para enviar el formulario -->
-            <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
-            <button type="submit" [disabled]="usuarioForm.invalid">Enviar</button>
+            <button type="submit" [disabled]="usuarioForm.invalid" class="btn btn-success w-100">Enviar</button>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
 
-
-
-  <!--******************************************************************************************-->
-
-  <!--tabla de usuarios-->
-  <h2>Lista de Usuarios Registrados</h2>
-
-  <div class="table-responsive  ">
-    <table class="table">
-      <thead class="table-dark">
+  <!-- Tabla de usuarios -->
+  <h2 class="text-center text-success mt-5">Lista de Usuarios Registrados</h2>
+  <div class="table-responsive w-100">
+    <table class="table  table-bordered table-striped">
+      <thead class="table-success">
         <tr>
           <th scope="col">IdUsuarios</th>
           <th scope="col">Nombre</th>
@@ -87,57 +86,51 @@
         <tr *ngFor="let usuario of usuarios">
           <td>{{ usuario.IdUsuarios }}</td>
           <td>{{ usuario.NombreUsuario }}</td>
-          <td>{{usuario.Descripcion}}</td>
+          <td>{{ usuario.Descripcion }}</td>
           <td>{{ usuario.Mail }}</td>
           <td>{{ usuario.Clave }}</td>
-
           <td>
-            <!-- Botón para modificar el usuario (Angular Material) -->
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-              (click)="editarUsuario(usuario)" data-bs-target="#modificarUsuario">Modificar</button>
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    (click)="editarUsuario(usuario)" data-bs-target="#modificarUsuario">Modificar</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-
-
-  <!--modal de formulario de modificacion de usuarios-->
-  <div class="modal fade" id="modificarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true" data-keyboard="true">
+  <!-- Modal de modificación de usuario -->
+  <div class="modal fade" id="modificarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title text-success" id="exampleModalLabel">Modificar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
         <div class="modal-body">
           <form [formGroup]="modificarUsuarioForm" (ngSubmit)="submitModificarForm()">
-            <div>
-              <label for="modificarNombre">Nombre:</label>
-              <input id="modificarNombre" formControlName="NombreUsuario" type="text">
+            <div class="mb-3">
+              <label for="modificarNombre" class="form-label text-success">Nombre:</label>
+              <input id="modificarNombre" formControlName="NombreUsuario" type="text" class="form-control">
             </div>
-
-            <div>
-              <label for="modificarMail">Mail:</label>
-              <input id="modificarMail" formControlName="Mail" type="email">
+            <div class="mb-3">
+              <label for="modificarMail" class="form-label text-success">Mail:</label>
+              <input id="modificarMail" formControlName="Mail" type="email" class="form-control">
             </div>
-
-            <div>
-              <label for="modificarClave">Clave:</label>
-              <input id="modificarClave" formControlName="Clave" type="password">
+            <div class="mb-3">
+              <label for="modificarClave" class="form-label text-success">Clave:</label>
+              <input id="modificarClave" formControlName="Clave" type="password" class="form-control">
             </div>
-
-            <button type="submit" [disabled]="modificarUsuarioForm.invalid">Guardar Cambios</button>
+            <button type="submit" [disabled]="modificarUsuarioForm.invalid" class="btn btn-success w-100">Guardar Cambios</button>
           </form>
-
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" (click)="MostrarFormularioModificacion()"
-            data-bs-dismiss="modal">Cerrar</button>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
-
-
 </div>
+
+<!-- Bootstrap JS y Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
