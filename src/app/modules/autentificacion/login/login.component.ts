@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class LoginComponent {
   //login es una funcion de usuarioService que nos habilita el menu 
   login() {
     this.usuarioService.login();
+    
   }
 
   onSubmit() {
@@ -37,4 +39,5 @@ export class LoginComponent {
       });
     }
   }
+ 
 }
