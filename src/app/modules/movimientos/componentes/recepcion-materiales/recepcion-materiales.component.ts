@@ -64,7 +64,7 @@ export class RecepcionMaterialesComponent implements OnInit {
    
   }
 
-  // Método para recuperar la lista de usuarios de la base de datos
+  // Método para recuperar la lista de recibos de la base de datos
   recuperarUsuarios() {
     this.servicioMovimientos.recuperar().subscribe({
       next: (response) => {
@@ -78,7 +78,7 @@ export class RecepcionMaterialesComponent implements OnInit {
       },
       error: (error) => {
         // En caso de error al recuperar los usuarios, se registra en la consola
-        console.error('Error al recuperar usuarios:', error);
+        console.error('Error al recuperar recibos:', error);
       }
     });
   }
@@ -97,7 +97,7 @@ export class RecepcionMaterialesComponent implements OnInit {
       },
       error: (error) => {
         // En caso de error al recuperar los usuarios, se registra en la consola
-        console.error('Error al recuperar usuarios:', error);
+        console.error('Error al recuperar recibos:', error);
       }
     });
   }
@@ -112,18 +112,18 @@ export class RecepcionMaterialesComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
+            alert('Recibo creado con éxito');  //  Se muestra un mensaje de éxito
             this.recepcionMaterialesForm.reset();  // Se resetea el formulario
             this.recuperarUsuarios();  // Se actualiza la lista de usuarios
             console.log(usuarioData)
           } else {
             // Si hay un error, se muestra el mensaje recibido del servidor
-            alert('Error al crear usuario: ' + (response['mensaje'] || 'Error desconocido'));
+            alert('Error al crear recibo: ' + (response['mensaje'] || 'Error desconocido'));
           }
         },
         error: (error) => {
           // En caso de error, se muestra un mensaje de error
-          alert('Error al crear usuario');
+          alert('Error al crear recibo');
           console.error('Error:', error);  // Se registra el error en la consola
         },
       });
@@ -143,15 +143,15 @@ export class RecepcionMaterialesComponent implements OnInit {
       this.servicioMovimientos.modificar(usuarioModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario modificado con éxito');
+            alert('Recibo modificado con éxito');
             this.cabeceraReciboSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarUsuarios(); // Actualizar la lista de usuarios
           } else {
-            alert('Error al modificar usuario: ' + (response['mensaje'] || 'Error desconocido'));
+            alert('Error al modificar recibo: ' + (response['mensaje'] || 'Error desconocido'));
           }
         },
         error: (error) => {
-          alert('Error al modificar usuario');
+          alert('Error al modificar recibo');
           console.error('Error:', error);
         },
       });

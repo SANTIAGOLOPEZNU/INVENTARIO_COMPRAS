@@ -1,101 +1,116 @@
 <div>
-    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearInsumo">Agregar
-        Provedor</button>
 
-    <!-- Formulario que utiliza FormGroup (Reactive Forms) de Angular -->
-    <div id="crearInsumo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form [formGroup]="InsumoForm" (ngSubmit)="submitForm()">
-                        <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
-                        <div>
-                            <label for="codigointerno">Codigo Interno:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="codigointerno" formControlName="CodInterno" type="number" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div *ngIf="InsumoForm.get('CodInterno')?.invalid && InsumoForm.get('CodInterno')?.touched">
-                                Codigo Interno es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="descripcion">Descripcion:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="descripcion" formControlName="Descripcion" type="text" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div
-                                *ngIf="InsumoForm.get('Descripcion')?.invalid && InsumoForm.get('Descripcion')?.touched">
-                                Descripcion es requerido
-                            </div>
-                        </div>
-
-                        <!-- Botón para enviar el formulario -->
-                        <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
-                        <button type="submit" [disabled]="InsumoForm.invalid">Enviar</button>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!--******************************************************************************************-->
-
-    <!--tabla de usuarios-->
-    <h2>Lista de Proveedores Registrados</h2>
-
-    <div>
-        <table class="table table-striped table-hover mat-elevation-z8">
-            <thead style="background-color: blue;">
-                <tr>
-                    <th scope="col">IdProvedor</th>
-                    <th scope="col">Codigo Interno</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let Insumo of Insumos">
-                    <td>{{ Insumo.IdInsumosMat }}</td>
-                    <td>{{ Insumo.CodInterno }}</td>
-                    <td>{{ Insumo.Descripcion }}</td>
-                    <td>
-                        <!-- Botón para modificar el usuario (Angular Material) -->
-                        <!-- <button mat-raised-button color="primary"  data-bs-target="#modificarGrupoUsuario">Modificar</button> -->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- modal de formulario de modificacion de usuarios
-    <div class="modal fade" id="modificarGrupoUsuario"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal para agregar Insumo -->
+    <div class="modal fade" id="agregarInsumo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-body" [formGroup]="modificarGrupoUsuarioForm" *ngIf="GrupousuarioSeleccionado"
-            (ngSubmit)="submitModificarForm()">
-  
-            <div>
-              <label for="modificarClave">Descripcion:</label>
-              <input id="modificarClave" formControlName="Descripcion" type="password">
-            </div>
-  
-            <button type="submit" [disabled]="modificarGrupoUsuarioForm.invalid">Guardar Cambios</button>
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Agregar Insumo</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+
+          <div class="modal-body">
+            <form [formGroup]="InsumoForm" (ngSubmit)="submitForm()">
+              <div class="mb-3">
+                <label for="codigointerno" class="form-label text-success">Código Interno:</label>
+                <input id="codigointerno" formControlName="CodInterno" type="number" class="form-control" />
+                <div *ngIf="InsumoForm.get('CodInterno')?.invalid && InsumoForm.get('CodInterno')?.touched" class="text-danger">
+                  Código Interno es requerido
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="descripcion" class="form-label text-success">Descripción:</label>
+                <input id="descripcion" formControlName="Descripcion" type="text" class="form-control" />
+                <div *ngIf="InsumoForm.get('Descripcion')?.invalid && InsumoForm.get('Descripcion')?.touched" class="text-danger">
+                  Descripción es requerida
+                </div>
+              </div>
+
+              <button type="submit" [disabled]="InsumoForm.invalid" class="btn btn-success w-100">Enviar</button>
+            </form>
+          </div>
+
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" 
-              data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </div>
       </div>
     </div>
-   -->
-    <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
 
+    <!-- Título de la lista de insumos -->
+    <h2 class="mt-4 text-success text-center">Lista de Insumos</h2>
+
+    <!-- Botón para agregar insumo -->
+    <div class="text-center mb-3">
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarInsumo">
+            Agregar Insumo
+        </button>
+    </div>
+
+    <!-- Tabla de insumos -->
+    <div class="table-responsive w-100">
+      <table class="table table-striped table-hover">
+        <thead class="table-success">
+          <tr>
+            <th scope="col">Id_Material</th>
+            <th scope="col">Código Interno</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Insumo of Insumos">
+            <td>{{ Insumo.IdInsumosMat }}</td>
+            <td>{{ Insumo.CodInterno }}</td>
+            <td>{{ Insumo.Descripcion }}</td>
+            <td>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                (click)="editarInsumo(Insumo)" data-bs-target="#modificarInsumos">
+                Modificar
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Modal para modificar Insumos -->
+    <div class="modal fade" id="modificarInsumos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Modificar Insumo</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <form [formGroup]="modificarInsumosForm" (ngSubmit)="submitModificarForm()">
+              <div class="mb-3">
+                <label for="codigointerno" class="form-label text-success">Código Interno:</label>
+                <input id="codigointerno" formControlName="CodInterno" type="number" class="form-control" />
+                <div *ngIf="modificarInsumosForm.get('CodInterno')?.invalid && modificarInsumosForm.get('CodInterno')?.touched" class="text-danger">
+                  Código Interno es requerido
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="descripcion" class="form-label text-success">Descripción:</label>
+                <input id="descripcion" formControlName="Descripcion" type="text" class="form-control"/>
+                <div *ngIf="modificarInsumosForm.get('Descripcion')?.invalid && modificarInsumosForm.get('Descripcion')?.touched" class="text-danger">
+                  Descripción es requerida
+                </div>
+              </div>
+
+              <button type="submit" [disabled]="modificarInsumosForm.invalid" class="btn btn-success w-100">Enviar</button>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>

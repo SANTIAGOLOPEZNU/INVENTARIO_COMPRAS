@@ -19,7 +19,7 @@ export class InsumosService {
     return this.http.post(`${this.apiUrl}/alta.php`, usuarioData);
   }
 
-  modificar(usuario: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/modificacion.php`, usuario);
+  modificar(Insumo: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/modificacion.php`, Insumo);
   }
 }

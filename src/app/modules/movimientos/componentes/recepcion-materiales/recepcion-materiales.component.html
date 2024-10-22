@@ -1,98 +1,117 @@
-<div>
-  <h2>Crear Usuario</h2>
-  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#crearUsuario">Agregar
-    Recibo</button>
+<!-- --------------------------------------------------------------------------- -->
 
-  <div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="container my-4">
+  <!-- Encabezado -->
+  <h2 class="text-center text-success">Nuevo Recibo</h2>
+
+  <!-- Botón para abrir el modal de creación de recibo -->
+  <div class="text-center mb-3">
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#gregarRecibo">
+      Agregar
+    </button>
+  </div>
+
+  <!-- Modal de creación de recibo -->
+  <div class="modal fade" id="agregarRecibo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true" data-keyboard="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title text-success" id="exampleModalLabel">Nuevo Recibo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
         <div class="modal-body">
           <form [formGroup]="recepcionMaterialesForm" (ngSubmit)="submitForm()">
-            <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
-            <div>
-              <label for="Fecha">Fecha</label>
-              <input id="Fecha" formControlName="Fecha" type="date" />
+            <div class="mb-3">
+              <label for="Fecha" class="form-label text-success">Fecha</label>
+              <input id="Fecha" formControlName="Fecha" type="date" class="form-control" />
               <div
-                *ngIf="recepcionMaterialesForm.get('Fecha')?.invalid && recepcionMaterialesForm.get('Fecha')?.touched">
+                *ngIf="recepcionMaterialesForm.get('Fecha')?.invalid && recepcionMaterialesForm.get('Fecha')?.touched"
+                class="text-danger">
                 Fecha es Requerido
               </div>
             </div>
 
-            <div>
-              <label for="Proveedor">Proveedor:</label>
-              <select id="SeleccionarProveedor" formControlName="IdProveedor" class="form-select form-select-lg mb-3"
-                aria-label="Large select example">
+            <div class="mb-3">
+              <label for="Proveedor" class="form-label text-success">Proveedor:</label>
+              <select id="SeleccionarProveedor" formControlName="IdProveedor" class="form-select">
                 <option disabled>Seleccione el Proveedor</option>
                 <option *ngFor="let proveedor of proveedores" value="{{proveedor.IdProvedor}}">{{proveedor.RazonSocial}}
                 </option>
               </select>
               <div
-                *ngIf="recepcionMaterialesForm.get('IdProveedor')?.invalid && recepcionMaterialesForm.get('IdProveedor')?.touched">
+                *ngIf="recepcionMaterialesForm.get('IdProveedor')?.invalid && recepcionMaterialesForm.get('IdProveedor')?.touched"
+                class="text-danger">
                 Seleccione un proveedor
               </div>
             </div>
 
-            <div>
-              <label for="NroRemito">Numero de remito:</label>
-              <input id="NroRemito" formControlName="NroRemito" type="number" />
+            <div class="mb-3">
+              <label for="NroRemito" class="form-label text-success">Numero de remito:</label>
+              <input id="NroRemito" formControlName="NroRemito" type="number" class="form-control" />
               <div
-                *ngIf="recepcionMaterialesForm.get('NroRemito')?.invalid && recepcionMaterialesForm.get('NroRemito')?.touched">
-                Ingresa un email válido
+                *ngIf="recepcionMaterialesForm.get('NroRemito')?.invalid && recepcionMaterialesForm.get('NroRemito')?.touched"
+                class="text-danger">
+                Ingresa un número válido
               </div>
             </div>
 
-            <div>
-              <label for="condventa">Condicion de venta::</label>
-              <input id="condventa" formControlName="CondVenta" type="text" />
+            <div class="mb-3">
+              <label for="condventa" class="form-label text-success">Condicion de venta:</label>
+              <input id="condventa" formControlName="CondVenta" type="text" class="form-control" />
               <div
-                *ngIf="recepcionMaterialesForm.get('CondVenta')?.invalid && recepcionMaterialesForm.get('CondVenta')?.touched">
-                La clave debe tener al menos 6 caracteres
+                *ngIf="recepcionMaterialesForm.get('CondVenta')?.invalid && recepcionMaterialesForm.get('CondVenta')?.touched"
+                class="text-danger">
+                Condición requerida
               </div>
             </div>
 
-            <div>
-              <label for="numcompra">Numero de orden de compra:</label>
-              <input id="numcompra" formControlName="NroOrdenCompra" type="number" />
+            <div class="mb-3">
+              <label for="numcompra" class="form-label text-success">Numero de orden de compra:</label>
+              <input id="numcompra" formControlName="NroOrdenCompra" type="number" class="form-control" />
               <div
-                *ngIf="recepcionMaterialesForm.get('NroOrdenCompra')?.invalid && recepcionMaterialesForm.get('NroOrdenCompra')?.touched">
-                La clave debe tener al menos 6 caracteres
+                *ngIf="recepcionMaterialesForm.get('NroOrdenCompra')?.invalid && recepcionMaterialesForm.get('NroOrdenCompra')?.touched"
+                class="text-danger">
+                Número requerido
               </div>
             </div>
 
-            <div>
-              <label for="firma">Firma digital:</label>
-              <input id="firma" formControlName="FirmaDigital" type="text" />
+            <div class="mb-3">
+              <label for="firma" class="form-label text-success">Firma digital:</label>
+              <input id="firma" formControlName="FirmaDigital" type="text" class="form-control" />
               <div
-                *ngIf="recepcionMaterialesForm.get('FrimaDigital')?.invalid && recepcionMaterialesForm.get('FrimaDigital')?.touched">
-                La clave debe tener al menos 6 caracteres
+                *ngIf="recepcionMaterialesForm.get('FirmaDigital')?.invalid && recepcionMaterialesForm.get('FirmaDigital')?.touched"
+                class="text-danger">
+                Firma requerida
               </div>
             </div>
 
-            <div>
-              <label for="numfactura">Numero de factura:</label>
-              <input id="numfactura" formControlName="NroFact" type="number" />
+            <div class="mb-3">
+              <label for="numfactura" class="form-label text-success">Numero de factura:</label>
+              <input id="numfactura" formControlName="NroFact" type="number" class="form-control" />
               <div
-                *ngIf="recepcionMaterialesForm.get('NroFact')?.invalid && recepcionMaterialesForm.get('NroFact')?.touched">
-                La clave debe tener al menos 6 caracteres
+                *ngIf="recepcionMaterialesForm.get('NroFact')?.invalid && recepcionMaterialesForm.get('NroFact')?.touched"
+                class="text-danger">
+                Número requerido
               </div>
             </div>
 
-            <button type="submit" [disabled]="recepcionMaterialesForm.invalid">Enviar</button>
+            <button type="submit" [disabled]="recepcionMaterialesForm.invalid"
+              class="btn btn-success w-100">Enviar</button>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
 
-  <h2>Recibos</h2>
-
-  <div class="table-responsive  ">
-    <table class="table">
-      <thead class="table-dark">
+  <!-- Tabla de recibos -->
+  <h2 class="text-center text-success mt-5">Recibos</h2>
+  <div class="table-responsive w-100">
+    <table class="table table-bordered table-striped">
+      <thead class="table-success">
         <tr>
           <th scope="col">ID Recibo</th>
           <th scope="col">Fecha</th>
@@ -110,104 +129,108 @@
           <td>{{ recibo.IdRecibo_Recepcion }}</td>
           <td>{{ recibo.Fecha }}</td>
           <td>{{ recibo.NroRemito }}</td>
-          <td>{{ recibo.CondVenta}}</td>
+          <td>{{ recibo.CondVenta }}</td>
           <td>{{ recibo.NroOrdenCompra }}</td>
           <td>{{ recibo.FirmaDigital }}</td>
           <td>{{ recibo.NroFact }}</td>
           <td>{{ recibo.RazonSocial }}</td>
-
           <td>
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-              (click)="editarRecepcionMateriales(recibo)" (click)="guardar(recibo)"
-              data-bs-target="#modificarRecepcionMateriales">Modificar</button>
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+              (click)="editarRecepcionMateriales(recibo)" data-bs-target="#modificarRecepcionMateriales">
+              Modificar
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="modal fade " id="modificarRecepcionMateriales" tabindex="-1" aria-labelledby="exampleModalLabel"
+  <!-- Modal de modificación de recibo -->
+  <div class="modal fade" id="modificarRecepcionMateriales" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title text-success" id="exampleModalLabel">Modificar Recibo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
         <div class="modal-body">
           <form [formGroup]="modificarRecepcionMaterialesForm" (ngSubmit)="submitModificarForm()">
-
-            <div>
-              <label for="Fecha">Fecha</label>
-              <input id="Fecha" formControlName="Fecha" type="date" />
-              <div
-                *ngIf="modificarRecepcionMaterialesForm.get('Fecha')?.invalid && modificarRecepcionMaterialesForm.get('Fecha')?.touched">
-                Fecha es Requerido
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label for="Fecha" class="form-label text-success">Fecha</label>
+                <input id="Fecha" formControlName="Fecha" type="date" class="form-control form-control-sm" />
+                <div *ngIf="recepcionMaterialesForm.get('Fecha')?.invalid && recepcionMaterialesForm.get('Fecha')?.touched" class="text-danger">
+                  Fecha es requerida
+                </div>
+              </div>
+          
+              <div class="col-md-6 mb-2">
+                <label for="Proveedor" class="form-label text-success">Proveedor</label>
+                <select id="SeleccionarProveedor" formControlName="IdProveedor" class="form-select form-select-sm">
+                  <option disabled>Seleccione el Proveedor</option>
+                  <option *ngFor="let proveedor of proveedores" value="{{proveedor.IdProvedor}}">{{proveedor.RazonSocial}}</option>
+                </select>
+                <div *ngIf="recepcionMaterialesForm.get('IdProveedor')?.invalid && recepcionMaterialesForm.get('IdProveedor')?.touched" class="text-danger">
+                  Seleccione un proveedor
+                </div>
               </div>
             </div>
-
-            <div>
-              <label for="Proveedor">Proveedor:</label>
-              <select id="SeleccionarProveedor" formControlName="IdProveedor" class="form-select form-select-lg mb-3"
-                aria-label="Large select example">
-                <option disabled>Seleccione el Proveedor</option>
-                <option *ngFor="let proveedor of proveedores" value="{{proveedor.IdProvedor}}">{{proveedor.RazonSocial}}
-                </option>
-              </select>
-              <div
-                *ngIf="modificarRecepcionMaterialesForm.get('IdProveedor')?.invalid && modificarRecepcionMaterialesForm.get('IdProveedor')?.touched">
-                Seleccione un proveedor
+          
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label for="NroRemito" class="form-label text-success">Número de remito:</label>
+                <input id="NroRemito" formControlName="NroRemito" type="number" class="form-control form-control-sm" />
+                <div *ngIf="recepcionMaterialesForm.get('NroRemito')?.invalid && recepcionMaterialesForm.get('NroRemito')?.touched" class="text-danger">
+                  Ingresa un número válido
+                </div>
+              </div>
+          
+              <div class="col-md-6 mb-2">
+                <label for="condventa" class="form-label text-success">Condición de venta:</label>
+                <input id="condventa" formControlName="CondVenta" type="text" class="form-control form-control-sm" />
+                <div *ngIf="recepcionMaterialesForm.get('CondVenta')?.invalid && recepcionMaterialesForm.get('CondVenta')?.touched" class="text-danger">
+                  Condición requerida
+                </div>
               </div>
             </div>
-
-            <div>
-              <label for="NroRemito">Numero de remito:</label>
-              <input id="NroRemito" formControlName="NroRemito" type="number" />
-              <div
-                *ngIf="modificarRecepcionMaterialesForm.get('NroRemito')?.invalid && modificarRecepcionMaterialesForm.get('NroRemito')?.touched">
-                Ingresa un email válido
+          
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label for="numcompra" class="form-label text-success">Número de orden de compra:</label>
+                <input id="numcompra" formControlName="NroOrdenCompra" type="number" class="form-control form-control-sm" />
+                <div *ngIf="recepcionMaterialesForm.get('NroOrdenCompra')?.invalid && recepcionMaterialesForm.get('NroOrdenCompra')?.touched" class="text-danger">
+                  Número requerido
+                </div>
+              </div>
+          
+              <div class="col-md-6 mb-2">
+                <label for="firma" class="form-label text-success">Firma digital:</label>
+                <input id="firma" formControlName="FirmaDigital" type="text" class="form-control form-control-sm" />
+                <div *ngIf="recepcionMaterialesForm.get('FirmaDigital')?.invalid && recepcionMaterialesForm.get('FirmaDigital')?.touched" class="text-danger">
+                  Firma requerida
+                </div>
               </div>
             </div>
-
-            <div>
-              <label for="condventa">Condicion de venta::</label>
-              <input id="condventa" formControlName="CondVenta" type="text" />
-              <div
-                *ngIf="modificarRecepcionMaterialesForm.get('CondVenta')?.invalid && modificarRecepcionMaterialesForm.get('CondVenta')?.touched">
-                La clave debe tener al menos 6 caracteres
+          
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label for="numfactura" class="form-label text-success">Número de factura:</label>
+                <input id="numfactura" formControlName="NroFact" type="number" class="form-control form-control-sm" />
+                <div *ngIf="recepcionMaterialesForm.get('NroFact')?.invalid && recepcionMaterialesForm.get('NroFact')?.touched" class="text-danger">
+                  Número requerido
+                </div>
               </div>
             </div>
-
-            <div>
-              <label for="numcompra">Numero de orden de compra:</label>
-              <input id="numcompra" formControlName="NroOrdenCompra" type="number" />
-              <div
-                *ngIf="modificarRecepcionMaterialesForm.get('NroOrdenCompra')?.invalid && modificarRecepcionMaterialesForm.get('NroOrdenCompra')?.touched">
-                La clave debe tener al menos 6 caracteres
-              </div>
-            </div>
-
-            <div>
-              <label for="firma">Firma digital:</label>
-              <input id="firma" formControlName="FirmaDigital" type="text" />
-              <div
-                *ngIf="modificarRecepcionMaterialesForm.get('FrimaDigital')?.invalid && modificarRecepcionMaterialesForm.get('FrimaDigital')?.touched">
-                La clave debe tener al menos 6 caracteres
-              </div>
-            </div>
-
-            <div>
-              <label for="numfactura">Numero de factura:</label>
-              <input id="numfactura" formControlName="NroFact" type="number" />
-              <div
-                *ngIf="modificarRecepcionMaterialesForm.get('NroFact')?.invalid && modificarRecepcionMaterialesForm.get('NroFact')?.touched">
-                La clave debe tener al menos 6 caracteres
-              </div>
-            </div>
-            <button type="submit" [disabled]="modificarRecepcionMaterialesForm.invalid">Guardar
-              Cambios</button>
+          
+            <button type="submit" [disabled]="modificarRecepcionMaterialesForm.invalid" class="btn btn-success w-100 mt-2">Guardar Cambios</button>
           </form>
+          
 
           <!-- Tabla de detalles -->
           <div class="table-responsive">
             <table class="table">
-              <thead class="table-dark">
+              <thead class="table-success">
                 <tr>
                   <th scope="col">Id</th>
                   <th scope="col">Id_Recibo</th>
@@ -220,44 +243,33 @@
                   <td>{{ detalle.IdDetalleRecRecepcion }}</td>
                   <td>{{ detalle.IdRecibo_Recepcion }}</td>
                   <td>{{ detalle.Descripcion }}</td>
-                  <td>{{ detalle.Cantidad}}</td>
+                  <td>{{ detalle.Cantidad }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm() ">
+          <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm()">
+            <div class="mb-3">
+              <label for="Material" class="form-label text-success">Materiales</label>
+              <select id="Material" formControlName="IdInsumosMat" class="form-select">
+                <option disabled>Seleccione el Insumo</option>
+                <option *ngFor="let Insumo of Insumos" value="{{Insumo.IdInsumosMat}}">{{Insumo.Descripcion}}</option>
+              </select>
+            </div>
 
+            <div class="mb-3">
+              <label for="Cantidad" class="form-label text-success">Cantidad</label>
+              <input id="Cantidad" formControlName="Cantidad" type="number" class="form-control" />
+            </div>
 
-            <!-- <label for="IdCabecera">Cabecera</label>
-
-            <input id="IdCabecera" type="number" formControlName="IdRecibo_Recepcion" value=""> -->
-
-
-            <label for="Material">Materiales</label>
-
-            <select id="Material" formControlName="IdInsumosMat" class="form-select form-select-lg mb-3"
-              aria-label="Large select example">
-              <option disabled>Seleccione el Insumo</option>
-              <option *ngFor="let Insumo of Insumos" value="{{Insumo.IdInsumosMat}}">{{Insumo.Descripcion}}
-              </option>
-            </select>
-
-            <label for="Cantidad">Cantidad</label>
-            <input id="Cantidad" formControlName="Cantidad" type="number">
-
-            <button type="submit" [disabled]="DetallesRecForm.invalid">Guardar
-              Cambios</button>
-
+            <button type="submit" class="btn btn-success w-100">Guardar Detalle</button>
           </form>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
-
-    <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
   </div>
 </div>

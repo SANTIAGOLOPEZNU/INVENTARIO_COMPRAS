@@ -88,28 +88,29 @@ export class InsumosComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(Grupousuario: any) {
-    this.InsumoSeleccionado = Grupousuario;
+  editarInsumo(Insumo: any) {
+    this.InsumoSeleccionado = Insumo;
     this.modificarInsumosForm.patchValue({
-      Descripcion: Grupousuario.Descripcion
+      CodInterno: Insumo.CodInterno,
+      Descripcion: Insumo.Descripcion
     });
   }
 
   // Método para enviar el formulario de modificación
   submitModificarForm() {
     if (this.modificarInsumosForm.valid) {
-      const GrupousuarioModificado = {
+      const InsumoModificado = {
         ...this.InsumoSeleccionado,
         ...this.modificarInsumosForm.value
       };
-      this.servicioInsumos.modificar(GrupousuarioModificado).subscribe({
+      this.servicioInsumos.modificar(InsumoModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario modificado con éxito');
+            alert('Insumo modificado con éxito');
             this.InsumoSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarInsumos(); // Actualizar la lista de usuarios
           } else {
-            alert('Error al modificar usuario: ' + (response['mensaje'] || 'Error desconocido'));
+            alert('Error al modificar Insumo: ' + (response['mensaje'] || 'Error desconocido'));
           }
         },
         error: (error) => {

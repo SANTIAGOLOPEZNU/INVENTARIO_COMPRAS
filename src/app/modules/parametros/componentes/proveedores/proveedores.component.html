@@ -1,207 +1,184 @@
-<div>
-    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-        data-bs-target="#crearProvedor">Agregar
-        Provedor</button>
+<div>    
+       <!-- Button trigger modal -->
 
-    <!-- Formulario que utiliza FormGroup (Reactive Forms) de Angular -->
-    <div id="crearProvedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      
+    
+    
+      <!-- ReactiveForm para agregar nuevos proveedores -->
+      <div class="modal fade" id="agregarProveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <form [formGroup]="ProveedorForm" (ngSubmit)="submitForm()">
-                        <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
-                        <div>
-                            <label for="codigoproveedor">Codigo de Provedor:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="codigoproveedor" formControlName="CodProvedor" type="number" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div
-                                *ngIf="ProveedorForm.get('CodProvedor')?.invalid && ProveedorForm.get('CodProvedor')?.touched">
-                                Codigo de Provedor es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="razonsocial">Razon Social:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="razonsocial" formControlName="RazonSocial" type="text" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div
-                                *ngIf="ProveedorForm.get('RazonSocial')?.invalid && ProveedorForm.get('RazonSocial')?.touched">
-                                Razon Social es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="direccion">Direccion:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="direccion" formControlName="Direccion" type="text" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div
-                                *ngIf="ProveedorForm.get('Direccion')?.invalid && ProveedorForm.get('Direccion')?.touched">
-                                Direccion es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="email">Email:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="email" formControlName="Email" type="text" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div *ngIf="ProveedorForm.get('Email')?.invalid && ProveedorForm.get('Email')?.touched">
-                                Email es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="codigopostal">Codigo Postal:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="codigopostal" formControlName="CodPostal" type="number" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div
-                                *ngIf="ProveedorForm.get('CodPostal')?.invalid && ProveedorForm.get('CodPostal')?.touched">
-                                Codigo Postal es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="ciudad">Ciudad:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="ciudad" formControlName="Ciudad" type="text" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div *ngIf="ProveedorForm.get('Ciudad')?.invalid && ProveedorForm.get('Ciudad')?.touched">
-                                Ciudad es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="telefono">Telefono:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="telefono" formControlName="Telefono" type="text" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div
-                                *ngIf="ProveedorForm.get('Telefono')?.invalid && ProveedorForm.get('Telefono')?.touched">
-                                Telefono es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="condicioniva">Condicion del IVA:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <select id="condicioniva" formControlName="CondIVA" aria-label="Large select example">
-                                <option disabled>Seleccione la condicion de IVA</option>
-                                <option value="Monotributista">Monotributista</option>
-                                <option value="Responsable Inscripto">Responsable Inscripto</option>
-                            </select>
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div *ngIf="ProveedorForm.get('CondIVA')?.invalid && ProveedorForm.get('CondIVA')?.touched">
-                                Condicion de IVA es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="cuit">CUIT:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="cuit" formControlName="CUIT" type="number" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div *ngIf="ProveedorForm.get('CUIT')?.invalid && ProveedorForm.get('CUIT')?.touched">
-                                CUIT es requerido
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="inicioactividad">Inicio de Actividad:</label>
-                            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-                            <input id="inicioactividad" formControlName="InicioAct" type="date" />
-                            <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-                            <div
-                                *ngIf="ProveedorForm.get('InicioAct')?.invalid && ProveedorForm.get('InicioAct')?.touched">
-                                Inicio de Actividad es requerido
-                            </div>
-                        </div>
-
-                        <!-- Botón para enviar el formulario -->
-                        <!-- Se deshabilita el botón si el formulario es inválido (por ejemplo, si no se han completado los campos obligatorios) -->
-                        <button type="submit" [disabled]="ProveedorForm.invalid">Enviar</button>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Agregar Proveedor</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
-
-
-    <!--******************************************************************************************-->
-
-    <!--tabla de usuarios-->
-    <h2>Lista de Proveedores Registrados</h2>
-
-    <div>
-        <table class="table table-striped table-hover mat-elevation-z8">
-            <thead style="background-color: blue;">
-                <tr>
-                    <th scope="col">IdProvedor</th>
-                    <th scope="col">Codigo de Provedor</th>
-                    <th scope="col">Razon Social</th>
-                    <th scope="col">Direccion</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Codigo Postal</th>
-                    <th scope="col">Ciudad</th>
-                    <th scope="col">Telefono</th>
-                    <th scope="col">Condicion de IVA</th>
-                    <th scope="col">CUIT</th>
-                    <th scope="col">Inicio de Actividad</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let provedor of Proveedores">
-                    <td>{{ provedor.IdProvedor }}</td>
-                    <td>{{ provedor.CodProvedor }}</td>
-                    <td>{{ provedor.RazonSocial }}</td>
-                    <td>{{ provedor.Direccion}}</td>
-                    <td>{{ provedor.Email }}</td>
-                    <td>{{ provedor.CodPostal }}</td>
-                    <td>{{ provedor.Ciudad }}</td>
-                    <td>{{ provedor.Telefono }}</td>
-                    <td>{{ provedor.CondIVA }}</td>
-                    <td>{{ provedor.CUIT }}</td>
-                    <td>{{ provedor.InicioAct }}</td>
-                    <td>
-                        <!-- Botón para modificar el usuario (Angular Material) -->
-                        <!-- <button mat-raised-button color="primary"  data-bs-target="#modificarGrupoUsuario">Modificar</button> -->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- modal de formulario de modificacion de usuarios
-    <div class="modal fade" id="modificarGrupoUsuario"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body" [formGroup]="modificarGrupoUsuarioForm" *ngIf="GrupousuarioSeleccionado"
-            (ngSubmit)="submitModificarForm()">
-  
-            <div>
-              <label for="modificarClave">Descripcion:</label>
-              <input id="modificarClave" formControlName="Descripcion" type="password">
+    
+            <div class="modal-body">
+                <form [formGroup]="ProveedorForm" (ngSubmit)="submitForm()">
+                    <!-- El formGroup 'ProveedorForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
+                    <div class="mb-3">
+                        <label for="codigoproveedor" class="form-label">Código de Proveedor:</label>
+                        <input id="codigoproveedor" class="form-control" formControlName="CodProvedor" type="number" />
+                        <div *ngIf="ProveedorForm.get('CodProvedor')?.invalid && ProveedorForm.get('CodProvedor')?.touched" class="text-danger">
+                            Código de Proveedor es requerido
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="razonsocial" class="form-label">Razón Social:</label>
+                        <input id="razonsocial" class="form-control" formControlName="RazonSocial" type="text" />
+                        <div *ngIf="ProveedorForm.get('RazonSocial')?.invalid && ProveedorForm.get('RazonSocial')?.touched" class="text-danger">
+                            Razón Social es requerido
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección:</label>
+                        <input id="direccion" class="form-control" formControlName="Direccion" type="text" />
+                        <div *ngIf="ProveedorForm.get('Direccion')?.invalid && ProveedorForm.get('Direccion')?.touched" class="text-danger">
+                            Dirección es requerida
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input id="email" class="form-control" formControlName="Email" type="text" />
+                        <div *ngIf="ProveedorForm.get('Email')?.invalid && ProveedorForm.get('Email')?.touched" class="text-danger">
+                            Email es requerido
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="codigopostal" class="form-label">Código Postal:</label>
+                        <input id="codigopostal" class="form-control" formControlName="CodPostal" type="number" />
+                        <div *ngIf="ProveedorForm.get('CodPostal')?.invalid && ProveedorForm.get('CodPostal')?.touched" class="text-danger">
+                            Código Postal es requerido
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="ciudad" class="form-label">Ciudad:</label>
+                        <input id="ciudad" class="form-control" formControlName="Ciudad" type="text" />
+                        <div *ngIf="ProveedorForm.get('Ciudad')?.invalid && ProveedorForm.get('Ciudad')?.touched" class="text-danger">
+                            Ciudad es requerida
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono:</label>
+                        <input id="telefono" class="form-control" formControlName="Telefono" type="text" />
+                        <div *ngIf="ProveedorForm.get('Telefono')?.invalid && ProveedorForm.get('Telefono')?.touched" class="text-danger">
+                            Teléfono es requerido
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="condicioniva" class="form-label">Condición del IVA:</label>
+                        <select id="condicioniva" class="form-select" formControlName="CondIVA">
+                            <option disabled selected>Seleccione la condición de IVA</option>
+                            <option value="Monotributista">Monotributista</option>
+                            <option value="Responsable Inscripto">Responsable Inscripto</option>
+                        </select>
+                        <div *ngIf="ProveedorForm.get('CondIVA')?.invalid && ProveedorForm.get('CondIVA')?.touched" class="text-danger">
+                            Condición de IVA es requerida
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="cuit" class="form-label">CUIT:</label>
+                        <input id="cuit" class="form-control" formControlName="CUIT" type="number" />
+                        <div *ngIf="ProveedorForm.get('CUIT')?.invalid && ProveedorForm.get('CUIT')?.touched" class="text-danger">
+                            CUIT es requerido
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="inicioactividad" class="form-label">Inicio de Actividad:</label>
+                        <input id="inicioactividad" class="form-control" formControlName="InicioAct" type="date" />
+                        <div *ngIf="ProveedorForm.get('InicioAct')?.invalid && ProveedorForm.get('InicioAct')?.touched" class="text-danger">
+                            Inicio de Actividad es requerido
+                        </div>
+                    </div>
+    
+                    <!-- Botón para enviar el formulario -->
+                    <button type="submit" class="btn btn-success" [disabled]="ProveedorForm.invalid">Enviar</button>
+                </form>
             </div>
-  
-            <button type="submit" [disabled]="modificarGrupoUsuarioForm.invalid">Guardar Cambios</button>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" 
-              data-bs-dismiss="modal">Cerrar</button>
+    
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
           </div>
         </div>
       </div>
+    
+      <!-- tabla de proveedores -->
+      <h2 class="text-success text-center">Lista de Proveedores Registrados</h2>
+
+             <!-- Button trigger modal -->
+      <div class="text-center mb-3">
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarProveedor">
+         Agregar
+       </button>
+
     </div>
-   -->
-    <!-- Formulario para modificar usuario, solo visible si se seleccionó un usuario para editar -->
-
-
-</div>
+    
+      <div>
+          <table class="table table-striped table-hover">
+              <thead class="table-success">
+                  <tr>
+                      <th scope="col">Id_Provedor</th>
+                      <th scope="col">Cod_Proveedor</th>
+                      <th scope="col">Razón_Social</th>
+                      <th scope="col">Dirección</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">CP</th>
+                      <th scope="col">Ciudad</th>
+                      <th scope="col">Teléfono</th>
+                      <th scope="col">Cond_IVA</th>
+                      <th scope="col">CUIT</th>
+                      <th scope="col">Inicio_Actividad</th>
+                      <th scope="col">Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let provedor of Proveedores">
+                      <td>{{ provedor.IdProvedor }}</td>
+                      <td>{{ provedor.CodProvedor }}</td>
+                      <td>{{ provedor.RazonSocial }}</td>
+                      <td>{{ provedor.Direccion}}</td>
+                      <td>{{ provedor.Email }}</td>
+                      <td>{{ provedor.CodPostal }}</td>
+                      <td>{{ provedor.Ciudad }}</td>
+                      <td>{{ provedor.Telefono }}</td>
+                      <td>{{ provedor.CondIVA }}</td>
+                      <td>{{ provedor.CUIT }}</td>
+                      <td>{{ provedor.InicioAct }}</td>
+                      <td>
+                          <button class="btn btn-outline-success" data-bs-target="#modificarGrupoUsuario">Modificar</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    
+      <!-- modal de formulario de modificacion de proveedores
+      <div class="modal fade" id="modificarGrupoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body" [formGroup]="modificarGrupoUsuarioForm" *ngIf="GrupousuarioSeleccionado" (ngSubmit)="submitModificarForm()">
+              <div>
+                <label for="modificarClave">Descripción:</label>
+                <input id="modificarClave" formControlName="Descripcion" type="password">
+              </div>
+    
+              <button type="submit" [disabled]="modificarGrupoUsuarioForm.invalid">Guardar Cambios</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      -->
+    
