@@ -6,7 +6,7 @@
 
   <!-- Botón para abrir el modal de creación de recibo -->
   <div class="text-center mb-3">
-    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#gregarRecibo">
+    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarRecibo">
       Agregar
     </button>
   </div>
@@ -251,6 +251,10 @@
 
           <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm()">
             <div class="mb-3">
+              
+              <!-- <label for="IdRecibo_Recepcion">ID cabecera</label>
+              <input id="IdRecibo_Recepcion" formControlName="IdRecibo_Recepcion" type="number" [disabled]="true"> -->
+
               <label for="Material" class="form-label text-success">Materiales</label>
               <select id="Material" formControlName="IdInsumosMat" class="form-select">
                 <option disabled>Seleccione el Insumo</option>
@@ -260,7 +264,7 @@
 
             <div class="mb-3">
               <label for="Cantidad" class="form-label text-success">Cantidad</label>
-              <input id="Cantidad" formControlName="Cantidad" type="number" class="form-control" />
+              <input id="Cantidad" formControlName="Cantidad" type="number" class="form-control"  />
             </div>
 
             <button type="submit" class="btn btn-success w-100">Guardar Detalle</button>

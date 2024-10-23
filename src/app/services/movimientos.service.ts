@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,10 @@ export class MovimientosService {
   }
 
   recuperar(): Observable<any> {
+
+    
     return this.http.get(`${this.apiUrl1}/recuperartodos.php`);
+
   }
 
   // Nuevo método para modificar un usuario
@@ -38,23 +41,24 @@ export class MovimientosService {
 
 
 //Metodos para detalles
-  altaDetail(usuarioData: any, numerorecibo: number): Observable<any> {
- 
-    const datos = {
-      datos: usuarioData,
-      numrecibo: numerorecibo
+  altaDetail(usuarioData: any, recibo: any): Observable<any> {
+
+
+    const datos={
+      usuarioData: usuarioData,
+      recibo: recibo
     }
-console.log(usuarioData)
-    alert(numerorecibo)
     return this.http.post(`${this.apiUrl2}/alta.php`, datos);
-    headers: {
-      'Content-Type'; 
-      'application/json'  // Asegúrate de que este header esté presente
-  }
   }
 
-  recuperarDetail(): Observable<any> {
-    return this.http.get(`${this.apiUrl2}/recuperartodos.php`);
+  recuperarDetail(recibo: number ): Observable<any> {
+
+    console.log('este es el valor de array:', recibo)
+    let params = new HttpParams().set('recibo', recibo.toString());
+
+    console.log('este es el valor de array:', params)
+
+    return this.http.get(`${this.apiUrl2}/recuperartodos.php`, {params});
   }
 
   // Nuevo método para modificar un usuario

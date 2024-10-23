@@ -16,7 +16,7 @@ export class RecepcionMaterialesComponent implements OnInit {
   modificarRecepcionMaterialesForm: FormGroup; // Formulario para modificar usuario
   cabeceraReciboSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
   proveedores: any[] = []; // Arreglo donde se van a guardar los proveedores
-  Reciboseleccionado: number = 0;
+  Reciboseleccionado: number=0;
 
   //------------------Detalles de Movimientos------------------------------
   DetallesRecForm:FormGroup; //formulario para manejar el detalle de los recibos 
@@ -60,7 +60,6 @@ export class RecepcionMaterialesComponent implements OnInit {
     this.recuperarUsuarios();  // Al iniciar el componente, se recuperan los usuarios de la base de datos
     this.recuperarProveedores();
     this.recuperarInsumos();
-    this.recuperarDetalles();
    
   }
 
@@ -161,7 +160,13 @@ export class RecepcionMaterialesComponent implements OnInit {
   // Método para seleccionar un usuario y poblar el formulario de modificación
   editarRecepcionMateriales(recibo: any) {
     this.cabeceraReciboSeleccionado = recibo;
-    this.Reciboseleccionado = recibo.IdRecibo_Recepcion;
+
+    this.Reciboseleccionado = recibo.IdRecibo_Recepcion
+
+    this.recuperarDetalles(this.Reciboseleccionado);
+
+console.log('mostrando desde editarrecep el valor de recibo es:  ', this.Reciboseleccionado)
+
     this.modificarRecepcionMaterialesForm.patchValue({
       Fecha: recibo.Fecha,
       NroRemito: recibo.NroRemito,
@@ -171,18 +176,17 @@ export class RecepcionMaterialesComponent implements OnInit {
       NroFact: recibo.NroFact,
       IdProveedor: recibo.IdProveedor
     });
-  }
 
- guardar(recibo:any){
-  this.Reciboseleccionado= recibo.IdRecibo_Recepcion
- }
+  }
 
 
 
 //recupera la lista de los detalles de la bd
-  recuperarDetalles() {
-    console.log(this.Reciboseleccionado)
-    this.servicioMovimientos.recuperarDetail().subscribe({
+  recuperarDetalles(recibo: any) {
+
+    console.log('este es el valor del recibo desde recuperardetalles ', recibo)
+
+    this.servicioMovimientos.recuperarDetail(recibo).subscribe({
       next: (response) => {
         // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
         if (Array.isArray(response)) {
@@ -197,7 +201,6 @@ export class RecepcionMaterialesComponent implements OnInit {
         console.error('Error al recuperar detalles:', error);
       }
     });
-    console.log(this.Detalles)
 
     }
 
@@ -210,18 +213,17 @@ export class RecepcionMaterialesComponent implements OnInit {
     // Solo continúa si el formulario es válido
     if (this.DetallesRecForm.valid) {
 
-      const usuarioData = this.DetallesRecForm.value; 
-      const numerorecibo = this.Reciboseleccionado // Se obtienen los valores del formulario
-
+      const usuarioData = this.DetallesRecForm.value;  // Se obtienen los valores del formulario
+      const Recibo = this.Reciboseleccionado
       
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.servicioMovimientos.altaDetail(usuarioData, numerorecibo ).subscribe({
+      this.servicioMovimientos.altaDetail(usuarioData, Recibo ).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
             alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
             this.DetallesRecForm.reset();  // Se resetea el formulario
-            this.recuperarDetalles();  // Se actualiza la lista de usuarios
+            this.recuperarDetalles(this.Reciboseleccionado);  // Se actualiza la lista de usuarios
             console.log(usuarioData)
           } else {
             // Si hay un error, se muestra el mensaje recibido del servidor

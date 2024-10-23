@@ -88,7 +88,9 @@ Estilo general para el modal
     color: white;
   }
 
-
+.modal-backdrop{
+  display: none;
+}
 
   
   
