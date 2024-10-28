@@ -29,7 +29,7 @@ export class ProveedoresComponent implements OnInit {
       Ciudad: ['', Validators.required], //campo obligatorio
       Telefono: ['', Validators.required], //campo obligatorio
       CondIVA: ['', Validators.required], //campo obligatorio
-      CUIT: [0, [Validators.required, Validators.maxLength(11)]], //campo obligatorio
+      CUIT: [0, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], //campo obligatorio
       InicioAct: ['', Validators.required], //campo obligatorio
     });
 
@@ -38,12 +38,12 @@ export class ProveedoresComponent implements OnInit {
       CodProvedor: [0, Validators.required], //campo obligatorio
       RazonSocial: ['', Validators.required], //campo obligatorio
       Direccion: ['', Validators.required], //campo obligatorio
-      Email: ['', Validators.required, Validators.email], //campo obligatorio
+      Email: ['',[Validators.required, Validators.email]], //campo obligatorio
       CodPostal: [0, Validators.required], //campo obligatorio
       Ciudad: ['', Validators.required], //campo obligatorio
       Telefono: ['', Validators.required], //campo obligatorio
       CondIVA: ['', Validators.required], //campo obligatorio
-      CUIT: [0, Validators.required], //campo obligatorio
+      CUIT: [0,  [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], //campo obligatorio
       InicioAct: ['', Validators.required], //campo obligatorio
     });
   }
@@ -82,17 +82,17 @@ export class ProveedoresComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
+            alert('Proveedor agregado con éxito');  //  Se muestra un mensaje de éxito
             this.ProveedorForm.reset();  // Se resetea el formulario
             this.recuperarProveedores();  // Se actualiza la lista de usuarios
           } else {
             // Si hay un error, se muestra el mensaje recibido del servidor
-            alert('Error al crear usuario: ' + (response['mensaje'] || 'Error desconocido'));
+            alert('Error al agregar proveedor: ' + (response['mensaje'] || 'Error desconocido'));
           }
         },
         error: (error) => {
           // En caso de error, se muestra un mensaje de error
-          alert('Error al crear usuario');
+          alert('Error al agregar proveedor');
           console.error('Error:', error);  // Se registra el error en la consola
         },
       });
@@ -103,32 +103,46 @@ export class ProveedoresComponent implements OnInit {
   }
 
   // Método para seleccionar un usuario y poblar el formulario de modificación
-  editarUsuario(Grupousuario: any) {
-    this.ProvedorSeleccionado = Grupousuario;
+  editarProveedor(proveedor: any) {
+    this.ProvedorSeleccionado = proveedor;
+    console.log(proveedor)
     this.modificarProvedorForm.patchValue({
-      Descripcion: Grupousuario.Descripcion
-    });
+  
+        CodProvedor: proveedor.CodProvedor,
+        RazonSocial: proveedor.RazonSocial,
+        Direccion: proveedor.Direccion,
+        Email: proveedor.Email,
+        CodPostal: proveedor.CodPostal,
+        Ciudad: proveedor.Ciudad,
+        Telefono: proveedor.Telefono,
+        CondIVA: proveedor.CondIVA,
+        CUIT: proveedor.Cuit,
+        InicioAct: proveedor.InicioAct,
+
+
+        
+ });
   }
 
   // Método para enviar el formulario de modificación
   submitModificarForm() {
     if (this.modificarProvedorForm.valid) {
-      const GrupousuarioModificado = {
+      const ProveedorModificado = {
         ...this.ProvedorSeleccionado,
         ...this.modificarProvedorForm.value
       };
-      this.servicioProveedores.modificar(GrupousuarioModificado).subscribe({
+      this.servicioProveedores.modificar(ProveedorModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario modificado con éxito');
+            alert('Proveedor modificado con éxito');
             this.ProvedorSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarProveedores(); // Actualizar la lista de usuarios
           } else {
-            alert('Error al modificar usuario: ' + (response['mensaje'] || 'Error desconocido'));
+            alert('Error al modificar proveedor: ' + (response['mensaje'] || 'Error desconocido'));
           }
         },
         error: (error) => {
-          alert('Error al modificar usuario');
+          alert('Error al modificar proveedor');
           console.error('Error:', error);
         },
       });

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
 
-  constructor(private fb: FormBuilder, private usuarioService: UsuariosService) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuariosService, private router: Router) {
     this.loginForm = this.fb.group({
       mail: ['', [Validators.required, Validators.email]],
       clave: ['', [Validators.required, Validators.minLength(6)]],
@@ -21,18 +23,27 @@ export class LoginComponent {
   //login es una funcion de usuarioService que nos habilita el menu 
   login() {
     this.usuarioService.login();
+    this.router.navigate(['/inicio'])
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
       const { mail, clave } = this.loginForm.value;
       this.usuarioService.inicioSesion(mail, clave).subscribe(response => {
-        console.log('Server Response:', response);
         if (response.success) {
           // Redirect to the desired page
-          console.log('Login successful');
+          this.login()
+          Swal.fire({
+            title: 'Bienvenido',
+            text: " Ha ingresado con éxito!",
+            icon: "success"
+          });
         } else {
-          this.loginError = 'Invalid email or password';
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Verifique el usuario y la contraseña",
+          });
         }
       });
     }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { GrupousuariosService } from 'src/app/services/grupousuarios.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-usuarios',
@@ -91,24 +91,23 @@ export class UsuariosComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
-            this.usuarioForm.reset();  // Se resetea el formulario
+            Swal.fire({
+              title: 'Bienvenido!',
+              text: " Se ha registrado con éxito",
+              icon: "success"
+            });
+           this.usuarioForm.reset();  // Se resetea el formulario
             this.recuperarUsuarios();  // Se actualiza la lista de usuarios
-            console.log(usuarioData)
+
           } else {
             // Si hay un error, se muestra el mensaje recibido del servidor
-            alert('Error al crear usuario: ' + (response['mensaje'] || 'Error desconocido'));
+            console.log('Error al crear usuario: ' + (response['mensaje'] || 'Error desconocido'));
           }
         },
         error: (error) => {
-          // En caso de error, se muestra un mensaje de error
-          alert('Error al crear usuario');
           console.error('Error:', error);  // Se registra el error en la consola
         },
       });
-    } else {
-      // Si el formulario no es válido, se muestra un mensaje al usuario
-      alert('Por favor, completa todos los campos correctamente');
     }
   }
 

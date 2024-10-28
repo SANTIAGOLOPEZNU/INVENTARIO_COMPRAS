@@ -57,14 +57,14 @@ export class RecepcionMaterialesComponent implements OnInit {
 
   // Este método se ejecuta cuando el componente se inicializa
   ngOnInit(): void {
-    this.recuperarUsuarios();  // Al iniciar el componente, se recuperan los usuarios de la base de datos
+    this.recuperarRecibos();  // Al iniciar el componente, se recuperan los usuarios de la base de datos
     this.recuperarProveedores();
     this.recuperarInsumos();
    
   }
 
   // Método para recuperar la lista de recibos de la base de datos
-  recuperarUsuarios() {
+  recuperarRecibos() {
     this.servicioMovimientos.recuperar().subscribe({
       next: (response) => {
         // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
@@ -105,16 +105,16 @@ export class RecepcionMaterialesComponent implements OnInit {
   submitForm() {
     // Solo continúa si el formulario es válido
     if (this.recepcionMaterialesForm.valid) {
-      const usuarioData = this.recepcionMaterialesForm.value;  // Se obtienen los valores del formulario
+      const ReciboData = this.recepcionMaterialesForm.value;  // Se obtienen los valores del formulario
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.servicioMovimientos.alta(usuarioData).subscribe({
+      this.servicioMovimientos.alta(ReciboData).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
             alert('Recibo creado con éxito');  //  Se muestra un mensaje de éxito
             this.recepcionMaterialesForm.reset();  // Se resetea el formulario
-            this.recuperarUsuarios();  // Se actualiza la lista de usuarios
-            console.log(usuarioData)
+            this.recuperarRecibos();  // Se actualiza la lista de usuarios
+            console.log(ReciboData)
           } else {
             // Si hay un error, se muestra el mensaje recibido del servidor
             alert('Error al crear recibo: ' + (response['mensaje'] || 'Error desconocido'));
@@ -135,16 +135,16 @@ export class RecepcionMaterialesComponent implements OnInit {
   // Método para enviar el formulario de modificación
   submitModificarForm() {
     if (this.modificarRecepcionMaterialesForm.valid) {
-      const usuarioModificado = {
+      const ReciboModificado = {
         ...this.cabeceraReciboSeleccionado,
         ...this.modificarRecepcionMaterialesForm.value
       };
-      this.servicioMovimientos.modificar(usuarioModificado).subscribe({
+      this.servicioMovimientos.modificar(ReciboModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
             alert('Recibo modificado con éxito');
             this.cabeceraReciboSeleccionado = null; // Ocultar el formulario después de modificar
-            this.recuperarUsuarios(); // Actualizar la lista de usuarios
+            this.recuperarRecibos(); // Actualizar la lista de usuarios
           } else {
             alert('Error al modificar recibo: ' + (response['mensaje'] || 'Error desconocido'));
           }
@@ -164,8 +164,6 @@ export class RecepcionMaterialesComponent implements OnInit {
     this.Reciboseleccionado = recibo.IdRecibo_Recepcion
 
     this.recuperarDetalles(this.Reciboseleccionado);
-
-console.log('mostrando desde editarrecep el valor de recibo es:  ', this.Reciboseleccionado)
 
     this.modificarRecepcionMaterialesForm.patchValue({
       Fecha: recibo.Fecha,
@@ -213,18 +211,17 @@ console.log('mostrando desde editarrecep el valor de recibo es:  ', this.Recibos
     // Solo continúa si el formulario es válido
     if (this.DetallesRecForm.valid) {
 
-      const usuarioData = this.DetallesRecForm.value;  // Se obtienen los valores del formulario
+      const DetailData = this.DetallesRecForm.value;  // Se obtienen los valores del formulario
       const Recibo = this.Reciboseleccionado
       
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.servicioMovimientos.altaDetail(usuarioData, Recibo ).subscribe({
+      this.servicioMovimientos.altaDetail(DetailData, Recibo ).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
             alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
             this.DetallesRecForm.reset();  // Se resetea el formulario
             this.recuperarDetalles(this.Reciboseleccionado);  // Se actualiza la lista de usuarios
-            console.log(usuarioData)
           } else {
             // Si hay un error, se muestra el mensaje recibido del servidor
             alert('Error al añadir detalle: ' + (response['mensaje'] || 'Error desconocido'));

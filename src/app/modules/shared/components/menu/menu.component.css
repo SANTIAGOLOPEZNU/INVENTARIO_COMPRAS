@@ -13,6 +13,7 @@ html, body, mat-sidenav-container {
     background-color: #A8CF45;
     width: 230px;
     height: 100vh;
+    padding-top: 70px; /* Ajusta este valor si es necesario */
 }
 
 .app-sidenav-content {
@@ -20,6 +21,8 @@ html, body, mat-sidenav-container {
     display: flex;
     align-items: center;
     justify-content: center;
+padding-bottom: 50px; 
+padding-top: 100px; 
 
 }
 
@@ -28,6 +31,12 @@ html, body, mat-sidenav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed; /* Fija la barra de navegación */
+    top: 0; /* Se mantiene en la parte superior */
+    left: 0; /* Se alinea a la izquierda */
+    right: 0; /* Se alinea a la derecha */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+
 }
 
 .menu-button, .logout-button {

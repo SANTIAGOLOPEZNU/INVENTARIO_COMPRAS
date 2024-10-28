@@ -15,11 +15,11 @@ export class ProveedoresService {
     return this.http.get(`${this.apiUrl}/recuperartodos.php`);
   }
 
-  alta(usuarioData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/alta.php`, usuarioData);
+  alta(ProveedorData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/alta.php`, ProveedorData);
   }
 
-  modificar(usuario: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/modificacion.php`, usuario);
+  modificar(Proveedor: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/modificacion.php`, Proveedor);
   }
 }

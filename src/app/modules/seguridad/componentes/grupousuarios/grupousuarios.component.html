@@ -1,13 +1,6 @@
 <div class="container my-4">
   <!-- Encabezado -->
-  <h2 class="text-center text-success">Nuevo Grupo </h2>
 
-  <!-- Botón para abrir el modal de creación de grupo usuario -->
-  <div class="text-center mb-3">
-    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#crearGrupoUsuario">
-      Agregar
-    </button>
-  </div>
 
   <!-- Modal de creación de grupo usuario -->
   <div class="modal fade" id="crearGrupoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,8 +32,16 @@
 
   <!-- Tabla de Grupo Usuarios -->
   <h2 class="text-center text-success mt-5">Lista de Grupos</h2>
+
+    <!-- Botón para abrir el modal de creación de grupo usuario -->
+    <div class="text-center mb-3">
+      <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#crearGrupoUsuario">
+        Agregar
+      </button>
+    </div>
+    
   <div class="table-responsive w-100">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped table-hover">
       <thead class="table-success">
         <tr>
           <th scope="col">IdGrupo</th>

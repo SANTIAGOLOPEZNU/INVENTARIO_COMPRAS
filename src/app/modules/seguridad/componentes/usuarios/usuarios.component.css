@@ -43,7 +43,6 @@ Estilo general para el modal
   }
   
   button[type="submit"] {
-    background-color: #007bff;
     color: white;
     padding: 10px 15px;
     font-size: 16px;
@@ -51,10 +50,6 @@ Estilo general para el modal
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #0056b3;
   }
   
   /* Deshabilitar el botón de enviar si el formulario es inválido */

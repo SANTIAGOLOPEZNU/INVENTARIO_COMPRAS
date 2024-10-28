@@ -61,9 +61,9 @@ export class InsumosComponent implements OnInit {
   submitForm() {
     // Solo continúa si el formulario es válido
     if (this.InsumoForm.valid) {
-      const usuarioData = this.InsumoForm.value;  // Se obtienen los valores del formulario
+      const InsumosData = this.InsumoForm.value;  // Se obtienen los valores del formulario
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.servicioInsumos.alta(usuarioData).subscribe({
+      this.servicioInsumos.alta(InsumosData).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
@@ -114,7 +114,7 @@ export class InsumosComponent implements OnInit {
           }
         },
         error: (error) => {
-          alert('Error al modificar usuario');
+          alert('Error al modificar insumo');
           console.error('Error:', error);
         },
       });

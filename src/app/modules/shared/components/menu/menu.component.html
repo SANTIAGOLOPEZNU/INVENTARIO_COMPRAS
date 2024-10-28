@@ -1,7 +1,7 @@
 <div>
-    <mat-toolbar class="nav">
-        <!--para que se desactive el menu si el usuario no inicia sesion usar [disabled]="!isLoggedIn" -->
-        <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">
+    <mat-toolbar class="nav"  > 
+        <!--para que se desactive el menu si el usuario no inicia sesion usar *ngIf="isLoggedIn"  [disabled]="!isLoggedIn" -->
+        <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">   
             <mat-icon>menu</mat-icon>
         </button>
         <h1>INVENTARIO DE COMPRAS</h1>
@@ -20,10 +20,10 @@
                         Seguridad
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="/usuarios">
+                        <a mat-list-item routerLink="/usuarios" (click)="sidenav.toggle()">
                            <span>Usuarios</span>
                         </a>
-                        <a mat-list-item routerLink="/grupousuarios">
+                        <a mat-list-item routerLink="/grupousuarios" (click)="sidenav.toggle()">
                             <span>Grupos</span>
                         </a>
                     </mat-nav-list>
@@ -33,7 +33,7 @@
                         Movimientos
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="/recepcion_materiales">
+                        <a mat-list-item routerLink="/recepcion_materiales" (click)="sidenav.toggle()">
                             <span>Recepción de Materiales</span>
                         </a>
                     </mat-nav-list>
@@ -43,17 +43,17 @@
                         Parámetros
                     </mat-expansion-panel-header>
                     <mat-nav-list>
-                        <a mat-list-item routerLink="/proveedores">
+                        <a mat-list-item routerLink="/proveedores" (click)="sidenav.toggle()" >
                             <span>Proveedores</span>
                         </a>
-                        <a mat-list-item routerLink="/insumos">
+                        <a mat-list-item routerLink="/insumos" (click)="sidenav.toggle()">
                             <span>Insumos</span>
                         </a>
                     </mat-nav-list>
                 </mat-expansion-panel>
             </mat-nav-list>
         </mat-sidenav>
-        <mat-sidenav-content style="margin-top: 60px;">
+        <mat-sidenav-content>
             <div class="app-sidenav-content">
                 <router-outlet></router-outlet>
             </div>

@@ -23,8 +23,8 @@ export class MovimientosService {
 
   constructor(private http: HttpClient) { }
 
-  alta(usuarioData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl1}/alta.php`, usuarioData);
+  alta(ReciboData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl1}/alta.php`, ReciboData);
   }
 
   recuperar(): Observable<any> {
@@ -35,17 +35,17 @@ export class MovimientosService {
   }
 
   // Nuevo método para modificar un usuario
-  modificar(usuario: any): Observable<any> {
-    return this.http.put(`${this.apiUrl1}/modificacion.php`, usuario);
+  modificar(recibo: any): Observable<any> {
+    return this.http.put(`${this.apiUrl1}/modificacion.php`, recibo);
   }
 
 
 //Metodos para detalles
-  altaDetail(usuarioData: any, recibo: any): Observable<any> {
+  altaDetail(DetailData: any, recibo: any): Observable<any> {
 
 
     const datos={
-      usuarioData: usuarioData,
+      usuarioData: DetailData,
       recibo: recibo
     }
     return this.http.post(`${this.apiUrl2}/alta.php`, datos);

@@ -15,8 +15,8 @@ export class InsumosService {
     return this.http.get(`${this.apiUrl}/recuperartodos.php`);
   }
 
-  alta(usuarioData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/alta.php`, usuarioData);
+  alta(InsumosData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/alta.php`, InsumosData);
   }
 
   modificar(Insumo: any): Observable<any> {
