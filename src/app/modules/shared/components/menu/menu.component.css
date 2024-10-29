@@ -3,53 +3,51 @@ html, body, mat-sidenav-container {
     margin: 0;
 }
 
-.app-container {
-    background-color: #FFFFFF;
-    height: 100vh;
-
-}
-
-.app-sidenav {
-    background-color: #A8CF45;
-    width: 230px;
-    height: 100vh;
-    padding-top: 70px; /* Ajusta este valor si es necesario */
-}
-
-.app-sidenav-content {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-padding-bottom: 50px; 
-padding-top: 100px; 
-
-}
-
 .nav {
     background-color: #A8CF45;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed; /* Fija la barra de navegación */
-    top: 0; /* Se mantiene en la parte superior */
-    left: 0; /* Se alinea a la izquierda */
-    right: 0; /* Se alinea a la derecha */
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
-.menu-button, .logout-button {
+.main-container {
     display: flex;
-    align-items: center;
+    margin-top: 64px; /* Ajuste para que el contenido principal comience debajo del navbar */
+    height: calc(100vh - 64px); /* Altura ajustada para ocupar el espacio restante */
+    overflow: hidden; /* Evita que el contenido se desborde y altere el tamaño del sidebar */
 }
 
-.title {
+.app-container {
+    background-color: #FFFFFF;
+    height: 100vh;
+}
+
+.app-sidenav {
+    background-color: #A8CF45;
+    width: 300px; /* Ancho fijo para evitar que cambie */
+    height: 100vh;
+    padding-top: 20px;
+    flex-shrink: 0; /* Evita que el sidenav se encoja */
+}
+
+.router-outlet-container {
     flex-grow: 1;
-    text-align: center;
-    margin: 0;
+    padding: 20px;
+    overflow-y: auto;
+    margin-top: 20px; /* Asegura que el contenido comience más abajo para evitar que lo cubra el navbar */
+    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
 }
 
 .item {
     background-color: #A8CF45;
+}
+
+/* Estilos globales para alinear los componentes del router-outlet */
+.router-outlet-container > * {
+    padding-top: 20px; /* Asegura que todos los componentes cargados en el router-outlet tengan el mismo margen superior */
 }
