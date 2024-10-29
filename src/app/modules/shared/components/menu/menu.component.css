@@ -1,53 +1,49 @@
-html, body, mat-sidenav-container {
-    height: 100%;
-    margin: 0;
-}
-
-.nav {
-    background-color: #A8CF45;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-}
-
+/* Configuración del contenedor principal en flex */
 .main-container {
     display: flex;
-    margin-top: 64px; /* Ajuste para que el contenido principal comience debajo del navbar */
     height: calc(100vh - 64px); /* Altura ajustada para ocupar el espacio restante */
-    overflow: hidden; /* Evita que el contenido se desborde y altere el tamaño del sidebar */
+    overflow: hidden; /* Evita que el contenido desborde y afecte el tamaño del sidebar */
 }
 
 .app-container {
-    background-color: #FFFFFF;
-    height: 100vh;
+    height: 100%;
+    display: flex;
 }
 
 .app-sidenav {
-    background-color: #A8CF45;
-    width: 300px; /* Ancho fijo para evitar que cambie */
+    background-color: #A8CF45; /* Verde para todo el sidenav */
+    width: 275px; /* Ancho fijo para evitar que cambie */
     height: 100vh;
     padding-top: 20px;
     flex-shrink: 0; /* Evita que el sidenav se encoja */
 }
 
+/* Coloca el fondo verde en todos los elementos dentro del sidenav */
+.app-sidenav .mat-nav-list,
+.app-sidenav .mat-expansion-panel,
+.app-sidenav .mat-expansion-panel-header,
+.app-sidenav .mat-list-item {
+    background-color: #A8CF45 !important;
+}
+
+/* Contenedor del router-outlet */
 .router-outlet-container {
-    flex-grow: 1;
-    padding: 20px;
+    flex-grow: 1; /* Permite que el router-outlet ocupe el espacio restante */
     overflow-y: auto;
-    margin-top: 20px; /* Asegura que el contenido comience más abajo para evitar que lo cubra el navbar */
-    box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+
+    box-sizing: border-box;
 }
 
-.item {
+/* Ajuste cuando el sidenav está cerrado */
+.mat-sidenav-closed + .router-outlet-container {
+    margin-left: 0;
+}
+
+/* Barra de navegación */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #A8CF45;
-}
-
-/* Estilos globales para alinear los componentes del router-outlet */
-.router-outlet-container > * {
-    padding-top: 20px; /* Asegura que todos los componentes cargados en el router-outlet tengan el mismo margen superior */
+    z-index: 1000;
 }

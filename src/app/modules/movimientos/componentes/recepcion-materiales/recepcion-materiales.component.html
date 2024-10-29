@@ -102,7 +102,7 @@
 
   <!-- Tabla de recibos -->
   <h2 class="text-center text-success mt-5">Recibos</h2>
-  
+
   <!-- Botón para abrir el modal de creación de recibo -->
   <div class="text-center mb-3">
     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarRecibo">
@@ -160,75 +160,95 @@
               <div class="col-md-6 mb-2">
                 <label for="Fecha" class="form-label text-success">Fecha</label>
                 <input id="Fecha" formControlName="Fecha" type="date" class="form-control form-control-sm" />
-                <div *ngIf="recepcionMaterialesForm.get('Fecha')?.invalid && recepcionMaterialesForm.get('Fecha')?.touched" class="text-danger">
+                <div
+                  *ngIf="recepcionMaterialesForm.get('Fecha')?.invalid && recepcionMaterialesForm.get('Fecha')?.touched"
+                  class="text-danger">
                   Fecha es requerida
                 </div>
               </div>
-          
+
               <div class="col-md-6 mb-2">
                 <label for="Proveedor" class="form-label text-success">Proveedor</label>
                 <select id="SeleccionarProveedor" formControlName="IdProveedor" class="form-select form-select-sm">
                   <option disabled>Seleccione el Proveedor</option>
-                  <option *ngFor="let proveedor of proveedores" value="{{proveedor.IdProvedor}}">{{proveedor.RazonSocial}}</option>
+                  <option *ngFor="let proveedor of proveedores" value="{{proveedor.IdProvedor}}">
+                    {{proveedor.RazonSocial}}</option>
                 </select>
-                <div *ngIf="recepcionMaterialesForm.get('IdProveedor')?.invalid && recepcionMaterialesForm.get('IdProveedor')?.touched" class="text-danger">
+                <div
+                  *ngIf="recepcionMaterialesForm.get('IdProveedor')?.invalid && recepcionMaterialesForm.get('IdProveedor')?.touched"
+                  class="text-danger">
                   Seleccione un proveedor
                 </div>
               </div>
             </div>
-          
+
             <div class="row">
               <div class="col-md-6 mb-2">
                 <label for="NroRemito" class="form-label text-success">Número de remito:</label>
                 <input id="NroRemito" formControlName="NroRemito" type="number" class="form-control form-control-sm" />
-                <div *ngIf="recepcionMaterialesForm.get('NroRemito')?.invalid && recepcionMaterialesForm.get('NroRemito')?.touched" class="text-danger">
+                <div
+                  *ngIf="recepcionMaterialesForm.get('NroRemito')?.invalid && recepcionMaterialesForm.get('NroRemito')?.touched"
+                  class="text-danger">
                   Ingresa un número válido
                 </div>
               </div>
-          
+
               <div class="col-md-6 mb-2">
                 <label for="condventa" class="form-label text-success">Condición de venta:</label>
                 <input id="condventa" formControlName="CondVenta" type="text" class="form-control form-control-sm" />
-                <div *ngIf="recepcionMaterialesForm.get('CondVenta')?.invalid && recepcionMaterialesForm.get('CondVenta')?.touched" class="text-danger">
+                <div
+                  *ngIf="recepcionMaterialesForm.get('CondVenta')?.invalid && recepcionMaterialesForm.get('CondVenta')?.touched"
+                  class="text-danger">
                   Condición requerida
                 </div>
               </div>
             </div>
-          
+
             <div class="row">
               <div class="col-md-6 mb-2">
                 <label for="numcompra" class="form-label text-success">Número de orden de compra:</label>
-                <input id="numcompra" formControlName="NroOrdenCompra" type="number" class="form-control form-control-sm" />
-                <div *ngIf="recepcionMaterialesForm.get('NroOrdenCompra')?.invalid && recepcionMaterialesForm.get('NroOrdenCompra')?.touched" class="text-danger">
+                <input id="numcompra" formControlName="NroOrdenCompra" type="number"
+                  class="form-control form-control-sm" />
+                <div
+                  *ngIf="recepcionMaterialesForm.get('NroOrdenCompra')?.invalid && recepcionMaterialesForm.get('NroOrdenCompra')?.touched"
+                  class="text-danger">
                   Número requerido
                 </div>
               </div>
-          
+
               <div class="col-md-6 mb-2">
                 <label for="firma" class="form-label text-success">Firma digital:</label>
                 <input id="firma" formControlName="FirmaDigital" type="text" class="form-control form-control-sm" />
-                <div *ngIf="recepcionMaterialesForm.get('FirmaDigital')?.invalid && recepcionMaterialesForm.get('FirmaDigital')?.touched" class="text-danger">
+                <div
+                  *ngIf="recepcionMaterialesForm.get('FirmaDigital')?.invalid && recepcionMaterialesForm.get('FirmaDigital')?.touched"
+                  class="text-danger">
                   Firma requerida
                 </div>
               </div>
             </div>
-          
+
             <div class="row">
               <div class="col-md-6 mb-2">
                 <label for="numfactura" class="form-label text-success">Número de factura:</label>
                 <input id="numfactura" formControlName="NroFact" type="number" class="form-control form-control-sm" />
-                <div *ngIf="recepcionMaterialesForm.get('NroFact')?.invalid && recepcionMaterialesForm.get('NroFact')?.touched" class="text-danger">
+                <div
+                  *ngIf="recepcionMaterialesForm.get('NroFact')?.invalid && recepcionMaterialesForm.get('NroFact')?.touched"
+                  class="text-danger">
                   Número requerido
                 </div>
               </div>
             </div>
-          
-            <button type="submit" [disabled]="modificarRecepcionMaterialesForm.invalid" class="btn btn-success w-100 mt-2">Guardar Cambios</button>
+
+            <button type="submit" [disabled]="modificarRecepcionMaterialesForm.invalid"
+              class="btn btn-success w-100 mt-2">Guardar Cambios</button>
           </form>
+
           
 
           <!-- Tabla de detalles -->
-          <div class="table-responsive">
+          <div class="table-responsive" style="margin-top: 30px;">
+            <h2 style="display: flex; justify-content: center;">Detalles</h2>
+            
             <table class="table">
               <thead class="table-success">
                 <tr>
@@ -250,28 +270,36 @@
           </div>
 
           <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm()">
-            <div class="mb-3">
-              
-              <!-- <label for="IdRecibo_Recepcion">ID cabecera</label>
-              <input id="IdRecibo_Recepcion" formControlName="IdRecibo_Recepcion" type="number" [disabled]="true"> -->
+            <h2>Agregar Detalle</h2>
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label for="NroRemito" class="form-label text-success">Materiales:</label>
+                <select id="Material" formControlName="IdInsumosMat" class="form-select form-select-sm">
+                  <option disabled>Seleccione el Insumo</option>
+                  <option *ngFor="let Insumo of Insumos" value="{{Insumo.IdInsumosMat}}">{{Insumo.Descripcion}}</option>
+                </select>
+                <div
+                  *ngIf="DetallesRecForm.get('IdInsumosMat')?.invalid && DetallesRecForm.get('IdInsumosMat')?.touched"
+                  class="text-danger">
+                  Seleccione un material
+                </div>
+              </div>
 
-              <label for="Material" class="form-label text-success">Materiales</label>
-              <select id="Material" formControlName="IdInsumosMat" class="form-select">
-                <option disabled>Seleccione el Insumo</option>
-                <option *ngFor="let Insumo of Insumos" value="{{Insumo.IdInsumosMat}}">{{Insumo.Descripcion}}</option>
-              </select>
+              <div class="col-md-6 mb-2">
+                <label for="Cantidad" class="form-label text-success">Cantidad</label>
+                <input id="Cantidad" formControlName="Cantidad" type="number" class="form-control form-control-sm" />
+                <div
+                  *ngIf="DetallesRecForm.get('Cantidad')?.invalid && DetallesRecForm.get('Cantidad')?.touched"
+                  class="text-danger">
+                  Cantidad requerida
+                </div>
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label for="Cantidad" class="form-label text-success">Cantidad</label>
-              <input id="Cantidad" formControlName="Cantidad" type="number" class="form-control"  />
-            </div>
 
-            <button type="submit" class="btn btn-success w-100">Guardar Detalle</button>
+            <button type="submit" [disabled]="DetallesRecForm.invalid" class="btn btn-success w-100">Guardar
+              Detalle</button>
           </form>
-        </div>
-        <div class="modal-footer bg-light">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
