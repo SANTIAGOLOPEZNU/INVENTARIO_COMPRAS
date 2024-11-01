@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -6,16 +7,22 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
-  constructor(private usuarioService: UsuariosService){}
+export class MenuComponent implements OnInit {
+  constructor(private usuarioService: UsuariosService, private router: Router) {}
 
-  //desabilita el menu si el usuario no inicia sesion
+  ngOnInit(): void {
+    // Redirigir al login si el usuario no está autenticado
+    if (!this.isLoggedIn) {
+      this.router.navigate(['/login']);
+    }
+  }
+
   get isLoggedIn(): boolean {
     return this.usuarioService.isLoggedIn();
   }
 
-  logout(){
-    return this.usuarioService.logout()
+  logout() {
+    this.usuarioService.logout();
+    this.router.navigate(['/login']); // Redirigir al login después de cerrar sesión
   }
-  
 }

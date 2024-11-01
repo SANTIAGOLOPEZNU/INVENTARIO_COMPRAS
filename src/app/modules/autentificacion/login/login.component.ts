@@ -12,6 +12,7 @@ import Swal from 'sweetalert2'
 export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
+  isPasswordVisible = false;
 
   constructor(private fb: FormBuilder, private usuarioService: UsuariosService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -19,6 +20,11 @@ export class LoginComponent {
       clave: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+
+
+  togglePasswordVisibility(state: boolean) {
+    this.isPasswordVisible = state;
+}
 
   //login es una funcion de usuarioService que nos habilita el menu 
   login() {

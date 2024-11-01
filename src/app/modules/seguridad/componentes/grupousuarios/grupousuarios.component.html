@@ -7,7 +7,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-light">
-          <h5 class="modal-title text-success" id="exampleModalLabel">Nuevo Grupo </h5>
+          <h3 class="modal-title text-success" id="exampleModalLabel">Nuevo Grupo </h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -23,9 +23,6 @@
             <button type="submit" [disabled]="GrupousuarioForm.invalid" class="btn btn-success w-100">Enviar</button>
           </form>
         </div>
-        <div class="modal-footer bg-light">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
       </div>
     </div>
   </div>
@@ -36,7 +33,7 @@
     <!-- Botón para abrir el modal de creación de grupo usuario -->
     <div class="text-center mb-3">
       <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#crearGrupoUsuario">
-        Agregar
+        Agregar Grupo
       </button>
     </div>
     
@@ -55,7 +52,7 @@
           <td>{{ Grupousuario.Descripcion }}</td>
           <td>
             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                    (click)="editarGrupoUsuario(Grupousuario)" data-bs-target="#modificarGrupoUsuario">Modificar</button>
+                    (click)="editarGrupoUsuario(Grupousuario)" data-bs-target="#modificarGrupoUsuario"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="border_color"></mat-icon></button>
           </td>
         </tr>
       </tbody>
@@ -64,10 +61,10 @@
 
   <!-- Modal de modificación de grupo usuario -->
   <div class="modal fade" id="modificarGrupoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-light">
-          <h5 class="modal-title text-success" id="exampleModalLabel">Modificar Grupo</h5>
+          <h3 class="modal-title text-success" id="exampleModalLabel">Modificar Grupo</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -79,14 +76,9 @@
             <button type="submit" [disabled]="modificarGrupoUsuarioForm.invalid" class="btn btn-success w-100">Guardar Cambios</button>
           </form>
         </div>
-        <div class="modal-footer bg-light">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
+        
       </div>
     </div>
   </div>
 </div>
 
-<!-- Bootstrap JS y Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

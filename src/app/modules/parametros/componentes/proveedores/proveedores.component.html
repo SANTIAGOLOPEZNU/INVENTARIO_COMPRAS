@@ -4,7 +4,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Agregar Proveedor</h1>
+                    <h3 class="modal-title fs-5 text-success" id="exampleModalLabel">Agregar Proveedor</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -107,12 +107,8 @@
                         </div>
 
                         <!-- Botón para enviar el formulario -->
-                        <button type="submit" class="btn btn-success" [disabled]="ProveedorForm.invalid">Enviar</button>
+                        <button type="submit" class="btn btn-success w-100" [disabled]="ProveedorForm.invalid">Enviar</button>
                     </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -124,7 +120,7 @@
     <!-- Button trigger modal -->
     <div class="text-center mb-3">
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarProveedor">
-            Agregar
+            Agregar Provedor
         </button>
 
     </div>
@@ -162,7 +158,9 @@
                     <td>{{ proveedor.InicioAct }}</td>
                     <td>
                         <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modificarProveedor"
-                            (click)="editarProveedor(proveedor)">Modificar</button>
+                            (click)="editarProveedor(proveedor)">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="border_color"></mat-icon>  
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -271,9 +269,6 @@
                     </form>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
             </div>
         </div>
     </div>

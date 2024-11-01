@@ -1,4 +1,4 @@
-<div>
+<div class="container my-4">
     <!-- Modal para agregar Insumo -->
     <div class="modal fade" id="agregarDestinatario" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -37,11 +37,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="condiva" class="form-label text-success">Condicion de IVA:</label>
-                            <input id="condiva" formControlName="CondIVA" type="text" class="form-control" />
+                            <select id="condiva" formControlName="CondIVA" class="form-select" >
+                                 <option disabled selected>Seleccione la condición de IVA</option>
+                                    <option value="Monotributista">Monotributista</option>
+                                    <option value="Responsable Inscripto">Responsable Inscripto</option>
+                            </select>
                             <div *ngIf="DestinatarioForm.get('CondIVA')?.invalid && DestinatarioForm.get('CondIVA')?.touched"
                                 class="text-danger">
                                 Condicion de IVA es requerida
                             </div>
+
                         </div>
                         <div class="mb-3">
                             <label for="cuit" class="form-label text-success">CUIT:</label>
@@ -55,9 +60,7 @@
                             class="btn btn-success w-100">Enviar</button>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
+
             </div>
         </div>
     </div>
@@ -95,7 +98,7 @@
                     <td>
                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                             (click)="editarDestinatario(Destinatario)" data-bs-target="#modificarDestinatario">
-                            Modificar
+                            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="border_color"></mat-icon>    
                         </button>
                     </td>
                 </tr>
@@ -163,9 +166,6 @@
                         <button type="submit" [disabled]="modificarDestinatarioForm.invalid"
                             class="btn btn-success w-100">Enviar</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GrupousuariosService } from 'src/app/services/grupousuarios.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-grupousuarios',
@@ -12,9 +14,6 @@ export class GrupousuariosComponent implements OnInit {
   GrupousuarioForm: FormGroup;  // Formulario reactivo para manejar los datos del usuario
 
   GrupoUsuarios: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
-
-  // modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
-  // modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
 
   modificarGrupoUsuarioForm: FormGroup; // Formulario para modificar usuario
   GrupousuarioSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
@@ -65,7 +64,13 @@ export class GrupousuariosComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
+            
+            Swal.fire({
+              title: 'Completado!',
+              text: "Se ha agregado el grupo con éxito",
+              icon: "success"
+            });
+
             this.GrupousuarioForm.reset();  // Se resetea el formulario
             this.recuperarGrupoUsuarios();  // Se actualiza la lista de usuarios
           } else {
@@ -81,7 +86,11 @@ export class GrupousuariosComponent implements OnInit {
       });
     } else {
       // Si el formulario no es válido, se muestra un mensaje al usuario
-      alert('Por favor, completa todos los campos correctamente');
+      Swal.fire({
+        title: 'Error!',
+        text: "Por favor complete los datos correctamente",
+        icon: "error"
+      });
     }
   }
 
@@ -103,7 +112,13 @@ export class GrupousuariosComponent implements OnInit {
       this.GrupoUsuario.modificar(GrupousuarioModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario modificado con éxito');
+
+            Swal.fire({
+              title: 'Completado!',
+              text: "Se ha modificado el grupo con éxito",
+              icon: "success"
+            });
+
             this.GrupousuarioSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarGrupoUsuarios(); // Actualizar la lista de usuarios
           } else {
@@ -111,7 +126,11 @@ export class GrupousuariosComponent implements OnInit {
           }
         },
         error: (error) => {
-          alert('Error al modificar usuario');
+          Swal.fire({
+            title: 'Error!',
+            text: "Por favor complete los datos correctamente",
+            icon: "error"
+          });
           console.error('Error:', error);
         },
       });

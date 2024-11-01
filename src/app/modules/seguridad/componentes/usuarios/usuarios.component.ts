@@ -13,8 +13,6 @@ import Swal from 'sweetalert2'
 export class UsuariosComponent implements OnInit {
   usuarioForm: FormGroup;  // Formulario reactivo para manejar los datos del usuario
   usuarios: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
-  modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
-  modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
   modificarUsuarioForm: FormGroup; // Formulario para modificar usuario
   usuarioSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
   roles: any[] = []; // Arreglo donde se van a guardar los grupos
@@ -122,7 +120,11 @@ export class UsuariosComponent implements OnInit {
       this.databaseService.modificar(usuarioModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario modificado con éxito');
+            Swal.fire({
+              title: 'Completado!',
+              text: " Se ha modificado con éxito",
+              icon: "success"
+            });
             this.usuarioSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarUsuarios(); // Actualizar la lista de usuarios
           } else {
@@ -147,11 +149,4 @@ export class UsuariosComponent implements OnInit {
     });
   }
   
-  MostrarFormulario() {
-    this.modalvisibility = !this.modalvisibility
-  }
-
-  MostrarFormularioModificacion() {
-    this.modalvisibility2 = !this.modalvisibility2
-  }
 }

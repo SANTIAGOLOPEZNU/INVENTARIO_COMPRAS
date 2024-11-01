@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 
 import { SeguridadRoutingModule } from './seguridad-routing.module';
 import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
-import { InicioComponent } from '../inicio/pages/inicio/inicio.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import {MatIconModule} from '@angular/material/icon';
 

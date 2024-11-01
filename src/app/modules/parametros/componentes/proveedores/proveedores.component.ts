@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-proveedores',
@@ -12,8 +13,6 @@ export class ProveedoresComponent implements OnInit {
 
   Proveedores: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
 
-  // modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
-  // modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
 
   modificarProvedorForm: FormGroup; // Formulario para modificar usuario
   ProvedorSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
@@ -21,29 +20,29 @@ export class ProveedoresComponent implements OnInit {
   constructor(private servicioProveedores: ProveedoresService, private fb: FormBuilder) {
     // Inicializamos el formulario con el campo Descripcion
     this.ProveedorForm = this.fb.group({
-      CodProvedor: [0, Validators.required], //campo obligatorio
+      CodProvedor: ['', Validators.required], //campo obligatorio
       RazonSocial: ['', Validators.required], //campo obligatorio
       Direccion: ['', Validators.required], //campo obligatorio
       Email: ['', [Validators.required, Validators.email]], //campo obligatorio
-      CodPostal: [0, [Validators.required, Validators.maxLength(4)]], //campo obligatorio
+      CodPostal: ['', [Validators.required, Validators.maxLength(4)]], //campo obligatorio
       Ciudad: ['', Validators.required], //campo obligatorio
       Telefono: ['', Validators.required], //campo obligatorio
       CondIVA: ['', Validators.required], //campo obligatorio
-      CUIT: [0, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], //campo obligatorio
+      CUIT: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], //campo obligatorio
       InicioAct: ['', Validators.required], //campo obligatorio
     });
 
     // Formulario de modificación de Grupousuarios
     this.modificarProvedorForm = this.fb.group({
-      CodProvedor: [0, Validators.required], //campo obligatorio
+      CodProvedor: ['', Validators.required], //campo obligatorio
       RazonSocial: ['', Validators.required], //campo obligatorio
       Direccion: ['', Validators.required], //campo obligatorio
       Email: ['',[Validators.required, Validators.email]], //campo obligatorio
-      CodPostal: [0, Validators.required], //campo obligatorio
+      CodPostal: ['', Validators.required], //campo obligatorio
       Ciudad: ['', Validators.required], //campo obligatorio
       Telefono: ['', Validators.required], //campo obligatorio
       CondIVA: ['', Validators.required], //campo obligatorio
-      CUIT: [0,  [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], //campo obligatorio
+      CUIT: ['',  [Validators.required, Validators.minLength(10), Validators.maxLength(10)]], //campo obligatorio
       InicioAct: ['', Validators.required], //campo obligatorio
     });
   }
@@ -82,7 +81,11 @@ export class ProveedoresComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Proveedor agregado con éxito');  //  Se muestra un mensaje de éxito
+            Swal.fire({
+              title: 'Completado!',
+              text: "Provedor subido con éxito",
+              icon: "success"
+            });
             this.ProveedorForm.reset();  // Se resetea el formulario
             this.recuperarProveedores();  // Se actualiza la lista de usuarios
           } else {
@@ -98,7 +101,11 @@ export class ProveedoresComponent implements OnInit {
       });
     } else {
       // Si el formulario no es válido, se muestra un mensaje al usuario
-      alert('Por favor, completa todos los campos correctamente');
+      Swal.fire({
+        title: 'Error!',
+        text: "Revise los campos",
+        icon: "error"
+      });
     }
   }
 
@@ -134,7 +141,11 @@ export class ProveedoresComponent implements OnInit {
       this.servicioProveedores.modificar(ProveedorModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Proveedor modificado con éxito');
+            Swal.fire({
+              title: 'Completado!',
+              text: "Provedor modificado con éxito",
+              icon: "success"
+            });
             this.ProvedorSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarProveedores(); // Actualizar la lista de usuarios
           } else {
@@ -142,7 +153,11 @@ export class ProveedoresComponent implements OnInit {
           }
         },
         error: (error) => {
-          alert('Error al modificar proveedor');
+          Swal.fire({
+            title: 'Error!',
+            text: "Revise los campos",
+            icon: "error"
+          });
           console.error('Error:', error);
         },
       });

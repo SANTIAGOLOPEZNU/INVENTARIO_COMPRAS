@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MovimientosService } from 'src/app/services/movimientos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { InsumosService } from 'src/app/services/insumos.service';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-recepcion-materiales',
@@ -28,23 +28,23 @@ export class RecepcionMaterialesComponent implements OnInit {
     // Inicializamos el formulario de recepcion de materiales
     this.recepcionMaterialesForm = this.fb.group({
       Fecha: ['', Validators.required],  // Campo obligatorio
-      NroRemito: [0, Validators.required],  // Campo obligatorio
+      NroRemito: ['', Validators.required],  // Campo obligatorio
       CondVenta: ['', Validators.required], // Campo obligatorio
-      NroOrdenCompra: [0, Validators.required], //campo obligatorio
+      NroOrdenCompra: ['', Validators.required], //campo obligatorio
       FirmaDigital: ['', Validators.required], //campo obligatorio
-      NroFact: [0, Validators.required], //campo obligatorio
-      IdProveedor: [0, Validators.required]
+      NroFact: ['', Validators.required], //campo obligatorio
+      IdProveedor: ['', Validators.required]
     });
 
     // Formulario de modificación de usuarios
     this.modificarRecepcionMaterialesForm = this.fb.group({
       Fecha: ['', Validators.required],  // Campo obligatorio
-      NroRemito: [0, Validators.required],  // Campo obligatorio
+      NroRemito: ['', Validators.required],  // Campo obligatorio
       CondVenta: ['', Validators.required], // Campo obligatorio
-      NroOrdenCompra: [0, Validators.required], //campo obligatorio
+      NroOrdenCompra: ['', Validators.required], //campo obligatorio
       FirmaDigital: ['', Validators.required], //campo obligatorio
-      NroFact: [0, Validators.required], //campo obligatorio
-      IdProveedor: [0, Validators.required]
+      NroFact: ['', Validators.required], //campo obligatorio
+      IdProveedor: ['', Validators.required]
     });
 
     //formulario para manejar el detalle de los recibos
@@ -111,7 +111,11 @@ export class RecepcionMaterialesComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Recibo creado con éxito');  //  Se muestra un mensaje de éxito
+            Swal.fire({
+              title: 'Completado!',
+              text: "Registro subido con exito",
+              icon: "success"
+            });
             this.recepcionMaterialesForm.reset();  // Se resetea el formulario
             this.recuperarRecibos();  // Se actualiza la lista de usuarios
             console.log(ReciboData)
@@ -128,7 +132,11 @@ export class RecepcionMaterialesComponent implements OnInit {
       });
     } else {
       // Si el formulario no es válido, se muestra un mensaje al usuario
-      alert('Por favor, completa todos los campos correctamente');
+      Swal.fire({
+        title: 'Error!',
+        text: "Revise los campos",
+        icon: "error"
+      });
     }
   }
 
@@ -142,7 +150,11 @@ export class RecepcionMaterialesComponent implements OnInit {
       this.servicioMovimientos.modificar(ReciboModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Recibo modificado con éxito');
+            Swal.fire({
+              title: 'Completado!',
+              text: "Registro modificado con exito",
+              icon: "success"
+            });
             this.cabeceraReciboSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarRecibos(); // Actualizar la lista de usuarios
           } else {
@@ -150,7 +162,11 @@ export class RecepcionMaterialesComponent implements OnInit {
           }
         },
         error: (error) => {
-          alert('Error al modificar recibo');
+          Swal.fire({
+            title: 'Error!',
+            text: "Revise los campos",
+            icon: "error"
+          });
           console.error('Error:', error);
         },
       });
@@ -207,7 +223,7 @@ export class RecepcionMaterialesComponent implements OnInit {
   
   // Método para manejar el envío del formulario
   submitDetailForm() {
-    alert(this.Reciboseleccionado)
+
     // Solo continúa si el formulario es válido
     if (this.DetallesRecForm.valid) {
 
@@ -219,7 +235,11 @@ export class RecepcionMaterialesComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
+            Swal.fire({
+              title: 'Completado!',
+              text: "Detalle subido con exito",
+              icon: "success"
+            });
             this.DetallesRecForm.reset();  // Se resetea el formulario
             this.recuperarDetalles(this.Reciboseleccionado);  // Se actualiza la lista de usuarios
           } else {
@@ -235,7 +255,11 @@ export class RecepcionMaterialesComponent implements OnInit {
       });
     } else {
       // Si el formulario no es válido, se muestra un mensaje al usuario
-      alert('Por favor, completa todos los campos correctamente');
+      Swal.fire({
+        title: 'Error!',
+        text: "Revise los campos",
+        icon: "error"
+      });
     }
   }
 

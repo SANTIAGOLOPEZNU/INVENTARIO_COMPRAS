@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InsumosService } from 'src/app/services/insumos.service';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-insumos',
@@ -13,22 +13,19 @@ export class InsumosComponent implements OnInit {
 
   Insumos: any[] = [];  // Variable para almacenar los usuarios recuperados de la base de datos
 
-  // modalvisibility: boolean = false; //variable para visibilidad de formulariod de agregar usuario a traves de modal
-  // modalvisibility2: boolean = false; //variable para visibilidad de formulario de modificacion a traves de modal
-
   modificarInsumosForm: FormGroup; // Formulario para modificar usuario
   InsumoSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
 
   constructor(private servicioInsumos: InsumosService, private fb: FormBuilder) {
     // Inicializamos el formulario con el campo Descripcion
     this.InsumoForm = this.fb.group({
-      CodInterno: [0, Validators.required], //campo obligatorio
+      CodInterno: ['', Validators.required], //campo obligatorio
       Descripcion: ['', Validators.required], //campo obligatorio
     });
 
     // Formulario de modificación de Grupousuarios
     this.modificarInsumosForm = this.fb.group({
-      CodInterno: [0, Validators.required], //campo obligatorio
+      CodInterno: ['', Validators.required], //campo obligatorio
       Descripcion: ['', Validators.required], //campo obligatorio
     });
   }
@@ -67,7 +64,11 @@ export class InsumosComponent implements OnInit {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
+            Swal.fire({
+              title: 'Completado!',
+              text: "Insumo subido con éxito",
+              icon: "success"
+            });
             this.InsumoForm.reset();  // Se resetea el formulario
             this.recuperarInsumos();  // Se actualiza la lista de usuarios
           } else {
@@ -83,7 +84,11 @@ export class InsumosComponent implements OnInit {
       });
     } else {
       // Si el formulario no es válido, se muestra un mensaje al usuario
-      alert('Por favor, completa todos los campos correctamente');
+      Swal.fire({
+        title: 'Error!',
+        text: "Revise los campos",
+        icon: "error"
+      });
     }
   }
 
@@ -106,7 +111,11 @@ export class InsumosComponent implements OnInit {
       this.servicioInsumos.modificar(InsumoModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Insumo modificado con éxito');
+            Swal.fire({
+              title: 'Completado!',
+              text: "Insumo modificado con éxito",
+              icon: "success"
+            });
             this.InsumoSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarInsumos(); // Actualizar la lista de usuarios
           } else {
@@ -114,7 +123,11 @@ export class InsumosComponent implements OnInit {
           }
         },
         error: (error) => {
-          alert('Error al modificar insumo');
+          Swal.fire({
+            title: 'Error!',
+            text: "Revise los campos",
+            icon: "error"
+          });
           console.error('Error:', error);
         },
       });

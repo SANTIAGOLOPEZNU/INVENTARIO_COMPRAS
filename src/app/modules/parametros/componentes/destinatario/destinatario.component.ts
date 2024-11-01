@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ParametrosService } from 'src/app/services/parametros.service';
+import Swal from 'sweetalert2'
+
+
 @Component({
   selector: 'app-destinatario',
   templateUrl: './destinatario.component.html',
@@ -17,7 +20,7 @@ export class DestinatarioComponent {
       Domicilio: ['', Validators.required], //campo obligatorio
       Localidad: ['', Validators.required],
       CondIVA: ['', Validators.required],
-      Cuit: [0, Validators.required],
+      Cuit: ['', Validators.required],
       Nombre: ['', Validators.required],
     });
     // Formulario de modificación de Grupousuarios
@@ -25,7 +28,7 @@ export class DestinatarioComponent {
       Domicilio: ['', Validators.required], //campo obligatorio
       Localidad: ['', Validators.required],
       CondIVA: ['', Validators.required],
-      Cuit: [0, Validators.required],
+      Cuit: ['', Validators.required],
       Nombre: ['', Validators.required],
 
     });
@@ -52,6 +55,7 @@ export class DestinatarioComponent {
       }
     });
   }
+
   // Método para manejar el envío del formulario
   submitForm() {
     // Solo continúa si el formulario es válido
@@ -62,7 +66,12 @@ export class DestinatarioComponent {
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {
-            alert('Usuario creado con éxito');  //  Se muestra un mensaje de éxito
+            Swal.fire({
+              title: 'Completado!',
+              text: "Destinatario subido con éxito",
+              icon: "success"
+            });
+
             this.DestinatarioForm.reset();  // Se resetea el formulario
             this.recuperarInsumos();  // Se actualiza la lista de usuarios
           } else {
@@ -78,7 +87,11 @@ export class DestinatarioComponent {
       });
     } else {
       // Si el formulario no es válido, se muestra un mensaje al usuario
-      alert('Por favor, completa todos los campos correctamente');
+      Swal.fire({
+        title: 'Error!',
+        text: "Revise los campos",
+        icon: "error"
+      });
     }
   }
   // Método para seleccionar un usuario y poblar el formulario de modificación
@@ -88,7 +101,7 @@ export class DestinatarioComponent {
       Domicilio: Destinatario.Domicilio,
       Localidad: Destinatario.Localidad,
       CondIVA: Destinatario.CondIVA,
-      Cuit: Destinatario.Cuit, 
+      Cuit: Destinatario.Cuit,
       Nombre: Destinatario.Nombre_Destinatario
     });
   }
@@ -102,7 +115,11 @@ export class DestinatarioComponent {
       this.servicioDestinatario.modificar(InsumoModificado).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
-            alert('Insumo modificado con éxito');
+            Swal.fire({
+              title: 'Completado!',
+              text: "Destinatario modificado con éxito",
+              icon: "success"
+            });
             this.DestinatarioSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarInsumos(); // Actualizar la lista de usuarios
           } else {
@@ -110,7 +127,11 @@ export class DestinatarioComponent {
           }
         },
         error: (error) => {
-          alert('Error al modificar insumo');
+          Swal.fire({
+            title: 'Error!',
+            text: "Revise los campos",
+            icon: "error"
+          });
           console.error('Error:', error);
         },
       });

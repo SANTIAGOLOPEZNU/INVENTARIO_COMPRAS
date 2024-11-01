@@ -10,7 +10,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header bg-light">
-            <h5 class="modal-title text-success" id="exampleModalLabel">Nuevo Despacho</h5>
+            <h3 class="modal-title text-success" id="exampleModalLabel">Nuevo Despacho</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -93,9 +93,6 @@
                 class="btn btn-success w-100">Enviar</button>
             </form>
           </div>
-          <div class="modal-footer bg-light">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
         </div>
       </div>
     </div>
@@ -138,7 +135,7 @@
             <td>
               <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                 (click)="editarDespachoMateriales(despacho)" data-bs-target="#modificarDespachosMateriales">
-                Modificar
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="border_color"></mat-icon>
               </button>
             </td>
           </tr>
@@ -152,7 +149,7 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header bg-light">
-            <h5 class="modal-title text-success" id="exampleModalLabel">Modificar Despacho</h5>
+            <h3 class="modal-title text-success" id="exampleModalLabel">Modificar Despacho</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -267,13 +264,14 @@
                     <td>{{ detalle.Id_Despachos}}</td>
                     <td>{{ detalle.Descripcion }}</td>
                     <td>{{ detalle.Cantidad }}</td>
+                    
                   </tr>
                 </tbody>
               </table>
             </div>
   
             <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm()">
-              <h2>Agregar Detalle</h2>
+              <h3>Agregar Detalle</h3>
               <div class="row">
                 <div class="col-md-6 mb-2">
                   <label for="NroRemito" class="form-label text-success">Materiales:</label>
