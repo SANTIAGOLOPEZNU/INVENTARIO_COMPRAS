@@ -8,10 +8,9 @@ import { InicioModule } from './modules/inicio/inicio.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { MenuComponent } from './modules/shared/components/menu/menu.component';
 
-
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ export class MovimientosService {
 
   private apiUrl1 = 'http://localhost/api/Movimientos/recepcion';
  private apiUrl2= 'http://localhost/api/Movimientos/detalles'
+ private apiUrl3= 'http://localhost/api/Movimientos/despachos'
 
   //comprobar si se logueo
   private isLoggedInStatus = false;
@@ -67,5 +68,22 @@ export class MovimientosService {
   }
 
   inicioSesion(mail: string, clave: string): Observable<any> {
-    return this.http.post(`${this.apiUrl1}/login.php`, { mail, clave });
-  }}
+    return this.http.post(`${this.apiUrl1}/login.php`, { mail, clave }); 
+  }
+
+
+
+  altaDespacho(DespachoData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl3}/alta.php`, DespachoData);
+  }
+
+  recuperarDespachos(): Observable<any> {
+    return this.http.get(`${this.apiUrl3}/recuperartodos.php`);
+  }
+
+  // Nuevo método para modificar un usuario
+  modificarDespacho(despacho: any): Observable<any> {
+    return this.http.put(`${this.apiUrl3}/modificacion.php`, despacho);
+  }
+
+}

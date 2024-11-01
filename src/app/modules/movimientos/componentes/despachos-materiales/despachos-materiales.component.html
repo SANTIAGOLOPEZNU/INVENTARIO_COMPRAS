@@ -1,0 +1,310 @@
+<!-- --------------------------------------------------------------------------- -->
+
+<div class="container my-4">
+    <!-- Encabezado -->
+  
+  
+    <!-- Modal de creación de despacho -->
+    <div class="modal fade" id="agregarDespacho" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true" data-keyboard="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h5 class="modal-title text-success" id="exampleModalLabel">Nuevo Despacho</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="despachosMaterialesForm" (ngSubmit)="submitForm()">
+              <div class="mb-3">
+                <label for="Fecha" class="form-label text-success">Fecha</label>
+                <input id="Fecha" formControlName="Fecha" type="date" class="form-control" />
+                <div
+                  *ngIf="despachosMaterialesForm.get('Fecha')?.invalid && despachosMaterialesForm.get('Fecha')?.touched"
+                  class="text-danger">
+                  Fecha es Requerido
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="Destinatario" class="form-label text-success">Destinatario:</label>
+                <select id="Destinatario" formControlName="IdDestinatario" class="form-select">
+                  <option disabled>Seleccione el destinatario</option>
+                  <option *ngFor="let destinatario of destinatarios" value="{{destinatario.IdDestinatario}}">{{destinatario.Nombre_Destinatario}}
+                  </option>
+                </select>
+                <div
+                  *ngIf="despachosMaterialesForm.get('IdDestinatario')?.invalid && despachosMaterialesForm.get('IdDestinatario')?.touched"
+                  class="text-danger">
+                  Seleccione un destinatario
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="NroRemito" class="form-label text-success">Numero de remito:</label>
+                <input id="NroRemito" formControlName="NroRemito" type="number" class="form-control" />
+                <div
+                  *ngIf="despachosMaterialesForm.get('NroRemito')?.invalid && despachosMaterialesForm.get('NroRemito')?.touched"
+                  class="text-danger">
+                  Ingresa un número válido
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="AreaMunicipal" class="form-label text-success">Area Municipal:</label>
+                <input id="AreaMunicipal" formControlName="AreaMunicipal" type="text" class="form-control" />
+                <div
+                  *ngIf="despachosMaterialesForm.get('AreaMunicipal')?.invalid && despachosMaterialesForm.get('AreaMunicipal')?.touched"
+                  class="text-danger">
+                  Condición requerida
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="Hora" class="form-label text-success">Hora</label>
+                <input id="Hora" formControlName="Hora" type="time" class="form-control" />
+                <div
+                  *ngIf="despachosMaterialesForm.get('Hora')?.invalid && despachosMaterialesForm.get('Hora')?.touched"
+                  class="text-danger">
+                  Hora requerida
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="ResponsableEntrega" class="form-label text-success">Responsable de Entrega:</label>
+                <input id="ResponsableEntrega" formControlName="ResponsableEntrega" type="text" class="form-control" />
+                <div
+                  *ngIf="despachosMaterialesForm.get('ResponsableEntrega')?.invalid && despachosMaterialesForm.get('ResponsableEntrega')?.touched"
+                  class="text-danger">
+                  Firma requerida
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="Observaciones" class="form-label text-success">Observaciones:</label>
+                <input id="Observaciones" formControlName="Observaciones" type="text" class="form-control" />
+                <div
+                  *ngIf="despachosMaterialesForm.get('Observaciones')?.invalid && despachosMaterialesForm.get('Observaciones')?.touched"
+                  class="text-danger">
+                  Número requerido
+                </div>
+              </div>
+  
+              <button type="submit" [disabled]="despachosMaterialesForm.invalid"
+                class="btn btn-success w-100">Enviar</button>
+            </form>
+          </div>
+          <div class="modal-footer bg-light">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Tabla de Despachos -->
+    <h2 class="text-center text-success mt-5">Despachos</h2>
+  
+    <!-- Botón para abrir el modal de creación de recibo -->
+    <div class="text-center mb-3">
+      <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarDespacho">
+        Agregar
+      </button>
+    </div>
+    <div class="table-responsive w-100">
+      <table class="table table-bordered table-striped table-hover text-center">
+        <thead class="table-success">
+          <tr>
+            <th scope="col">ID Despacho</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Responsable de Entrega</th>
+            <th scope="col">Destinatario</th>
+            <th scope="col">Area Municipal</th>
+            <th scope="col">NroRemito</th>
+            <th scope="col">Observaciones</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let despacho of cabeceraDespachos">
+            <td>{{ despacho.Id_Despacho }}</td>
+            <td>{{ despacho.Fecha }}</td>
+            <td>{{ despacho.Hora }}</td>
+            <td>{{ despacho.Responsable_Entrega }}</td>
+            <td>{{ despacho.Nombre_Destinatario}}</td>
+            <td>{{ despacho.Area_Municipal }}</td>
+            <td>{{ despacho.Nro_Remito_Despacho }}</td>
+            <td>{{ despacho.Observaciones }}</td>
+            
+            <td>
+              <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                (click)="editarDespachoMateriales(despacho)" data-bs-target="#modificarDespachosMateriales">
+                Modificar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Modal de modificación de recibo -->
+    <div class="modal fade" id="modificarDespachosMateriales" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h5 class="modal-title text-success" id="exampleModalLabel">Modificar Despacho</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="modificarDespachosMaterialesForm" (ngSubmit)="submitModificarForm()">
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="Fecha" class="form-label text-success">Fecha</label>
+                  <input id="Fecha" formControlName="Fecha" type="date" class="form-control form-control-sm" />
+                  <div
+                    *ngIf="modificarDespachosMaterialesForm.get('Fecha')?.invalid && modificarDespachosMaterialesForm.get('Fecha')?.touched"
+                    class="text-danger">
+                    Fecha es requerida
+                  </div>
+                </div>
+  
+                <div class="col-md-6 mb-2">
+                  <label for="IdDestinatario" class="form-label text-success">Destinatario</label>
+                  <select id="IdDestinatario" formControlName="IdDestinatario" class="form-select form-select-sm">
+                    <option disabled>Seleccione el Destinatario</option>
+                    <option *ngFor="let destinatario of destinatarios" value="{{destinatario.IdDestinatario}}">
+                      {{destinatario.Nombre_Destinatario}}</option>
+                  </select>
+                  <div
+                    *ngIf="modificarDespachosMaterialesForm.get('IdDestinatario')?.invalid && modificarDespachosMaterialesForm.get('IdDestinatario')?.touched"
+                    class="text-danger">
+                    Seleccione un destinatario
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="Hora" class="form-label text-success">Hora:</label>
+                  <input id="Hora" formControlName="Hora" type="time" class="form-control form-control-sm" />
+                  <div
+                    *ngIf="modificarDespachosMaterialesForm.get('Hora')?.invalid && modificarDespachosMaterialesForm.get('Hora')?.touched"
+                    class="text-danger">
+                    Ingresa un horario
+                  </div>
+                </div>
+  
+                <div class="col-md-6 mb-2">
+                  <label for="ResponsableEntrega" class="form-label text-success">Responsable de Entrega:</label>
+                  <input id="ResponsableEntrega" formControlName="ResponsableEntrega" type="text" class="form-control form-control-sm" />
+                  <div
+                    *ngIf="modificarDespachosMaterialesForm.get('ResponsableEntrega')?.invalid && modificarDespachosMaterialesForm.get('ResponsableEntrega')?.touched"
+                    class="text-danger">
+                    Responsable Entrega requerido
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="NroRemito" class="form-label text-success">NroRemito:</label>
+                  <input id="NroRemito" formControlName="NroRemito" type="number"
+                    class="form-control form-control-sm" />
+                  <div
+                    *ngIf="modificarDespachosMaterialesForm.get('NroRemito')?.invalid && modificarDespachosMaterialesForm.get('NroRemito')?.touched"
+                    class="text-danger">
+                    Número requerido
+                  </div>
+                </div>
+  
+                <div class="col-md-6 mb-2">
+                  <label for="Observaciones" class="form-label text-success">Observaciones:</label>
+                  <input id="Observaciones" formControlName="Observaciones" type="text" class="form-control form-control-sm" />
+                  <div
+                    *ngIf="modificarDespachosMaterialesForm.get('Observaciones')?.invalid && modificarDespachosMaterialesForm.get('Observaciones')?.touched"
+                    class="text-danger">
+                    Firma requerida
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="AreaMunicipal" class="form-label text-success">Area Municipal:</label>
+                  <input id="AreaMunicipal" formControlName="AreaMunicipal" type="text" class="form-control form-control-sm" />
+                  <div
+                    *ngIf="modificarDespachosMaterialesForm.get('AreaMunicipal')?.invalid && modificarDespachosMaterialesForm.get('AreaMunicipal')?.touched"
+                    class="text-danger">
+                    AreaMunicipal requerida
+                  </div>
+                </div>
+              </div>
+  
+              <button type="submit" [disabled]="modificarDespachosMaterialesForm.invalid"
+                class="btn btn-success w-100 mt-2">Guardar Cambios</button>
+            </form>
+  
+            
+  
+            <!-- Tabla de detalles -->
+            <div class="table-responsive" style="margin-top: 30px;">
+              <h2 style="display: flex; justify-content: center;">Detalles</h2>
+              
+              <table class="table">
+                <thead class="table-success">
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Id_Recibo</th>
+                    <th scope="col">Id_Despacho</th>
+                    <th scope="col">Insumo</th>
+                    <th scope="col">Cantidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let detalle of Detalles">
+                    <td>{{ detalle.IdDetalleRecRecepcion }}</td>
+                    <td>{{ detalle.IdRecibo_Recepcion }}</td>
+                    <td>{{ detalle.Id_Despachos}}</td>
+                    <td>{{ detalle.Descripcion }}</td>
+                    <td>{{ detalle.Cantidad }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+  
+            <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm()">
+              <h2>Agregar Detalle</h2>
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="NroRemito" class="form-label text-success">Materiales:</label>
+                  <select id="Material" formControlName="IdInsumosMat" class="form-select form-select-sm">
+                    <option disabled>Seleccione el Insumo</option>
+                    <option *ngFor="let Insumo of Insumos" value="{{Insumo.IdInsumosMat}}">{{Insumo.Descripcion}}</option>
+                  </select>
+                  <div
+                    *ngIf="DetallesRecForm.get('IdInsumosMat')?.invalid && DetallesRecForm.get('IdInsumosMat')?.touched"
+                    class="text-danger">
+                    Seleccione un material
+                  </div>
+                </div>
+  
+                <div class="col-md-6 mb-2">
+                  <label for="Cantidad" class="form-label text-success">Cantidad</label>
+                  <input id="Cantidad" formControlName="Cantidad" type="number" class="form-control form-control-sm" />
+                  <div
+                    *ngIf="DetallesRecForm.get('Cantidad')?.invalid && DetallesRecForm.get('Cantidad')?.touched"
+                    class="text-danger">
+                    Cantidad requerida
+                  </div>
+                </div>
+              </div>
+  
+  
+              <button type="submit" [disabled]="DetallesRecForm.invalid" class="btn btn-success w-100">Guardar
+                Detalle</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

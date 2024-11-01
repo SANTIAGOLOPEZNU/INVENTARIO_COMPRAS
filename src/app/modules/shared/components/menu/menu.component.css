@@ -30,7 +30,6 @@
 .router-outlet-container {
     flex-grow: 1; /* Permite que el router-outlet ocupe el espacio restante */
     overflow-y: auto;
-
     box-sizing: border-box;
 }
 

@@ -1,0 +1,173 @@
+<div>
+    <!-- Modal para agregar Insumo -->
+    <div class="modal fade" id="agregarDestinatario" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Agregar Destinatario</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="DestinatarioForm" (ngSubmit)="submitForm()">
+
+                        <div class="mb-3">
+                            <label for="Nombre" class="form-label text-success">Nombre:</label>
+                            <input id="Nombre" formControlName="Nombre" type="text" class="form-control" />
+                            <div *ngIf="DestinatarioForm.get('Nombre')?.invalid && DestinatarioForm.get('Nombre')?.touched"
+                                class="text-danger">
+                                Nombre es requerido
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="domicilio" class="form-label text-success">Domicilio:</label>
+                            <input id="domicilio" formControlName="Domicilio" type="text" class="form-control" />
+                            <div *ngIf="DestinatarioForm.get('Domicilio')?.invalid && DestinatarioForm.get('Domicilio')?.touched"
+                                class="text-danger">
+                                Domicilio es requerido
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="localidad" class="form-label text-success">Localidad:</label>
+                            <input id="localidad" formControlName="Localidad" type="text" class="form-control" />
+                            <div *ngIf="DestinatarioForm.get('Localidad')?.invalid && DestinatarioForm.get('Localidad')?.touched"
+                                class="text-danger">
+                                Localidad es requerida
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="condiva" class="form-label text-success">Condicion de IVA:</label>
+                            <input id="condiva" formControlName="CondIVA" type="text" class="form-control" />
+                            <div *ngIf="DestinatarioForm.get('CondIVA')?.invalid && DestinatarioForm.get('CondIVA')?.touched"
+                                class="text-danger">
+                                Condicion de IVA es requerida
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cuit" class="form-label text-success">CUIT:</label>
+                            <input id="cuit" formControlName="Cuit" type="number" class="form-control" />
+                            <div *ngIf="DestinatarioForm.get('Cuit')?.invalid && DestinatarioForm.get('Cuit')?.touched"
+                                class="text-danger">
+                                CUIT es requerida
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="DestinatarioForm.invalid"
+                            class="btn btn-success w-100">Enviar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Título de la lista de insumos -->
+    <h2 class="mt-4 text-success text-center">Lista de Destinatarios</h2>
+    <!-- Botón para agregar insumo -->
+    <div class="text-center mb-3">
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+            data-bs-target="#agregarDestinatario">
+            Agregar Destinatario
+        </button>
+    </div>
+    <!-- Tabla de insumos -->
+    <div class="table-responsive w-100">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-success">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Domicilio</th>
+                    <th scope="col">Localidad</th>
+                    <th scope="col">Condicion de IVA</th>
+                    <th scope="col">CUIT</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let Destinatario of Destinatarios">
+                    <td>{{ Destinatario.IdDestinatario }}</td>
+                    <td>{{ Destinatario.Nombre_Destinatario }}</td>
+                    <td>{{ Destinatario.Domicilio }}</td>
+                    <td>{{ Destinatario.Localidad }}</td>
+                    <td>{{ Destinatario.CondIVA }}</td>
+                    <td>{{ Destinatario.Cuit }}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            (click)="editarDestinatario(Destinatario)" data-bs-target="#modificarDestinatario">
+                            Modificar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para modificar Insumos -->
+    <div class="modal fade" id="modificarDestinatario" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-success" id="exampleModalLabel">Modificar Destinatario</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="modificarDestinatarioForm" (ngSubmit)="submitModificarForm()">
+
+                        
+                        <div class="mb-3">
+                            <label for="Nombre" class="form-label text-success">Nombre:</label>
+                            <input id="Nombre" formControlName="Nombre" type="text" class="form-control" />
+                            <div *ngIf="modificarDestinatarioForm.get('Nombre')?.invalid && modificarDestinatarioForm.get('Nombre')?.touched"
+                                class="text-danger">
+                                Nombre es requerida
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="domicilio" class="form-label text-success">Domicilio:</label>
+                            <input id="domicilio" formControlName="Domicilio" type="text" class="form-control" />
+                            <div *ngIf="modificarDestinatarioForm.get('Domicilio')?.invalid && modificarDestinatarioForm.get('Domicilio')?.touched"
+                                class="text-danger">
+                                Código Interno es requerido
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="localidad" class="form-label text-success">Localidad:</label>
+                            <input id="localidad" formControlName="Localidad" type="text" class="form-control" />
+                            <div *ngIf="modificarDestinatarioForm.get('Localidad')?.invalid && modificarDestinatarioForm.get('Localidad')?.touched"
+                                class="text-danger">
+                                Localidad es requerida
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="condiva" class="form-label text-success">Condicion de IVA:</label>
+                            <input id="condiva" formControlName="CondIVA" type="text" class="form-control" />
+                            <div *ngIf="modificarDestinatarioForm.get('CondIVA')?.invalid && modificarDestinatarioForm.get('CondIVA')?.touched"
+                                class="text-danger">
+                                Condicion de IVA es requerida
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="cuit" class="form-label text-success">CUIT:</label>
+                            <input id="cuit" formControlName="Cuit" type="number" class="form-control" />
+                            <div *ngIf="modificarDestinatarioForm.get('Cuit')?.invalid && modificarDestinatarioForm.get('Cuit')?.touched"
+                                class="text-danger">
+                                CUIT es requerida
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="modificarDestinatarioForm.invalid"
+                            class="btn btn-success w-100">Enviar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

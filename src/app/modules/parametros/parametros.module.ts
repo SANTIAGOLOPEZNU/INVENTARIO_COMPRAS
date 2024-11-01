@@ -5,11 +5,13 @@ import { ParametrosRoutingModule } from './parametros-routing.module';
 import { ProveedoresComponent } from './componentes/proveedores/proveedores.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InsumosComponent } from './componentes/insumos/insumos.component';
+import { DestinatarioComponent } from './componentes/destinatario/destinatario.component';
 
 @NgModule({
   declarations: [
     ProveedoresComponent,
-    InsumosComponent
+    InsumosComponent,
+    DestinatarioComponent
   ],
   imports: [
     CommonModule,

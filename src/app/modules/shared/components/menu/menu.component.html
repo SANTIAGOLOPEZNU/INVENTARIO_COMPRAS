@@ -1,6 +1,6 @@
 <div>
-    <mat-toolbar class="nav">
-        <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu">   
+    <mat-toolbar class="nav" *ngIf="isLoggedIn">
+        <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu" [disabled]="!isLoggedIn">   
             <mat-icon>menu</mat-icon>
         </button>
         <h1>INVENTARIO DE COMPRAS</h1>
@@ -26,12 +26,16 @@
                         <mat-nav-list>
                             <a mat-list-item routerLink="/recepcion_materiales" (click)="sidenav.toggle()">Recepción de Materiales</a>
                         </mat-nav-list>
+                        <!-- <mat-nav-list>
+                            <a mat-list-item routerLink="/despacho_materiales" (click)="sidenav.toggle()">Despacho de Materiales</a>
+                        </mat-nav-list> -->
                     </mat-expansion-panel>
                     <mat-expansion-panel class="item">
                         <mat-expansion-panel-header>Parámetros</mat-expansion-panel-header>
                         <mat-nav-list>
                             <a mat-list-item routerLink="/proveedores" (click)="sidenav.toggle()">Proveedores</a>
                             <a mat-list-item routerLink="/insumos" (click)="sidenav.toggle()">Insumos</a>
+                            <a mat-list-item routerLink="/destinatario" (click)="sidenav.toggle()">Destinatario</a>
                         </mat-nav-list>
                     </mat-expansion-panel>
                 </mat-nav-list>

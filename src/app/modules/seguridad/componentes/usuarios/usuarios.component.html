@@ -69,7 +69,7 @@
     </button>
   </div>
   <div class="table-responsive w-100">
-    <table class="table  table-bordered table-striped table-hover">
+    <table class="table  table-bordered table-striped table-hover text-center">
       <thead class="table-success">
         <tr>
           <th scope="col">IdUsuarios</th>
@@ -89,7 +89,8 @@
           <td>{{ usuario.Clave }}</td>
           <td>
             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                    (click)="editarUsuario(usuario)" data-bs-target="#modificarUsuario">Modificar</button>
+                    (click)="editarUsuario(usuario)" data-bs-target="#modificarUsuario"><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="border_color"></mat-icon>
+                  </button>
           </td>
         </tr>
       </tbody>
