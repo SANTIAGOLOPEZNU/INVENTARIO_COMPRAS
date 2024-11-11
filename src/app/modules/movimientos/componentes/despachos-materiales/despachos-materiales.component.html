@@ -252,7 +252,6 @@
                   <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Id_Recibo</th>
-                    <th scope="col">Id_Despacho</th>
                     <th scope="col">Insumo</th>
                     <th scope="col">Cantidad</th>
                   </tr>
@@ -260,8 +259,7 @@
                 <tbody>
                   <tr *ngFor="let detalle of Detalles">
                     <td>{{ detalle.IdDetalleRecRecepcion }}</td>
-                    <td>{{ detalle.IdRecibo_Recepcion }}</td>
-                    <td>{{ detalle.Id_Despachos}}</td>
+                    <td>{{ detalle.Id_Despacho}}</td>
                     <td>{{ detalle.Descripcion }}</td>
                     <td>{{ detalle.Cantidad }}</td>
                     

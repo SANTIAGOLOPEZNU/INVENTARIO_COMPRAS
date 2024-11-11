@@ -50,9 +50,9 @@ export class DespachosMaterialesComponent implements OnInit {
 
     //formulario para manejar el detalle de los recibos
     this.DetallesRecForm=this.fb.group({
-      Cantidad:[0,Validators.required],
-      IdInsumosMat:[0,Validators.required],
-      // IdRecibo_Recepcion:[0,Validators.required]
+      Cantidad:[0,[Validators.required, Validators.max(-1)]],
+      IdInsumosMat:['',Validators.required],
+     
     })
   }
 
@@ -185,7 +185,7 @@ export class DespachosMaterialesComponent implements OnInit {
 
     console.log('este es el valor del recibo desde recuperardetalles ', despacho)
 
-    this.servicioMovimientos.recuperarDetail(despacho).subscribe({
+    this.servicioMovimientos.RecuperarDetailDespacho(despacho).subscribe({
       next: (response) => {
         // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
         if (Array.isArray(response)) {
@@ -216,7 +216,7 @@ export class DespachosMaterialesComponent implements OnInit {
       const Despacho = this.Despachoseleccionado
       
       // Se envían los datos al servicio para crear el nuevo usuario
-      this.servicioMovimientos.altaDetail(DetailData, Despacho ).subscribe({
+      this.servicioMovimientos.altaDetallesDespacho(DetailData, Despacho ).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
           if (response && response['resultado'] === 'OK') {

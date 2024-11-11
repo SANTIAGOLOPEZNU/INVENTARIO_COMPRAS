@@ -49,8 +49,8 @@ export class RecepcionMaterialesComponent implements OnInit {
 
     //formulario para manejar el detalle de los recibos
     this.DetallesRecForm=this.fb.group({
-      Cantidad:[0,Validators.required],
-      IdInsumosMat:[0,Validators.required],
+      Cantidad:[0,[Validators.required, Validators.min(1)]],
+      IdInsumosMat:['',Validators.required],
       // IdRecibo_Recepcion:[0,Validators.required]
     })
   }

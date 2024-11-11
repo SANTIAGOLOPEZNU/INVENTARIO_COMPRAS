@@ -1,0 +1,226 @@
+<div class="container my-4">
+
+    <!-- Modal de creación de despacho -->
+    <div class="modal fade" id="agregarAjuste" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" data-keyboard="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light">
+                    <h3 class="modal-title text-success" id="exampleModalLabel">Nuevo Ajuste</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="ajustesMaterialesForm" (ngSubmit)="submitForm()">
+                        <div class="mb-3">
+                            <label for="Fecha" class="form-label text-success">Fecha</label>
+                            <input id="Fecha" formControlName="Fecha" type="date" class="form-control" />
+                            <div *ngIf="ajustesMaterialesForm.get('Fecha')?.invalid && ajustesMaterialesForm.get('Fecha')?.touched"
+                                class="text-danger">
+                                Fecha es Requerido
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Hora" class="form-label text-success">Hora:</label>
+                            <input id="Hora" type="time" formControlName="Hora" class="form-control">
+                            <div *ngIf="ajustesMaterialesForm.get('Hora')?.invalid && ajustesMaterialesForm.get('Hora')?.touched"
+                                class="text-danger">
+                                Hora es requerida
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Responsable" class="form-label text-success">Responsable:</label>
+                            <input id="Responsable" formControlName="Responsable" type="text" class="form-control" />
+                            <div *ngIf="ajustesMaterialesForm.get('Responsable')?.invalid && ajustesMaterialesForm.get('Responsable')?.touched"
+                                class="text-danger">
+                                Ingrese un Responsable
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Observacion" class="form-label text-success">Observaciones:</label>
+                            <input id="Observacion" formControlName="Observacion" type="text"
+                                class="form-control" />
+                            <div *ngIf="ajustesMaterialesForm.get('Observacion')?.invalid && ajustesMaterialesForm.get('Observacion')?.touched"
+                                class="text-danger">
+                                Observacion es requerida
+                            </div>
+                        </div>
+
+
+                        <button type="submit" [disabled]="ajustesMaterialesForm.invalid"
+                            class="btn btn-success w-100">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tabla de Despachos -->
+    <h2 class="text-center text-success mt-5">Ajustes</h2>
+
+    <!-- Botón para abrir el modal de creación de recibo -->
+    <div class="text-center mb-3">
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarAjuste">
+            Agregar
+        </button>
+    </div>
+    <div class="table-responsive w-100">
+        <table class="table table-bordered table-striped table-hover text-center">
+            <thead class="table-success">
+                <tr>
+                    <th scope="col">ID Ajuste</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Responsable de Entrega</th>
+                    <th scope="col">Observaciones</th>
+                    <th scope="col">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ajuste of cabeceraAjustes">
+                    <td>{{ ajuste.Id_Ajuste }}</td>
+                    <td>{{ ajuste.Fecha }}</td>
+                    <td>{{ ajuste.Hora }}</td>
+                    <td>{{ ajuste.Responsable }}</td>
+                    <td>{{ ajuste.Observacion }}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                            (click)="editarAjusteMateriales(ajuste)" data-bs-target="#modificarAjustesMateriales">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon"
+                                fontIcon="border_color"></mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+     <!-- Modal de modificación de recibo -->
+     <div class="modal fade" id="modificarAjustesMateriales" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog modal-xl">
+       <div class="modal-content">
+         <div class="modal-header bg-light">
+           <h3 class="modal-title text-success" id="exampleModalLabel">Modificar Despacho</h3>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+           <form [formGroup]="modificarAjustesMaterialesForm" (ngSubmit)="submitModificarForm()">
+             <div class="row">
+               <div class="col-md-6 mb-2">
+                 <label for="Fecha" class="form-label text-success">Fecha</label>
+                 <input id="Fecha" formControlName="Fecha" type="date" class="form-control form-control-sm" />
+                 <div
+                   *ngIf="modificarAjustesMaterialesForm.get('Fecha')?.invalid && modificarAjustesMaterialesForm.get('Fecha')?.touched"
+                   class="text-danger">
+                   Fecha es requerida
+                 </div>
+               </div>
+ 
+
+ 
+             <div class="row">
+               <div class="col-md-6 mb-2">
+                 <label for="Hora" class="form-label text-success">Hora:</label>
+                 <input id="Hora" formControlName="Hora" type="time" class="form-control form-control-sm" />
+                 <div
+                   *ngIf="modificarAjustesMaterialesForm.get('Hora')?.invalid && modificarAjustesMaterialesForm.get('Hora')?.touched"
+                   class="text-danger">
+                   Ingresa un horario
+                 </div>
+               </div>
+ 
+               <div class="col-md-6 mb-2">
+                 <label for="Responsable" class="form-label text-success">Responsable de Entrega:</label>
+                 <input id="Responsable" formControlName="Responsable" type="text" class="form-control form-control-sm" />
+                 <div
+                   *ngIf="modificarAjustesMaterialesForm.get('Responsable')?.invalid && modificarAjustesMaterialesForm.get('Responsable')?.touched"
+                   class="text-danger">
+                   Responsable Entrega requerido
+                 </div>
+               </div>
+             </div>
+
+               <div class="col-md-6 mb-2">
+                 <label for="Observaciones" class="form-label text-success">Observaciones:</label>
+                 <input id="Observaciones" formControlName="Observacion" type="text" class="form-control form-control-sm" />
+                 <div
+                   *ngIf="modificarAjustesMaterialesForm.get('Observacion')?.invalid && modificarAjustesMaterialesForm.get('Observacion')?.touched"
+                   class="text-danger">
+                   Firma requerida
+                 </div>
+               </div>
+             </div>
+
+             <button type="submit" [disabled]="modificarAjustesMaterialesForm.invalid"
+               class="btn btn-success w-100 mt-2">Guardar Cambios</button>
+           </form>
+ 
+           
+ 
+           <!-- Tabla de detalles -->
+           <div class="table-responsive" style="margin-top: 30px;">
+             <h2 style="display: flex; justify-content: center;">Detalles</h2>
+             
+             <table class="table">
+               <thead class="table-success">
+                 <tr>
+                   <th scope="col">Id</th>
+                   <th scope="col">Id_Recibo</th>
+                   <th scope="col">Insumo</th>
+                   <th scope="col">Cantidad</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr *ngFor="let detalle of Detalles">
+                   <td>{{ detalle.IdDetalleRecRecepcion }}</td>
+                   <td>{{ detalle.Id_Ajuste}}</td>
+                   <td>{{ detalle.Descripcion }}</td>
+                   <td>{{ detalle.Cantidad }}</td>
+                   
+                 </tr>
+               </tbody>
+             </table>
+           </div>
+ 
+           <form [formGroup]="DetallesRecForm" (ngSubmit)="submitDetailForm()">
+             <h3>Agregar Detalle</h3>
+             <div class="row">
+               <div class="col-md-6 mb-2">
+                 <label for="NroRemito" class="form-label text-success">Materiales:</label>
+                 <select id="Material" formControlName="IdInsumosMat" class="form-select form-select-sm">
+                   <option disabled>Seleccione el Insumo</option>
+                   <option *ngFor="let Insumo of Insumos" value="{{Insumo.IdInsumosMat}}">{{Insumo.Descripcion}}</option>
+                 </select>
+                 <div
+                   *ngIf="DetallesRecForm.get('IdInsumosMat')?.invalid && DetallesRecForm.get('IdInsumosMat')?.touched"
+                   class="text-danger">
+                   Seleccione un material
+                 </div>
+               </div>
+ 
+               <div class="col-md-6 mb-2">
+                 <label for="Cantidad" class="form-label text-success">Cantidad</label>
+                 <input id="Cantidad" formControlName="Cantidad" type="number" class="form-control form-control-sm" />
+                 <div
+                   *ngIf="DetallesRecForm.get('Cantidad')?.invalid && DetallesRecForm.get('Cantidad')?.touched"
+                   class="text-danger">
+                   Cantidad requerida
+                 </div>
+               </div>
+             </div>
+ 
+ 
+             <button type="submit" [disabled]="DetallesRecForm.invalid" class="btn btn-success w-100">Guardar
+               Detalle</button>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
