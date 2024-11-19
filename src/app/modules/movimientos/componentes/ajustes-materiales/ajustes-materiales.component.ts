@@ -42,9 +42,8 @@ export class AjustesMaterialesComponent {
 
    //formulario para manejar el detalle de los recibos
    this.DetallesRecForm=this.fb.group({
-     Cantidad:['',[Validators.required, Validators.max(-1)]],
+     Cantidad:['',Validators.required,],
      IdInsumosMat:['',Validators.required],
-    
    })
  }
 
@@ -153,11 +152,11 @@ editarAjusteMateriales(ajuste: any) {
 
 
 //recupera la lista de los detalles de la bd
-recuperarDetalles(despacho: any) {
+recuperarDetalles(ajuste: any) {
 
-  console.log('este es el valor del recibo desde recuperardetalles ', despacho)
+  console.log('este es el valor del recibo desde recuperardetalles ', )
 
-  this.servicioMovimientos.RecuperarDetailDespacho(despacho).subscribe({
+  this.servicioMovimientos.RecuperarDetailAjuste(ajuste).subscribe({
     next: (response) => {
       // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
       if (Array.isArray(response)) {
@@ -188,8 +187,8 @@ submitDetailForm() {
     const ajuste = this.Ajusteseleccionado
     
     // Se envían los datos al servicio para crear el nuevo usuario
-    this.servicioMovimientos.altaDetallesDespacho(DetailData,ajuste ).subscribe({
-      next: (response) => {
+    this.servicioMovimientos.altaDetallesAjuste(DetailData,ajuste ).subscribe({
+      next: (response:any) => {
         // Si la respuesta es correcta y el servidor indica que el usuario fue creado
         if (response && response['resultado'] === 'OK') {
           alert('Despacho agregado con éxito');  //  Se muestra un mensaje de éxito

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class MovimientosService {
 
-  private apiUrl1 = 'http://localhost/api/Movimientos/recepcion';
+  private apiUrl1 = 'http://localhost/api/Movimientos/recepcion'
   private apiUrl2 = 'http://localhost/api/Movimientos/detalles'
   private apiUrl3 = 'http://localhost/api/Movimientos/despachos'
   private apiUrl4 = 'http://localhost/api/Movimientos/Ajustes'
@@ -27,7 +27,7 @@ export class MovimientosService {
   }
 
 
-  //Metodos para detalles
+  //Metodos para el alta de detalles en los diferentes movimientos
   altaDetail(DetailData: any, recibo: any): Observable<any> {
     const datos = {
       usuarioData: DetailData,
@@ -44,6 +44,14 @@ export class MovimientosService {
     return this.http.post(`${this.apiUrl2}/altadetallesdespachos.php`, datosDespacho);
   }
 
+  altaDetallesAjuste(DetailData: any, ajuste: any){
+    const datosAjuste = {
+      DetailData: DetailData,
+      ajuste: ajuste
+    }
+    return this.http.post(`${this.apiUrl2}/altadetallesajustes.php`, datosAjuste);
+  }
+
 
   recuperarDetail(recibo: number): Observable<any> {
     console.log('este es el valor de array:', recibo)
@@ -55,6 +63,13 @@ export class MovimientosService {
   RecuperarDetailDespacho(Despacho: number): Observable<any> {
     console.log('este es el valor de array:', Despacho)
     let params = new HttpParams().set('recibo', Despacho.toString());
+    console.log('este es el valor de array:', params)
+    return this.http.get(`${this.apiUrl2}/recuperardetallesdespachos.php`, { params });
+  }
+
+  RecuperarDetailAjuste(Ajuste: number): Observable<any>{
+    console.log('este es el valor de array:', Ajuste)
+    let params = new HttpParams().set('recibo', Ajuste.toString());
     console.log('este es el valor de array:', params)
     return this.http.get(`${this.apiUrl2}/recuperardetallesdespachos.php`, { params });
   }
@@ -83,7 +98,7 @@ export class MovimientosService {
 
   //servicio de ajuste
   altaAJuste(AjusteData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl4}/alta.php`, AjusteData);
+    return this.http.post(`${this.apiUrl4}/alta.php`, AjusteData);
   }
   recuperarAjuste(): Observable<any> {
     return this.http.get(`${this.apiUrl4}/recuperartodos.php`);
