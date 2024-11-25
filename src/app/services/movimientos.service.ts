@@ -71,7 +71,7 @@ export class MovimientosService {
     console.log('este es el valor de array:', Ajuste)
     let params = new HttpParams().set('recibo', Ajuste.toString());
     console.log('este es el valor de array:', params)
-    return this.http.get(`${this.apiUrl2}/recuperardetallesdespachos.php`, { params });
+    return this.http.get(`${this.apiUrl2}/recuperardetallesajustes.php`, { params });
   }
 
   // Nuevo método para modificar un usuario

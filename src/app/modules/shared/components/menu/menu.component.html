@@ -1,7 +1,7 @@
 <div>
-    <!--agregar *ngIf="isLoggedIn" para que funcione-->
-    <mat-toolbar class="nav"  >
-         <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu" >   <!--[disabled]="!isLoggedIn" -->
+    <!--agregar  para que funcione-->
+    <mat-toolbar class="nav" *ngIf="isLoggedIn" >
+         <button mat-icon-button (click)="sidenav.toggle()" matTooltip="Menu" [disabled]="!isLoggedIn">   <!-- -->
             <mat-icon>menu</mat-icon>
         </button>
         <h1>INVENTARIO DE COMPRAS</h1>
